@@ -1,18 +1,23 @@
-import React from "react";
-import Login from "./components/FormPage/Login";
-import FormPage from "./components/FormPage/FormPage";
-import { Routes, Route } from "react-router-dom";
-import Error from "./components/Error/Error";
-import Home from "./components/Home/Home";
+import logo from './logo.svg';
+import './App.css';
 
 export default function App() {
   return (
-    <div className="app-holder" style={{ backgroundColor: "white", height: '100vh' }}>
-      <Routes>
-        <Route path='/' element={<FormPage />} />
-        <Route path='*' element={<Error />} />
-        <Route path='*' element={<Home />} />
-      </Routes>
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
     </div>
   );
 }
