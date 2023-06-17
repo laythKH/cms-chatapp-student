@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 
-const userSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
    firstName: {
       type: String,
       required: [true, 'Please provide name'],
@@ -14,10 +14,10 @@ const userSchema = new mongoose.Schema({
    },
    lastName: {
       type: String,
-      required: [true, 'Please provide name'],
       minlength: 3,
       maxlength: 20,
       trim: true,
+      default: 'Last Name'
    },
    collageNumber: {
       type: String,
@@ -34,7 +34,6 @@ const userSchema = new mongoose.Schema({
    },
    password: {
       type: String,
-      required: false,
       minlength: 6,
       select: false,
       default: '100200300'
@@ -45,5 +44,18 @@ const userSchema = new mongoose.Schema({
    }
 })
 
+UserSchema.pre('save', async function () {
+   // console.log(this.modifiedPaths())
+   if (!this.isModified('password')) return
+   console.log('after isModified');
+   const salt = await bcrypt.genSalt(10)
+   this.password = await bcrypt.hash(this.password, salt)
+})
 
-export default mongoose.model('User', userSchema)
+UserSchema.methods.createJWT = function () {
+   // console.log(this);
+   return jwt.sign({ userId: this._id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_LIFETIME })
+}
+
+
+export default mongoose.model('User', UserSchema)

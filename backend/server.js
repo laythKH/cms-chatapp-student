@@ -19,7 +19,9 @@ import connectDB from './db/connect.js';
 
 
 // routers
-import authRouter from './routes/userRouter.js'
+import authRouter from './routes/authRoutes.js';
+import noteRouter from './routes/noteRoutes.js';
+import courseRoutes from './routes/courseRoutes.js';
 
 // middleware
 import notFoundMiddleware from './middleware/not-found.js';
@@ -47,7 +49,8 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/v1/auth', authRouter)
-
+app.use('/api/v1/note', noteRouter)
+app.use('/api/v1/course', courseRoutes)
 
 
 app.use(notFoundMiddleware)
