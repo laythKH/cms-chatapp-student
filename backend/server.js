@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 import 'express-async-errors';
 import morgan from 'morgan';
+import cors from 'cors'
 
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -28,6 +29,8 @@ import notFoundMiddleware from './middleware/not-found.js';
 import errorHandlerMiddleware from './middleware/error-handler.js';
 
 
+app.use(cors())
+
 if (process.env.NODE_ENV !== 'production') {
    app.use(morgan('dev'));
 }
@@ -45,7 +48,7 @@ app.use(cookieParser());
 
 
 app.get('/', (req, res) => {
-   throw new Error('error')
+   res.json({ msg: 'welcome' })
 })
 
 app.use('/api/v1/auth', authRouter)
