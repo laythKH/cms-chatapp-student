@@ -8,7 +8,7 @@ import "./App.css";
 
 export default function App() {
   return (
-    <div style={{ backgroundColor: "white" }}>
+    <div style={{ backgroundColor: "white", height: '100vh' }}>
       <Routes>
         <Route path='/' element={<FormPage />} />
         <Route path='*' element={<Error />} />

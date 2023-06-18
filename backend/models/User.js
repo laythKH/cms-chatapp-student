@@ -19,7 +19,7 @@ const UserSchema = new mongoose.Schema({
       trim: true,
       default: 'Last Name'
    },
-   collageNumber: {
+   studentNumber: {
       type: String,
       required: [true, 'Please provide number'],
    },
