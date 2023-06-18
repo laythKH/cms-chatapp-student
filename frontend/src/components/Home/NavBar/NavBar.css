@@ -1,0 +1,61 @@
+nav {
+  flex-direction: column;
+  align-items: center;
+  top: 10px;
+  left: 0;
+  width: 90px;
+  border-radius: 10px 10px 0px 0px;
+  box-shadow: 4px 0px 6px 0px rgba(0, 0, 0, 0.22);
+  background-color: rgb(110, 44, 242);
+}
+
+.navbar-brand {
+  transition: all 0.5 linear;
+  font-size: 18px;
+}
+
+.navbar-brand img {
+  width: 45px;
+  height: 45px;
+}
+
+.navbar-brand h3 {
+  font-size: 18px;
+  color: white;
+}
+
+.navbar-nav {
+  position: relative;
+  flex-direction: column !important;
+  height: 100%;
+  justify-content: flex-start;
+}
+
+.navbar-nav svg {
+  color: white;
+  width: 25px;
+  height: 25px;
+}
+
+.navbar-nav a:hover {
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.navbar-nav a.selected {
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+a {
+  position: relative;
+  color: white !important ;
+  padding: 10px !important;
+
+  margin: 20px 0px !important;
+}
+
+.navbar-nav a:nth-child(3) {
+  position: absolute;
+  bottom: 0;
+}
