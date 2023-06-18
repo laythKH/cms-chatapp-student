@@ -2,7 +2,7 @@ import React from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import LoginLogo from "./login.gif";
+import LoginLogo from "../assets/login.gif";
 import "./login.css";
 
 function Login() {

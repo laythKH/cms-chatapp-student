@@ -29,15 +29,15 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+    <script src="https://cdn.botpress.dev/webchat/v0/inject.js"></script>
+    <script>
+      window.botpressWebChat.init({
+        botId: "539dd4de-aaa1-4a46-9218-95f32b2a1e3f",
+        hostUrl: "https://cdn.botpress.dev/webchat/v0",
+        messagingUrl: "https://messaging.botpress.dev",
+        clientId: "539de4de-aea1-4a46-9218-95f32b2a1e3f",
+        botName: "Wonderful-chatbot",
+      });
+    </script>
   </body>
 </html>
