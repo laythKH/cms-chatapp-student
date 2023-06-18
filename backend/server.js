@@ -20,9 +20,10 @@ import connectDB from './db/connect.js';
 
 
 // routers
-import authRouter from './routes/authRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 import noteRouter from './routes/noteRoutes.js';
 import courseRoutes from './routes/courseRoutes.js';
+import chatRoutes from './routes/chatRoutes.js'
 
 // middleware
 import notFoundMiddleware from './middleware/not-found.js';
@@ -51,9 +52,11 @@ app.get('/', (req, res) => {
    res.json({ msg: 'welcome' })
 })
 
-app.use('/api/v1/auth', authRouter)
+app.use('/api/v1/auth', userRoutes)
 app.use('/api/v1/note', noteRouter)
 app.use('/api/v1/course', courseRoutes)
+app.use('/api/v1/chat', chatRoutes)
+
 
 
 app.use(notFoundMiddleware)
