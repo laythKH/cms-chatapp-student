@@ -5,17 +5,22 @@ import jwt from 'jsonwebtoken';
 
 
 const UserSchema = new mongoose.Schema({
-   firstName: {
+   // firstName: {
+   //    type: String,
+   //    required: [true, 'Please provide name'],
+   //    minlength: 3,
+   //    maxlength: 20,
+   //    trim: true,
+   // },
+   // lastName: {
+   //    type: String,
+   //    minlength: 3,
+   //    maxlength: 20,
+   //    trim: true,
+   // },
+   name: {
       type: String,
-      required: [true, 'Please provide name'],
-      minlength: 3,
-      maxlength: 20,
-      trim: true,
-   },
-   lastName: {
-      type: String,
-      minlength: 3,
-      maxlength: 20,
+      minlength: 5,
       trim: true,
    },
    studentNumber: {
@@ -57,7 +62,7 @@ UserSchema.pre('save', async function () {
 
 UserSchema.methods.createJWT = function () {
    // console.log(this);
-   return jwt.sign({ userId: this._id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_LIFETIME })
+   return jwt.sign({ id: this._id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_LIFETIME })
 }
 
 UserSchema.methods.matchPassword = async function (enteredPassword) {

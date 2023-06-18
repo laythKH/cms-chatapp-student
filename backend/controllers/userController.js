@@ -4,9 +4,9 @@ import { StatusCodes } from 'http-status-codes';
 import { BadRequestError, UnAuthenticatedError } from "../errors/index.js";
 
 const register = async (req, res) => {
-   const { firstName, lastName, studentNumber, email, role } = req.body
+   const { name, studentNumber, email, role } = req.body
    // console.log(firstName, lastName, collageNumber, email, role);
-   if (!firstName || !studentNumber || !email || !role) {
+   if (!name || !studentNumber || !email || !role) {
       throw new BadRequestError('Please provide all value')
    }
 
@@ -15,19 +15,17 @@ const register = async (req, res) => {
       throw new BadRequestError('User already exists')
    }
 
-   const user = await User.create({ firstName, lastName, studentNumber, email, role })
+   const user = await User.create({ name, studentNumber, email, role })
 
    const token = user.createJWT()
 
    res
       .status(StatusCodes.OK)
       .json({
-         user: {
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email,
-            studentNumber: user.studentNumber,
-         },
+         _id: user._id,
+         name: user.name,
+         email: user.email,
+         studentNumber: user.studentNumber,
          token,
          role: user.role
       })
@@ -57,12 +55,10 @@ const login = async (req, res) => {
 
    if (user && isPasswordCorrect) {
       res.json({
-         user: {
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email,
-            picture: user.picture
-         },
+         _id: user._id,
+         name: user.name,
+         email: user.email,
+         picture: user.picture,
          token,
          role: user.role
       })
@@ -73,6 +69,20 @@ const updateUser = (req, res) => {
    res.status(200).json({ msg: 'updateUser' })
 }
 
+const getAllUser = async (req, res) => {
+   const keyword = req.query.search ? {
+      $or: [
+         { name: { $regex: req.query.search, $options: "i" } },
+         { email: { $regex: req.query.search, $options: "i" } },
+      ]
+   } : {}
 
 
-export { register, updateUser, login }
+   const users = await User.find(keyword).find({ _id: { $ne: req.user._id } })
+
+
+   res.send(users)
+
+}
+
+export { register, updateUser, login, getAllUser }
