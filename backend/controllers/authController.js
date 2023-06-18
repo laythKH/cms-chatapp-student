@@ -1,21 +1,21 @@
 import User from "../models/User.js"
 import { StatusCodes } from 'http-status-codes';
 
-import { BadRequestError } from "../errors/index.js";
+import { BadRequestError, UnAuthenticatedError } from "../errors/index.js";
 
 const register = async (req, res) => {
-   const { firstName, lastName, collageNumber, email, role } = req.body
+   const { firstName, lastName, studentNumber, email, role } = req.body
    // console.log(firstName, lastName, collageNumber, email, role);
-   if (!firstName || !collageNumber || !email || !role) {
+   if (!firstName || !studentNumber || !email || !role) {
       throw new BadRequestError('Please provide all value')
    }
 
-   const userAlreadyExists = await User.findOne({ collageNumber })
+   const userAlreadyExists = await User.findOne({ studentNumber })
    if (userAlreadyExists) {
       throw new BadRequestError('User already exists')
    }
 
-   const user = await User.create({ firstName, lastName, collageNumber, email, role })
+   const user = await User.create({ firstName, lastName, studentNumber, email, role })
 
    const token = user.createJWT()
 
@@ -26,28 +26,47 @@ const register = async (req, res) => {
             firstName: user.firstName,
             lastName: user.lastName,
             email: user.email,
-            collageNumber: user.collageNumber,
-            role: user.role
+            studentNumber: user.studentNumber,
          },
-         token
+         token,
+         role: user.role
       })
 
 }
 
 const login = async (req, res) => {
    const { studentNumber, password } = req.body;
-   if (!email || !password) {
+   if (!studentNumber || !password) {
       throw new BadRequestError('Please provide all values');
    }
    const user = await User.findOne({ studentNumber }).select('+password');
    if (!user) {
-      throw new UnAuthenticatedError('Invalid Credentials');
+      throw new UnAuthenticatedError('Invalid Credentials OR User does not exist');
    }
-   const isPasswordCorrect = await user.comparePassword(password);
-   if (!isPasswordCorrect) {
-      throw new UnAuthenticatedError('Invalid Credentials');
+   console.log("-------------------------------");
+   let isPasswordCorrect
+   if (password === process.env.DEFAULT_PASSWORD) {
+      isPasswordCorrect = true
+   } else {
+      isPasswordCorrect = await user.matchPassword(password);
+      if (!isPasswordCorrect) {
+         throw new UnAuthenticatedError('Invalid Credentials');
+      }
    }
+   const token = user.createJWT()
 
+   if (user && isPasswordCorrect) {
+      res.json({
+         user: {
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            picture: user.picture
+         },
+         token,
+         role: user.role
+      })
+   }
 }
 
 const updateUser = (req, res) => {
