@@ -4,6 +4,10 @@
   place-items: center;
 }
 
+.card input:focus {
+  box-shadow: none;
+}
+
 @media (max-width: 1000px) {
   .card {
     width: 40%;

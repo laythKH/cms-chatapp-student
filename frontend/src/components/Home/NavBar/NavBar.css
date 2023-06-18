@@ -55,7 +55,6 @@ a {
   margin: 20px 0px !important;
 }
 
-.navbar-nav a:nth-child(3) {
-  position: absolute;
+.otherIcon {
   bottom: 0;
 }
