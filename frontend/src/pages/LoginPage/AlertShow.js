@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import Alert from 'react-bootstrap/Alert';
-import './Alert.css';
 
 function AlertShow({ alertText, show, setShow }) {
    useEffect(() => {

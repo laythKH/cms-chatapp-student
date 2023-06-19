@@ -53,7 +53,10 @@ const login = async (req, res) => {
    }
    const token = user.createJWT()
 
+
    if (user && isPasswordCorrect) {
+      // res.cookie('rememberMe', token, { httpOnly: true, maxAge: 30 * 24 * 60 * 60 * 1000 });
+
       res.json({
          _id: user._id,
          name: user.name,
