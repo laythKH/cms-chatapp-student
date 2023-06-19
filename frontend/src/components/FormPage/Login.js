@@ -6,6 +6,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import loadingSvg from '../assets/Spinner-1s-200px.svg';
+import titleSvg from '../assets/Dual Ball-1s-200px (1).svg'
 
 function Login({ alertText, setAlertText, setShow }) {
   const [loading, setLoading] = useState(false)
@@ -62,8 +63,11 @@ function Login({ alertText, setAlertText, setShow }) {
       // shadow="lg"
       style={{ padding: "40px 20px", width: '90%' }}
     >
-
       <Form noValidate onSubmit={onSubmit}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <h3 style={{ textAlign: 'center', fontWeight: 800, fontSize: '35px', marginRight: '7px' }}>Welcome Back</h3>
+          <img src={titleSvg} width='90px' alt="alert" />
+        </div>
         <Form.Group className='mb-3' controlId='formBasicEmail'>
           <Form.Label>Student Number</Form.Label>
           <Form.Control
