@@ -1,0 +1,44 @@
+/* .card {
+  width: 30%;
+  display: grid;
+  place-items: center;
+}
+
+.card input:focus {
+  box-shadow: none;
+}
+
+@media (max-width: 1000px) {
+  .card {
+    width: 40%;
+  }
+}
+
+@media (max-width: 700px) {
+  .card {
+    width: 50%;
+  }
+}
+
+@media (max-width: 500px) {
+  .card {
+    width: 60%;
+    padding: 2rem 1rem;
+    font-size: 15px;
+  }
+  .card input {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 400px) {
+  .card {
+    width: 80%;
+  }
+} */
+
+.form-container {
+  backgroundColor: "";
+  height: "100vh";
+  display: 'flex';
+}
