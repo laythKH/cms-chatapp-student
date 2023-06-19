@@ -1,7 +1,7 @@
 import React from "react";
-import FormPage from "./components/FormPage/FormPage";
-import Error from "./components/Error/Error";
-import Home from "./components/Home/Home";
+import FormPage from "./pages/LoginPage/FormPage";
+import Error from "./pages/ErrorPage/Error";
+import Home from "./pages//HomePage/Home";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 
