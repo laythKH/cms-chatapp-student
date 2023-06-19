@@ -5,10 +5,12 @@ import Card from "react-bootstrap/Card";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import loadingSvg from '../assets/Spinner-1s-200px.svg';
+import loadingSvg from "../assets/Spinner-1s-200px.svg";
+import LoginMobile from "../assets/login.gif";
+import "./Login.css";
 
 function Login({ alertText, setAlertText, setShow }) {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [values, setValues] = useState({ stdNumber: "", password: "" });
   let navigate = useNavigate();
   const handleChange = (e) => {
@@ -19,13 +21,13 @@ function Login({ alertText, setAlertText, setShow }) {
   const onSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    setLoading(true)
+    setLoading(true);
     const { stdNumber, password } = values;
     if (!stdNumber || !password) {
-      setAlertText('Please fill all fields')
-      setShow(true)
-      setLoading(false)
-      console.log('please fill all fields');
+      setAlertText("Please fill all fields");
+      setShow(true);
+      setLoading(false);
+      console.log("please fill all fields");
       return;
     }
     try {
@@ -43,39 +45,38 @@ function Login({ alertText, setAlertText, setShow }) {
 
       localStorage.setItem("userInfo", JSON.stringify(data));
 
-      setLoading(false)
+      setLoading(false);
 
       navigate("/home");
     } catch (error) {
       console.log(error.response.data.msg);
       // show alert for error message
       // stop loading
-      setAlertText(error.response.data.msg)
-      setShow(true)
-      setLoading(false)
+      setAlertText(error.response.data.msg);
+      setShow(true);
+      setLoading(false);
     }
   };
 
   return (
     <Card
-      className=''
-      // shadow="lg"
-      style={{ padding: "40px 20px", width: '90%' }}
+      className='h-75 d-flex'
+      style={{ width: "90%", placeItems: "center", marginTop: "7.5rem" }}
     >
-
-      <Form noValidate onSubmit={onSubmit}>
+      <Form style={{ width: "80%" }} noValidate onSubmit={onSubmit}>
         <Form.Group className='mb-3' controlId='formBasicEmail'>
           <Form.Label>Student Number</Form.Label>
           <Form.Control
+            className='mb-4'
             type='email'
             name='stdNumber'
             value={values.stdNumber}
             onChange={handleChange}
             placeholder='000000000'
             style={{
-              padding: '10px 7px',
-              fontSize: '19px',
-              fontWeight: 600
+              padding: "10px 7px",
+              fontSize: "19px",
+              fontWeight: 600,
             }}
           />
         </Form.Group>
@@ -89,9 +90,9 @@ function Login({ alertText, setAlertText, setShow }) {
             onChange={handleChange}
             placeholder='Password'
             style={{
-              padding: '10px 7px',
-              fontSize: '19px',
-              fontWeight: 600
+              padding: "10px 7px",
+              fontSize: "19px",
+              fontWeight: 600,
             }}
           />
           <Form.Text className='text-muted'>
@@ -105,18 +106,18 @@ function Login({ alertText, setAlertText, setShow }) {
           style={{
             backgroundColor: "rgb(116, 174, 255)",
             border: "none",
-            width: '100%',
-            fontSize: '18px',
-            fontWeight: 'bold',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            padding: '7px 0 7px 0'
+            width: "100%",
+            fontSize: "18px",
+            fontWeight: "bold",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: "7px 0 7px 0",
           }}
           type='submit'
         >
           Login
-          {loading && <img src={loadingSvg} width='40px' alt="alert" />}
+          {loading && <img src={loadingSvg} width='40px' alt='alert' />}
         </Button>
       </Form>
     </Card>
