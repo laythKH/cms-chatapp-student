@@ -23,7 +23,7 @@ function Home() {
   return (
     <>
       <NavBar changeIcons={changeIcons} />
-      {/* here should be one component and change the content depend on props */}
+      {/* here should be one component and change the content depend on props and mario */}
       {icon === "Home" && <SideBar props={""} />}
     </>
   );
