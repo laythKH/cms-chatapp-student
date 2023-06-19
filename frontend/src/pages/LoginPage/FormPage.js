@@ -1,8 +1,7 @@
-<<<<<<< HEAD:frontend/src/components/FormPage/FormPage.js
 import React, { useState } from "react";
 import Login from "./Login";
-import Image from "../assets/sign up-07.jpg";
-import Alert from "react-bootstrap/Alert";
+import Image from "./assets/sign up-07.jpg";
+
 import "./formPage.css";
 import AlertShow from "./AlertShow";
 import { Container } from "react-bootstrap";
@@ -14,22 +13,12 @@ function FormPage() {
   return (
     <Container
       fluid
-      className='d-flex'
+      className='FormPage d-flex'
       style={{
         height: "100vh",
       }}
     >
-      <div
-        style={{
-          minWidth: "450px",
-          backgroundColor: "",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "flex-end",
-          marginTop: "-100px",
-          position: "relative",
-        }}
-      >
+      <div className='subContainer d-flex justify-content-center align-items-center'>
         <Login
           alertText={alertText}
           setAlertText={setAlertText}
@@ -37,11 +26,14 @@ function FormPage() {
         />
         <AlertShow alertText={alertText} show={show} setShow={setShow} />
       </div>
-      <div style={{ flex: 1, display: "flex", alignItems: "center" }}>
+      <div
+        className='largScreenImg d-flex align-items-center'
+        style={{ flex: 1 }}
+      >
         <img
-          className='largImg'
+          className='w-100'
           src={Image}
-          style={{ width: "100%", objectFit: "cover" }}
+          style={{ objectFit: "cover" }}
           alt='imag'
         />
       </div>
@@ -50,47 +42,3 @@ function FormPage() {
 }
 
 export default FormPage;
-=======
-import React, { useState } from "react";
-import Login from "./Login";
-import Image from './assets/sign up-07.jpg';
-
-import './formPage.css'
-import AlertShow from "./AlertShow";
-
-
-
-function FormPage() {
-  const [alertText, setAlertText] = useState('')
-  const [show, setShow] = useState(false)
-
-  return (
-    <div
-      style={{
-        backgroundColor: "",
-        height: "100vh",
-        display: 'flex',
-      }}
-    >
-      <div style={{
-        minWidth: '450px',
-        backgroundColor: '',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        marginTop: '-100px',
-        position: 'relative'
-      }}
-      >
-        <Login alertText={alertText} setAlertText={setAlertText} setShow={setShow} />
-        <AlertShow alertText={alertText} show={show} setShow={setShow} />
-      </div>
-      <div style={{ flex: 1, display: 'flex', alignItems: 'center' }}>
-        <img src={Image} style={{ width: '100%', objectFit: 'cover' }} alt="imag" />
-      </div>
-    </div>
-  );
-}
-
-export default FormPage;
->>>>>>> 9e391d6cd54ad6229a4052c20181b18c16aedf64:frontend/src/pages/LoginPage/FormPage.js
