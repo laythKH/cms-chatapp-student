@@ -102,9 +102,9 @@ function Login({ alertText, setAlertText, setShow }) {
             We'll never share your password with anyone else.
           </Form.Text>
         </Form.Group>
-        <Form.Group className='mb-3' controlId='formBasicCheckbox'>
+        {/*<Form.Group className='mb-3' controlId='formBasicCheckbox'>
           <Form.Check type='checkbox' label='Check me out' />
-        </Form.Group>
+          </Form.Group>*/ }
         <Button
           style={{
             backgroundColor: "rgb(116, 174, 255)",
