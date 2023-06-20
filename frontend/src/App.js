@@ -1,7 +1,7 @@
 import React from "react";
 import FormPage from "./pages/LoginPage/FormPage";
 import Error from "./pages/ErrorPage/Error";
-import Home from "./pages//HomePage/Home";
+import ChatApp from "./pages/ChatApp/ChatApp";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 
@@ -11,7 +11,7 @@ export default function App() {
       <Routes>
         <Route path='/' element={<FormPage />} />
         <Route path='*' element={<Error />} />
-        <Route path='/home' element={<Home />} />
+        <Route path='/chatapp' element={<ChatApp />} />
       </Routes>
     </div>
   );

@@ -2,7 +2,7 @@ import { useState } from "react";
 import NavBar from "../../components/NavBar/NavBar";
 import SideBar from "../../components/SideBar/SideBar";
 
-function Home() {
+function ChatApp() {
   const [icon, setIcons] = useState("");
 
   function changeIcons(icon) {
@@ -29,4 +29,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default ChatApp;
