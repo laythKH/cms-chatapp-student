@@ -6,12 +6,12 @@
   background-color: white;
 }
 
-h1 {
+.opps {
   margin-bottom: -170px;
   z-index: 10;
 }
 
-p {
+.p-error {
   margin-top: -170px;
 }
 

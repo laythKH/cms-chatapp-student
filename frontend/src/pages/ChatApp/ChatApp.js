@@ -25,7 +25,7 @@ function ChatApp() {
     <>
       <NavBar changeIcons={changeIcons} />
       {/* here should be one component and change the content depend on props and mario */}
-      {icon === "Home" && <SideBar props={""} />}
+      {/* {icon === "Home" && <SideBar props={""} />} */}
       {/* icon === "Home" && <ChatPage props={""} /> */}
     </>
   );
