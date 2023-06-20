@@ -1,5 +1,4 @@
-/* .card {
-  width: 30%;
+.card {
   display: grid;
   place-items: center;
 }
@@ -8,22 +7,25 @@
   box-shadow: none;
 }
 
-@media (max-width: 1000px) {
-  .card {
-    width: 40%;
-  }
+.subContainer {
+  min-width: 450px;
+  margin-top: -100px;
+  position: relative;
 }
 
 @media (max-width: 700px) {
-  .card {
-    width: 50%;
+  .FormPage {
+    justify-content: center;
+    align-items: center;
+  }
+
+  .largScreenImg {
+    display: none !important;
   }
 }
 
 @media (max-width: 500px) {
   .card {
-    width: 60%;
-    padding: 2rem 1rem;
     font-size: 15px;
   }
   .card input {
@@ -33,12 +35,15 @@
 
 @media (max-width: 400px) {
   .card {
-    width: 80%;
+    width: 300px !important;
   }
-} */
 
+  .FormPage .subContainer {
+    min-width: auto !important;
+  }
+}
 .form-container {
-  backgroundColor: "";
+  /* backgroundcolor: ""; */
   height: "100vh";
-  display: 'flex';
+  display: "flex";
 }

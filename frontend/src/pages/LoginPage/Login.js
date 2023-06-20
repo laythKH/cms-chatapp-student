@@ -5,11 +5,12 @@ import Card from "react-bootstrap/Card";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import loadingSvg from './assets/Spinner-1s-200px.svg';
-import titleSvg from './assets/Dual Ball-1s-200px (1).svg'
+import loadingSvg from "./assets/Spinner-1s-200px.svg";
+import titleSvg from "./assets/Dual Ball-1s-200px (1).svg";
+import "./Login.css";
 
 function Login({ alertText, setAlertText, setShow }) {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [values, setValues] = useState({ stdNumber: "", password: "" });
   let navigate = useNavigate();
   const handleChange = (e) => {
@@ -19,13 +20,13 @@ function Login({ alertText, setAlertText, setShow }) {
   const onSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    setLoading(true)
+    setLoading(true);
     const { stdNumber, password } = values;
     if (!stdNumber || !password) {
-      setAlertText('Please fill all fields')
-      setShow(true)
-      setLoading(false)
-      console.log('please fill all fields');
+      setAlertText("Please fill all fields");
+      setShow(true);
+      setLoading(false);
+      console.log("please fill all fields");
       return;
     }
     try {
@@ -42,26 +43,43 @@ function Login({ alertText, setAlertText, setShow }) {
 
       localStorage.setItem("userInfo", JSON.stringify(data));
 
-      setLoading(false)
+      setLoading(false);
 
       navigate("/home");
     } catch (error) {
+<<<<<<< HEAD
       setAlertText(error.response?.data?.msg || 'Please Check You Connection')
       setShow(true)
       setLoading(false)
+=======
+      console.log(error.response.data.msg);
+      // show alert for error message
+      // stop loading
+      setAlertText(error.response.data.msg);
+      setShow(true);
+      setLoading(false);
+>>>>>>> 1956fdfc14a4940ced0a7be24460733f74ad7a70
     }
   };
 
   return (
     <Card
-      className=''
-      // shadow="lg"
-      style={{ padding: "40px 20px", width: '90%' }}
+      className=' mt-5'
+      style={{ padding: "40px 20px", width: "90%", height: "500px" }}
     >
       <Form noValidate onSubmit={onSubmit}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <h3 style={{ textAlign: 'center', fontWeight: 800, fontSize: '35px', marginRight: '7px' }}>Welcome Back</h3>
-          <img src={titleSvg} width='90px' alt="alert" />
+        <div className='title d-flex justify-content-center align-items-center'>
+          <h3
+            style={{
+              textAlign: "center",
+              fontWeight: 800,
+              fontSize: "35px",
+              marginRight: "7px",
+            }}
+          >
+            Welcome Back
+          </h3>
+          <img src={titleSvg} width='90px' alt='alert' />
         </div>
         <Form.Group className='mb-3' controlId='formBasicEmail'>
           <Form.Label>Student Number</Form.Label>
@@ -71,11 +89,7 @@ function Login({ alertText, setAlertText, setShow }) {
             value={values.stdNumber}
             onChange={handleChange}
             placeholder='000000000'
-            style={{
-              padding: '10px 7px',
-              fontSize: '19px',
-              fontWeight: 600
-            }}
+            className='stdId'
           />
         </Form.Group>
 
@@ -87,11 +101,7 @@ function Login({ alertText, setAlertText, setShow }) {
             value={values.password}
             onChange={handleChange}
             placeholder='Password'
-            style={{
-              padding: '10px 7px',
-              fontSize: '19px',
-              fontWeight: 600
-            }}
+            className='stdPass'
           />
           <Form.Text className='text-muted'>
             We'll never share your password with anyone else.
@@ -99,23 +109,20 @@ function Login({ alertText, setAlertText, setShow }) {
         </Form.Group>
         {/*<Form.Group className='mb-3' controlId='formBasicCheckbox'>
           <Form.Check type='checkbox' label='Check me out' />
-          </Form.Group>*/ }
+          </Form.Group>*/}
         <Button
+          className='w-100 d-flex justify-content-center align-items-center'
           style={{
             backgroundColor: "rgb(116, 174, 255)",
             border: "none",
-            width: '100%',
-            fontSize: '18px',
-            fontWeight: 'bold',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            padding: '7px 0 7px 0'
+            fontSize: "18px",
+            fontWeight: "bold",
+            padding: "7px 0 7px 0",
           }}
           type='submit'
         >
           Login
-          {loading && <img src={loadingSvg} width='40px' alt="alert" />}
+          {loading && <img src={loadingSvg} width='40px' alt='alert' />}
         </Button>
       </Form>
     </Card>
