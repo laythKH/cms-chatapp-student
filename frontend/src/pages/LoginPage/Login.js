@@ -13,7 +13,6 @@ function Login({ alertText, setAlertText, setShow }) {
   const [values, setValues] = useState({ stdNumber: "", password: "" });
   let navigate = useNavigate();
   const handleChange = (e) => {
-    // console.log(e);
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
@@ -35,12 +34,11 @@ function Login({ alertText, setAlertText, setShow }) {
           "Content-type": "application/json",
         },
       };
-      const { data } = await axios.post(
+      const data = await axios.post(
         "http://127.0.0.1:5000/api/v1/auth/login",
         { studentNumber: stdNumber, password },
         config
       );
-      console.log(data);
 
       localStorage.setItem("userInfo", JSON.stringify(data));
 
@@ -48,10 +46,7 @@ function Login({ alertText, setAlertText, setShow }) {
 
       navigate("/home");
     } catch (error) {
-      console.log(error.response.data.msg);
-      // show alert for error message
-      // stop loading
-      setAlertText(error.response.data.msg)
+      setAlertText(error.response?.data?.msg || 'Please Check You Connection')
       setShow(true)
       setLoading(false)
     }
