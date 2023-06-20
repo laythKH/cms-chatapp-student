@@ -3,11 +3,11 @@ import './ChatContent.css'
 import Image from 'react-bootstrap/Image';
 import DarkImage from './193331.jpg'
 
-const ChatContent = () => {
+const ChatContent = ({ handleSelected }) => {
    return (
       <div className={`chat-container`}>
          <div className='chat-header'>
-            <div className='back'>back</div>
+            <div className='back' onClick={handleSelected}>back</div>
             <div className='person-info-holder'>
                <Image src={DarkImage} roundedCircle className='image-style' />
                <div className='person-info'>

@@ -4,7 +4,7 @@ import CustomButton from '../CustomButton/CustomButton';
 import Image from 'react-bootstrap/Image';
 import personImage from './person.jpg'
 
-const ChatSideBar = () => {
+const ChatSideBar = ({ handleSelected }) => {
    const [add, setAdd] = useState(false)
 
    const handleClick = () => {
@@ -41,7 +41,7 @@ const ChatSideBar = () => {
             <div className='upper-style'></div>
             <div className='down-style'></div>
             <div className='friends-container'>
-               <div className='single-card'>
+               <div className='single-card' onClick={handleSelected}>
                   <Image src={personImage} roundedCircle style={{ width: '60px', height: '60px' }} />
                   <div className='title'>
                      <h2>Mario</h2>

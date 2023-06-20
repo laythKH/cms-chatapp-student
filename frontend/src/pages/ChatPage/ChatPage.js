@@ -1,5 +1,5 @@
-import React from 'react'
-
+import React, { useState } from 'react'
+import { useMediaQuery } from 'react-responsive'
 import "./chatPage.css";
 
 import NavBar from '../../components/NavBar/NavBar'
@@ -8,12 +8,28 @@ import ChatContent from '../../components/ChatContent/ChatContent';
 
 
 const ChatPage = () => {
+   const [selectedChat, setSelectChat] = useState(false)
+
+   const handleSelected = () => {
+      setSelectChat(!selectedChat)
+   }
+
+   const isMatch = useMediaQuery({
+      query: '(min-width: 1000px)'
+   })
    return (
       <>
          <NavBar />
          <div className='main-container-chatpage'>
-            <ChatSideBar />
-            <ChatContent />
+            {
+               !selectedChat && <ChatSideBar
+                  handleSelected={handleSelected}
+               />
+            }
+            {
+               (isMatch || selectedChat) &&
+               <ChatContent handleSelected={handleSelected} />
+            }
          </div>
 
       </>
