@@ -6,7 +6,6 @@ function AlertShow({ alertText, show, setShow }) {
       const timer = setTimeout(() => {
          setShow(false);
       }, 1000);
-      console.log('h');
 
       return () => clearTimeout(timer);
    }, [show]);
