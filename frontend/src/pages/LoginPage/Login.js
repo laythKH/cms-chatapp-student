@@ -47,18 +47,9 @@ function Login({ alertText, setAlertText, setShow }) {
 
       navigate("/home");
     } catch (error) {
-<<<<<<< HEAD
       setAlertText(error.response?.data?.msg || 'Please Check You Connection')
       setShow(true)
       setLoading(false)
-=======
-      console.log(error.response.data.msg);
-      // show alert for error message
-      // stop loading
-      setAlertText(error.response.data.msg);
-      setShow(true);
-      setLoading(false);
->>>>>>> 1956fdfc14a4940ced0a7be24460733f74ad7a70
     }
   };
 
