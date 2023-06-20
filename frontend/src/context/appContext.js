@@ -1,26 +1,29 @@
-import { useReducer, useContext, createContext } from "react";
-
-import reducer from "./reducer.js";
-import { DISPLAY_ALERT } from "./action.js";
-
-const initialState = {
-   isLoading: false,
-   showAlert: false,
-   alertText: '',
-   alertType: '',
-}
+import { useContext, createContext, useState, useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
+import { createBrowserHistory } from 'history';
 
 const AppContext = createContext()
 
 const AppProvider = ({ children }) => {
-   const [state, dispatch] = useReducer(reducer, initialState)
+   const [user, setUser] = useState()
 
-   const displayAlert = () => {
-      dispatch({ type: DISPLAY_ALERT })
-   }
+   const history = createBrowserHistory();
+
+   useEffect(() => {
+      const userInfo = JSON.parse(localStorage.getItem('userInfo'))
+
+      if (!userInfo) {
+         history.push('/')
+      }
+
+      console.log('Hello From App Provider');
+
+      setUser(userInfo)
+
+   }, [])
 
    return (
-      <AppContext.Provider value={{ ...state, displayAlert }}>
+      <AppContext.Provider value={{ user, setUser }}>
          {children}
       </AppContext.Provider>
    )
@@ -32,4 +35,4 @@ const useAppContext = () => {
 }
 
 
-export { AppProvider, initialState, useAppContext }
+export { AppProvider, useAppContext }

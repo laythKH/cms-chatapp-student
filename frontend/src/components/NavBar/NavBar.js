@@ -28,7 +28,7 @@ function NavBar({ changeIcons }) {
   }
 
   return (
-    <Navbar className='h-100 position-absolute text-center'>
+    <Navbar className='h-100  text-center'>
       <Navbar.Brand className='m-2'>
         <Image src={Logo} rounded />
       </Navbar.Brand>

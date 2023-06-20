@@ -2,9 +2,19 @@ import React from 'react'
 
 import './chatPage.css'
 
+import NavBar from '../../components/NavBar/NavBar'
+
 const ChatPage = () => {
    return (
-      <div style={{ width: "100%", height: "100%" }}>chatPage</div>
+      <>
+         <NavBar />
+         <div className='main-container-chatpage'>
+
+            <div>friends</div>
+            <div>chat</div>
+         </div>
+
+      </>
    )
 }
 
