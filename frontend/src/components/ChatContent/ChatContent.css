@@ -1,0 +1,90 @@
+.chat-container {
+   flex: 1;
+   background-color: rgb(255, 255, 255);
+}
+
+.display-block {
+   display: block;
+}
+
+@media screen and (max-width: 1000px) {
+   .chat-container {
+      display: none;
+   }
+}
+
+
+@media only screen and (min-width: 0px) and (max-width: 999px) {
+   .chat-container {
+      background-color: aquamarine;
+      margin: 15px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 19px 10px rgba(0, 0, 0, 0.1);
+   }
+}
+
+
+/* ============ Start Chat Header ============ */
+.chat-header {
+   position: relative;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   width: 100%;
+   min-height: 76px;
+   border-bottom: 1px solid #EFF1F2;
+   padding: 0 20px;
+}
+
+.chat-header .back {
+   display: none;
+}
+
+@media only screen and (min-width: 0px) and (max-width: 999px) {
+   .chat-header .back {
+      display: block;
+   }
+}
+
+.person-info-holder {
+   display: flex;
+}
+
+.person-info-holder .person-info {
+   margin-left: 10px;
+   padding-top: 3px;
+}
+
+.person-info-holder .person-info span:nth-child(1) {
+   display: block;
+   font-size: 19px;
+   text-transform: capitalize;
+   font-weight: 800;
+   letter-spacing: 1px;
+}
+
+.person-info-holder .person-info span:nth-child(2) {
+   display: block;
+   font-size: 14px;
+   font-weight: 500;
+   margin-top: -4px;
+}
+
+@media only screen and (min-width: 0px) and (max-width: 999px) {
+   .person-info-holder .person-info span {
+      text-align: center;
+   }
+}
+
+.image-style {
+   width: 55px;
+   height: 55px;
+}
+
+@media only screen and (min-width: 0px) and (max-width: 999px) {
+   .image-style {
+      display: none;
+   }
+}
+
+/* ============ End Chat Header ============ */

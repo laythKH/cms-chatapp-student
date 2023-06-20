@@ -1,3 +1,5 @@
 .main-container-chatpage {
+   width: 100%;
    display: flex;
+   margin-left: 10px;
 }
