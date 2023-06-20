@@ -4,7 +4,7 @@ import Error from "./pages/ErrorPage/Error";
 import ChatApp from "./pages/ChatApp/ChatApp";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import ChatPage from "./pages/ChatPage/ChatPage";
+import ChatPage from './pages/ChatPage/ChatPage';
 
 export default function App() {
   return (

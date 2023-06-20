@@ -1,6 +1,7 @@
 import { useState } from "react";
 import NavBar from "../../components/NavBar/NavBar";
-import SideBar from "../../components/SideBar/SideBar";
+// import SideBar from "../../components/SideBar/SideBar";
+import ChatSideBar from "../../components/ChatSideBar/ChatSideBar";
 import ChatPage from "../ChatPage/ChatPage";
 
 function ChatApp() {

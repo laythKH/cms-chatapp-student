@@ -3,17 +3,21 @@ import React from 'react'
 import "./chatPage.css";
 
 import NavBar from '../../components/NavBar/NavBar'
+import ChatSideBar from '../../components/ChatSideBar/ChatSideBar';
+import ChatContent from '../../components/ChatContent/ChatContent';
+
 
 const ChatPage = () => {
    return (
       <>
          <NavBar />
          <div className='main-container-chatpage'>
-
-            <div>friends</div>
-            <div>chat</div>
+            <ChatSideBar />
+            <ChatContent />
          </div>
 
       </>
    )
 }
+
+export default ChatPage
