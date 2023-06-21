@@ -1,0 +1,10 @@
+.sender-container {
+  height: auto;
+  overflow: auto;
+  display: flex;
+}
+
+.sender-container.sender {
+  justify-content: flex-end;
+  gap: 1px;
+}

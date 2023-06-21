@@ -1,0 +1,33 @@
+.message-container {
+  max-width: 30%;
+  height: auto;
+  background-color: rgb(7, 171, 204);
+  color: white;
+  border-radius: 6px;
+}
+
+.message-container.sender {
+  position: relative;
+  float: right;
+  margin: 10px 60px;
+}
+
+/* .message-container.sender::before {
+  content: "";
+  position: absolute;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 10px;
+  transform: rotate(45deg);
+  border-color: transparent rgb(7, 171, 204) transparent transparent;
+  border-width: 10px;
+  border-style: solid;
+} */
+
+.sender-img {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  right: 0px;
+  margin: 40px 50px;
+}
