@@ -18,8 +18,7 @@ function NavBar({ changeIcons }) {
     let a = [icon1, icon2, icon3, icon4];
     a.map((icon) => icon.current.classList.remove("selected"));
     icon.current.classList.add("selected");
-    // console.log(icon.current.dataset.name);
-    changeIcons(icon.current.classname);
+    changeIcons(icon.current.dataset.name);
   }
 
   function handleLogout() {
@@ -34,6 +33,7 @@ function NavBar({ changeIcons }) {
       </Navbar.Brand>
       <Nav>
         <Nav.Link
+          className='home'
           data-name='Home'
           ref={icon1}
           onClick={() => handelIcons(icon1)}
@@ -51,7 +51,7 @@ function NavBar({ changeIcons }) {
           data-name='chating'
           ref={icon2}
           onClick={() => handelIcons(icon2)}
-          className='selected'
+          className='chating selected'
         >
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -64,6 +64,7 @@ function NavBar({ changeIcons }) {
         </Nav.Link>
         <div className='position-absolute otherIcon'>
           <Nav.Link
+            className='setting'
             data-name='setting'
             ref={icon3}
             onClick={() => handelIcons(icon3)}
@@ -77,6 +78,7 @@ function NavBar({ changeIcons }) {
             </svg>
           </Nav.Link>
           <Nav.Link
+            className='logOut'
             ref={icon4}
             onClick={() => {
               handelIcons(icon4);
