@@ -11,29 +11,47 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import { Col } from "react-bootstrap";
+import axios from "axios";
 
 const ChatSideBar = ({ handleSelected }) => {
   const [add, setAdd] = useState(false);
   const [show, setShow] = useState(false);
+  const [search, setSearch] = useState('')
   const { user } = useAppContext()
 
   useEffect(() => {
 
   }, [])
 
-
   const handleClick = () => {
     setAdd(!add);
   };
 
+  const handleClose = () => setShow(false);
+
   const handleAddPerson = () => {
     setAdd(false)
     setShow(true)
+  }
 
+  const handleSearch = async () => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        }
+      };
+
+      const { data } = await axios.get(`http://127.0.0.1:5000/api/v1/auth?search=${search}`, config)
+
+      console.log(data);
+
+    } catch (error) {
+      console.log('rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr');
+    }
   }
 
 
-  const handleClose = () => setShow(false);
 
 
   return (
@@ -88,11 +106,11 @@ const ChatSideBar = ({ handleSelected }) => {
                 controlId="floatingInput"
                 label="Student Number OR Name"
               >
-                <Form.Control type="email" placeholder="name@example.com" />
+                <Form.Control type="text" value={search} onChange={(e) => setSearch(e.target.value)} />
               </FloatingLabel>
             </Col>
             <Col xs={12} md={2} style={{ paddingBottom: '15px' }}>
-              <Button variant="secondary" size="lg" style={{ width: '100%', fontWeight: 'bold' }}>
+              <Button onClick={handleSearch} variant="secondary" size="lg" style={{ width: '100%', fontWeight: 'bold' }}>
                 GO
               </Button>
             </Col>
