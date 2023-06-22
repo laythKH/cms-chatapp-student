@@ -9,22 +9,6 @@ import ChatContent from "../../components/ChatContent/ChatContent";
 const ChatPage = () => {
   const [selectedChat, setSelectChat] = useState(false);
 
-  const [icon, setIcons] = useState("");
-
-  function changeIcons(icon) {
-    switch (icon) {
-      case "Home":
-        setIcons("Home");
-        break;
-      case "chating":
-        setIcons("chating");
-        break;
-      default:
-        setIcons("");
-        break;
-    }
-    console.log(icon);
-  }
   const handleSelected = () => {
     setSelectChat(!selectedChat);
   };
@@ -34,10 +18,12 @@ const ChatPage = () => {
   });
   return (
     <>
-      {(isMatch || !selectedChat) && <NavBar changeIcons={changeIcons} />}
+      {(isMatch || !selectedChat) && <NavBar />}
       {/* {isMatch && <NavBar changeIcons={changeIcons} />} */}
       <div className='main-container-chatpage'>
-        {!selectedChat && <ChatSideBar handleSelected={handleSelected} />}
+        {(isMatch || !selectedChat) && (
+          <ChatSideBar handleSelected={handleSelected} />
+        )}
         {(isMatch || selectedChat) && (
           <ChatContent handleSelected={handleSelected} />
         )}

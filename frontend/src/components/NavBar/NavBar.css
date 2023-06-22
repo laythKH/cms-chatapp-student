@@ -40,6 +40,7 @@ nav {
   transform: translateY(-50%);
   margin-left: 15px;
   width: 60px;
+  z-index: 10;
   padding: 2px 4px;
   display: none;
   background-color: rgba(0, 0, 0, 0.22);
@@ -68,11 +69,6 @@ nav {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-.navbar-nav a.selected {
-  border-radius: 4px;
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
 .navbar-nav a {
   position: relative;
   color: white !important ;
@@ -80,6 +76,17 @@ nav {
   margin: 20px 0px !important;
 }
 
-.otherIcon {
+/* a.setting,
+a.logOut {
+  position: absolute;
   bottom: 0;
+  /* margin: 20px 0px !important; */
+/* } */
+
+.position-absolute {
+  bottom: 0;
+}
+
+.position-absolute a svg {
+  margin: 25px 0px !important;
 }

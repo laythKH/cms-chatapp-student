@@ -4,4 +4,7 @@
   box-sizing: border-box;
 }
 
+body {
+  overflow: hidden;
+}
 /* <spline-viewer url='https://prod.spline.design/Mto4n348N2Uebs8j/scene.splinecode'></spline-viewer> */
