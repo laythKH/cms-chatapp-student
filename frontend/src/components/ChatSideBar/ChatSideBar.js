@@ -13,10 +13,12 @@ import Row from 'react-bootstrap/Row';
 import { Col } from "react-bootstrap";
 import axios from "axios";
 
+
 const ChatSideBar = ({ handleSelected }) => {
   const [add, setAdd] = useState(false);
   const [show, setShow] = useState(false);
-  const [search, setSearch] = useState('')
+  const [searchInputField, setSearchInputField] = useState('')
+  const [searchResult, setSearchResult] = useState()
   const { user } = useAppContext()
 
   useEffect(() => {
@@ -35,6 +37,11 @@ const ChatSideBar = ({ handleSelected }) => {
   }
 
   const handleSearch = async () => {
+    if (!searchInputField) {
+      console.log('Please Fill The Field');
+      return
+    }
+
     try {
       const config = {
         headers: {
@@ -42,12 +49,13 @@ const ChatSideBar = ({ handleSelected }) => {
         }
       };
 
-      const { data } = await axios.get(`http://127.0.0.1:5000/api/v1/auth?search=${search}`, config)
+      const { data } = await axios.get(`http://127.0.0.1:5000/api/v1/auth?search=${searchInputField}`, config)
 
       console.log(data);
+      setSearchResult(data)
 
     } catch (error) {
-      console.log('rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr');
+      console.log('Failed To Get Search Result');
     }
   }
 
@@ -106,7 +114,7 @@ const ChatSideBar = ({ handleSelected }) => {
                 controlId="floatingInput"
                 label="Student Number OR Name"
               >
-                <Form.Control type="text" value={search} onChange={(e) => setSearch(e.target.value)} />
+                <Form.Control type="text" value={searchInputField} onChange={(e) => setSearchInputField(e.target.value)} />
               </FloatingLabel>
             </Col>
             <Col xs={12} md={2} style={{ paddingBottom: '15px' }}>
@@ -129,6 +137,8 @@ const ChatSideBar = ({ handleSelected }) => {
           Click Any Where to Close
         </Modal.Footer>
       </Modal>
+
+
     </>
   );
 };
