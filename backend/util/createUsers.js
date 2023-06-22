@@ -11,7 +11,7 @@ async function createUsers() {
       const name = `User ${i}`;
       const email = `user${i}@example.com`;
       const role = 'user';
-      const studentNumber = 201020000 + i;
+      const studentNumber = 20102000 + i;
 
       await User.create({ name, email, studentNumber, role });
    }
