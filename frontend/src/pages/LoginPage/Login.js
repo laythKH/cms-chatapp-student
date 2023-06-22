@@ -35,7 +35,7 @@ function Login({ alertText, setAlertText, setShow }) {
           "Content-type": "application/json",
         },
       };
-      const data = await axios.post(
+      const { data } = await axios.post(
         "http://127.0.0.1:5000/api/v1/auth/login",
         { studentNumber: stdNumber, password },
         config
