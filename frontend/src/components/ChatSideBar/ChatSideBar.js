@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./ChatSideBar.css";
 import CustomButton from "../CustomButton/CustomButton";
-import personImage from "./person.jpg";
+// import personImage from "./person.jpg";
 import Friend from "../Friend/Friend";
 import { useAppContext } from "../../context/appContext";
+import AlertShow from "../Alert/AlertShow"
 
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -19,29 +20,62 @@ const ChatSideBar = ({ handleSelected }) => {
   const [show, setShow] = useState(false);
   const [searchInputField, setSearchInputField] = useState('')
   const [searchResult, setSearchResult] = useState()
-  const { user } = useAppContext()
+  const { user, setShowAlert, setAlertText, isLoading, setIsLoading, listChats, setListChats } = useAppContext()
 
-  useEffect(() => {
-
-  }, [])
-
+  // console.log(user);
+  // to the button { addPerson, createGroup }
   const handleClick = () => {
     setAdd(!add);
   };
 
-  const handleClose = () => setShow(false);
+  // When down seaching it will clear all the field and return it to default values
+  const handleClose = () => {
+    setShow(false)
+    setIsLoading(false)
+    setSearchResult(null)
+    setSearchInputField('')
+  };
 
+  // To display the Modal of adding new Person
   const handleAddPerson = () => {
     setAdd(false)
     setShow(true)
   }
 
+  // Search For New Friends
   const handleSearch = async () => {
+    // console.log(searchInputField);
     if (!searchInputField) {
-      console.log('Please Fill The Field');
+      setAlertText('Please Fill The Field')
+      setShowAlert(true)
+      // console.log('Please Fill The Field');
       return
     }
 
+    try {
+      setIsLoading(true)
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        }
+      };
+      console.log('hhhhhhhhhhhhhhhhhhhhhhhhhhhhh');
+      const { data } = await axios.get(`http://127.0.0.1:5000/api/v1/auth?search=${searchInputField}`, config)
+
+      console.log(data);
+      setIsLoading(false)
+      setSearchResult(data)
+
+    } catch (error) {
+      // console.log(error);
+      setAlertText('Failed To Get Search Result')
+      setShowAlert(true)
+    }
+  }
+
+  // get All Chats Friends to put it inside the chat List
+  const getAllChats = async () => {
     try {
       const config = {
         headers: {
@@ -49,21 +83,22 @@ const ChatSideBar = ({ handleSelected }) => {
         }
       };
 
-      const { data } = await axios.get(`http://127.0.0.1:5000/api/v1/auth?search=${searchInputField}`, config)
+      const { data } = await axios.get(`http://127.0.0.1:5000/api/v1/chat`, config)
 
       console.log(data);
-      setSearchResult(data)
-
+      setListChats(data)
     } catch (error) {
-      console.log('Failed To Get Search Result');
+      
     }
   }
 
-
-
+  useEffect(() => {
+    getAllChats()
+  }, [user])
 
   return (
     <>
+      {/* Main ChatSideBar */}
       <div className={`sidebar display-none`}>
         <div className='sidebar-header'>
           <h3>Messages </h3>
@@ -94,15 +129,13 @@ const ChatSideBar = ({ handleSelected }) => {
           <div className='upper-style'></div>
           <div className='down-style'></div>
           <div className='friends-container'>
-            <Friend personImage={personImage} handleSelected={handleSelected} />
-            <Friend personImage={personImage} handleSelected={handleSelected} />
-            <Friend personImage={personImage} handleSelected={handleSelected} />
+            {listChats?.map((singleChat) => <Friend singleChat={singleChat} />)}
           </div>
         </div>
       </div>
 
 
-
+      {/* here to add Person */}
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title style={{ fontWeight: 'bold' }}>Searching For Friends</Modal.Title>
@@ -125,19 +158,25 @@ const ChatSideBar = ({ handleSelected }) => {
           </Row>
         </Modal.Body>
         <div style={{ maxHeight: '400px', overflowY: 'scroll', padding: '0 20px' }}>
-          <Friend personImage={personImage} />
-          <Friend personImage={personImage} />
-          <Friend personImage={personImage} />
-          <Friend personImage={personImage} />
-          <Friend personImage={personImage} />
-          <Friend personImage={personImage} />
-          <Friend personImage={personImage} />
+          {isLoading && <h1>Loading...</h1>}
+          {(!isLoading && searchResult) && (
+            searchResult?.map((singleUserResult) => (
+              <Friend 
+                key={singleUserResult.name + singleUserResult.studentNumber} 
+                singleUserResult={singleUserResult} 
+                handleSelected={() => {handleSelected(singleUserResult._id); handleClose()}} 
+              />
+            ))
+          )}
         </div>
         <Modal.Footer style={{ color: 'rgb(25, 85, 148)', fontSize: '14px', fontWeight: 'bold' }}>
           Click Any Where to Close
         </Modal.Footer>
       </Modal>
 
+
+      {/* Here the alert will be show based on the showAlert & setShowAlert */}
+      <AlertShow />
 
     </>
   );

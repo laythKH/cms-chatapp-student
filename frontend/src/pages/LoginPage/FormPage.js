@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import Login from "./Login";
 import Image from "./assets/sign up-07.jpg";
 
 import "./formPage.css";
-import AlertShow from "./AlertShow";
+import AlertShow from "../../components/Alert/AlertShow";
 import { Container } from "react-bootstrap";
+import { useAppContext } from "../../context/appContext";
 
 function FormPage() {
-  const [alertText, setAlertText] = useState("");
-  const [show, setShow] = useState(false);
+  const { showAlert, setShowAlert, alertText, setAlertText } = useAppContext()
 
   return (
     <Container
@@ -22,9 +22,9 @@ function FormPage() {
         <Login
           alertText={alertText}
           setAlertText={setAlertText}
-          setShow={setShow}
+          setShow={setShowAlert}
         />
-        <AlertShow alertText={alertText} show={show} setShow={setShow} />
+        <AlertShow alertText={alertText} show={showAlert} setShow={setShowAlert} />
       </div>
       <div
         className='largScreenImg d-flex align-items-center'

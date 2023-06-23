@@ -6,8 +6,10 @@ import Form from "react-bootstrap/Form";
 import Logo from "./193331.jpg";
 import { Button, InputGroup } from "react-bootstrap";
 import Sender from "./Sender/Sender";
+import { useAppContext } from "../../context/appContext";
 
-const ChatContent = ({ handleSelected }) => {
+const ChatContent = ({ handleSelected, setSelect}) => {
+  const { setSelectedChat} = useAppContext()
   const [inputValue, setInputValue] = useState("");
   const [messagesObject, setMessagesObject] = useState([
     { id: 0, message: "", img: "", state: "" },
@@ -30,7 +32,7 @@ const ChatContent = ({ handleSelected }) => {
   return (
     <div className={`chat-container`}>
       <div className='chat-header'>
-        <div className='back' onClick={handleSelected}>
+        <div className='back' onClick={() => setSelect(false)}>
           back
         </div>
         <div className='person-info-holder'>
