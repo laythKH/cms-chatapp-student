@@ -12,16 +12,14 @@ const ChatPage = () => {
   const [select, setSelect] = useState(false)
   const {selectedChat, setSelectedChat, user, listChats, setListChats} = useAppContext()
 
-  // console.log(`SelectedChat ${selectedChat || 'empty'}`);
+  // console.log(selectedChat);
+
 
   const handleSelected = async (userId) => {
     
     setSelect(!select)
 
-    // console.log(selectedChat);
-    // console.log(userId);
     try {
-      // setLoadingChat(true)
 
       const config = {
         headers: {
@@ -32,18 +30,13 @@ const ChatPage = () => {
 
       const { data } = await axios.post(`http://127.0.0.1:5000/api/v1/chat`, {userId: userId}, config)
 
-      // console.log(`d ata is ${data}`);
-
       if(!listChats.find((c) => c._id === data._id)) setListChats([data, ...listChats])
 
       setSelectedChat(data)
-      // stop loading chat
-      // console.log(data);
 
     } catch (error) {
       console.log(error);
 
-      // console.log('eeeeeeeeeeerrrrrrrrrrrorrrrrrrrrrrrr');
     }
   };
 
@@ -60,7 +53,7 @@ const ChatPage = () => {
       {/* {isMatch && <NavBar changeIcons={changeIcons} />} */}
       <div className='main-container-chatpage'>
         {(isMatch || !select) && (
-          <ChatSideBar handleSelected={handleSelected} />
+          <ChatSideBar handleSelected={handleSelected} select={select} setSelect={setSelect} />
         )}
         {(isMatch || select) && (
           <ChatContent handleSelected={handleSelected} setSelect={setSelect} />
