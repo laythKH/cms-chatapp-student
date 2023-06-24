@@ -4,16 +4,25 @@ import Image from "react-bootstrap/Image";
 import DarkImage from "./193331.jpg";
 import Form from "react-bootstrap/Form";
 import Logo from "./193331.jpg";
-import { Button, InputGroup } from "react-bootstrap";
+import { Button, InputGroup, Modal } from "react-bootstrap";
 import Sender from "./Sender/Sender";
 import { useAppContext } from "../../context/appContext";
+import moreInfoIcon from './more-info-icon.svg'
 
 const ChatContent = ({ handleSelected, setSelect}) => {
-  const { setSelectedChat} = useAppContext()
+  const [showMoreInfo, setShowMoreInfo] = useState(false)
+  const { setSelectedChat, selectedChat, user } = useAppContext()
   const [inputValue, setInputValue] = useState("");
   const [messagesObject, setMessagesObject] = useState([
     { id: 0, message: "", img: "", state: "" },
   ]);
+
+
+
+  const personInfo = selectedChat?.users[0]._id === user?._id ? selectedChat?.users[1] : selectedChat?.users[0]
+
+
+  console.log(selectedChat);
 
   function handelForm(e) {
     e.preventDefault();
@@ -29,20 +38,38 @@ const ChatContent = ({ handleSelected, setSelect}) => {
     console.log(messagesObject);
     setInputValue("");
   }
+
+  const handleShowMoreInfo = () => {
+    setShowMoreInfo(true)
+  }
+  const handleCloseMoreInfo = () => {
+    setShowMoreInfo(false)
+  }
+
+  if(!selectedChat) {
+    return (
+      <h1>Please Select Chat</h1>
+    )
+  }
+
   return (
+    <>
     <div className={`chat-container`}>
       <div className='chat-header'>
         <div className='back' onClick={() => setSelect(false)}>
           back
         </div>
         <div className='person-info-holder'>
-          <Image src={DarkImage} roundedCircle className='image-style' />
+          {/*<Image src={DarkImage} roundedCircle className='image-style' />*/}
           <div className='person-info'>
-            <span>layth kh</span>
-            <span>last seen</span>
+            { /*!selectedChat?.isGroupChat ? (
+             <span>{selectedChat?.users[0]._id === user?._id ? selectedChat?.users[1].name : selectedChat?.users[0].name}</span>
+            ) : (
+              <span>{selectedChat.chatName}</span>
+            )*/}
           </div>
         </div>
-        <span>more info</span>
+        <Image src={moreInfoIcon} style={{width: '30px', height: '30px'}} onClick={handleShowMoreInfo}/>
       </div>
       <div className='chat-content'>
         {messagesObject.map((ele) => {
@@ -81,7 +108,72 @@ const ChatContent = ({ handleSelected, setSelect}) => {
         </Form>
       </div>
     </div>
+
+    {/* Show More Info For User */}
+    {/* Here Show Information About Single User */}
+    {
+      !selectedChat?.isGroupChat ? (
+        <Modal show={showMoreInfo} onHide={handleCloseMoreInfo}>
+        <Modal.Header closeButton>
+          <Modal.Title>{`${personInfo.name} Info`}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h1>name: {personInfo.email}</h1>
+          <h1>name: {personInfo.role}</h1>
+        </Modal.Body>
+        <Modal.Footer>
+        </Modal.Footer>
+      </Modal>
+      ) : user._id === selectedChat.groupAdmin._id ? (
+          <Modal show={showMoreInfo} onHide={handleCloseMoreInfo}>
+        <Modal.Header closeButton>
+          <Modal.Title>{selectedChat.chatName}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body >
+        <h4>Members</h4>
+        <div style={{ display: 'flex', flexWrap: 'wrap', marginBottom: '15px' }}>
+        { 
+          selectedChat.users?.map((singleUser) => (
+            <div
+              style={{
+                backgroundColor: '#fd0d6e', 
+                padding: '3px 12px',
+                borderRadius: '9px', 
+                fontWeight: 600, 
+                color: 'white',
+                width: 'fit-content',
+                display: 'flex',
+                alignItems: 'center',
+                margin: '3px'
+              }}
+            >
+              <span>{singleUser.name}</span>
+              <Image src={Logo} style={{marginLeft: '5px', width: '15px', height: '15px'}}  />
+            </div>
+          ))
+        }
+        </div> 
+        <h5>Add Friends</h5>
+        <div>
+          
+        </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <h6>Click any where to close</h6>
+        </Modal.Footer>
+          </Modal>
+        ) : (
+          <h1>user in Group</h1>
+        )
+      
+    }
+
+    </>
   );
 };
 
+// {selectedChat?.users[0]._id === user?._id ? selectedChat?.users[1].name : selectedChat?.users[0].name}
+
 export default ChatContent;
+
+
