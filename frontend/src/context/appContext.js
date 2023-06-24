@@ -6,8 +6,13 @@ const AppContext = createContext()
 
 const AppProvider = ({ children }) => {
    const [user, setUser] = useState()
+   const [showAlert, setShowAlert] = useState(false)
+   const [alertText, setAlertText] = useState('')
+   const [isLoading, setIsLoading] = useState(false)
+   const [selectedChat, setSelectedChat] = useState()
+   const [listChats, setListChats] = useState([])
 
-   console.log(user || 'user');
+   // console.log(user || 'user');
 
    const defaultValue = {
       _id: "648f36d1a19039c85a133b8b",
@@ -18,29 +23,37 @@ const AppProvider = ({ children }) => {
       token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OGYzNmQxYTE5MDM5Yzg1YTEzM2I4YiIsImlhdCI6MTY4NzQ0MjcxMCwiZXhwIjoxNjg3NTI5MTEwfQ.k7C8mVb2Wq3kfp9TfcPc8u7RQjhrD_Sc4URm_74agZ4"
    }
 
-
-
-
-
-
    const history = createBrowserHistory();
 
    useEffect(() => {
       const userInfo = JSON.parse(localStorage.getItem('userInfo'))
 
       if (!userInfo) {
-         // history.push('/')
-         setUser(defaultValue)
+         history.push('/')
+         // setUser(defaultValue)
       }
-
-      // console.log('Hello From App Provider');
 
       setUser(userInfo)
 
    }, [])
 
    return (
-      <AppContext.Provider value={{ user, setUser }}>
+      <AppContext.Provider 
+         value={{ 
+            user, 
+            setUser, 
+            showAlert, 
+            setShowAlert, 
+            alertText, 
+            setAlertText ,
+            isLoading,
+            setIsLoading,
+            selectedChat,
+            setSelectedChat,
+            listChats,
+            setListChats
+         }}
+      >
          {children}
       </AppContext.Provider>
    )
