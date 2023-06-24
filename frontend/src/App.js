@@ -4,7 +4,8 @@ import Error from "./pages/ErrorPage/Error";
 import ChatApp from "./pages/ChatApp/ChatApp";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import ChatPage from './pages/ChatPage/ChatPage';
+import ChatPage from "./pages/ChatPage/ChatPage";
+import Setting from "./pages/Setting/Setting";
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
         <Route path='*' element={<Error />} />
         <Route path='/home' element={<ChatApp />} />
         <Route path='/chat' element={<ChatPage />} />
+        <Route path='/setting' element={<Setting />} />
       </Routes>
     </div>
   );
