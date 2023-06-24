@@ -63,7 +63,18 @@ function NavBar() {
           </svg>
         </NavLink>
         <div className='position-absolute'>
-          <NavLink to='/setting' data-name='setting'>
+          <NavLink
+            style={(isActive) => {
+              return isActive.isActive
+                ? {
+                    borderRadius: "4px",
+                    backgroundColor: "rgba(255, 255, 255, 0.1)",
+                  }
+                : {};
+            }}
+            to='/setting'
+            data-name='setting'
+          >
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='currentColor'

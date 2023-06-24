@@ -1,0 +1,65 @@
+.setting-content {
+  overflow: hidden;
+  position: relative;
+}
+
+/* show personal info */
+.show-info .info {
+  left: 0%;
+}
+
+.show-info .general {
+  left: -100%;
+}
+
+.show-info .password {
+  left: 100%;
+}
+
+/* show general setting */
+.show-general .general {
+  left: 0%;
+}
+
+.show-general .info {
+  left: 100%;
+}
+
+.show-general .password {
+  left: 200%;
+}
+
+/* show change password */
+.show-password .general {
+  left: -200%;
+}
+
+.show-password .info {
+  left: -100%;
+}
+
+.show-password .password {
+  left: 0%;
+}
+
+.info,
+.general,
+.password {
+  transition: 0.5s;
+}
+
+.info {
+  left: -100%;
+}
+
+.password {
+  right: 100%;
+}
+
+.change-password {
+  width: 300px;
+}
+
+.change-password button {
+  position: relative;
+}
