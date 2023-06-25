@@ -1,0 +1,44 @@
+.img-container {
+  background-color: #cccccc;
+  width: 75px;
+  border-radius: 50%;
+  height: 75px;
+  cursor: pointer;
+}
+
+.img-container img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+}
+
+.main-container .side1 {
+  position: relative;
+}
+
+.main-container .side1::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1px;
+  height: 100%;
+  background-color: rgba(51, 51, 51, 0.39);
+}
+
+.side1 form {
+  font-size: 15px;
+}
+
+.select-code {
+  width: fit-content;
+}
+
+.submit-container button {
+  transition: background 0.2s ease-in-out;
+  background-color: rgb(25, 85, 148);
+}
+
+.submit-btn:hover {
+  background-color: royalblue;
+}
