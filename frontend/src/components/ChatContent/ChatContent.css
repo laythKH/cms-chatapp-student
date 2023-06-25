@@ -89,9 +89,9 @@
 
 .person-info-holder .person-info span:nth-child(1) {
   display: block;
-  font-size: 19px;
+  font-size: 40px;
   text-transform: capitalize;
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: 1px;
 }
 

@@ -94,8 +94,39 @@ const ChatSideBar = ({ handleSelected, setSelect }) => {
   }
 
   // Here we are submit create a group
-  const handleSubmitCreateGroup = () => {
+  const handleSubmitCreateGroup = async () => {
+    if(!groupNameInput || !selectUsersGroup) {
+      console.log('please fill all the fields');
+    }
 
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+      console.log(groupNameInput);
+      console.log(selectUsersGroup);
+      console.log('=====================');
+
+      const { data } = await axios.post(
+        `http://127.0.0.1:5000/api/v1/chat/group`, 
+        {
+          name: groupNameInput, 
+          users: JSON.stringify(selectUsersGroup.map((u) => u._id)) 
+        }, 
+        config
+      )
+
+      console.log('===========================');
+
+      setListChats([data, ...listChats])
+
+      handleCloseCreateGroup()
+
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   // Search For New Friends
@@ -206,7 +237,7 @@ const ChatSideBar = ({ handleSelected, setSelect }) => {
 
 
       {/* here to add Person */}
-      {/*<Modal show={showAddSingleUser} onHide={handleCloseAddPerson}>
+      <Modal show={showAddSingleUser} onHide={handleCloseAddPerson}>
         <Modal.Header closeButton>
           <Modal.Title style={{ fontWeight: 'bold' }}>Searching For Friends</Modal.Title>
         </Modal.Header>
@@ -243,7 +274,7 @@ const ChatSideBar = ({ handleSelected, setSelect }) => {
         <Modal.Footer style={{ color: 'rgb(25, 85, 148)', fontSize: '14px', fontWeight: 'bold' }}>
           Click Any Where to Close
         </Modal.Footer>
-     </Modal>*/}
+     </Modal>
 
 
       {/* here to Create Group */}
@@ -311,11 +342,9 @@ const ChatSideBar = ({ handleSelected, setSelect }) => {
         </Modal.Footer>
       </Modal>
 
-      
 
-    
+
       <AlertShow />
-
     </>
   );
 };
