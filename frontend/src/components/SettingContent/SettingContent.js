@@ -4,6 +4,7 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import "./SettingContent.css";
 import Modal from "react-bootstrap/Modal";
+import GeneralSetting from "../GeneralSetting/GeneralSetting";
 
 function SettingContent({ option }) {
   const [input1, setInput1] = useState("");
@@ -29,7 +30,8 @@ function SettingContent({ option }) {
     <>
       <Container className={`setting-content show-${option}`}>
         <Container className='general' style={{ position: "absolute" }}>
-          <h1>General Setting</h1>
+          <h1 className='mb-5 m-3'>General Setting</h1>
+          <GeneralSetting />
         </Container>
         <Container className='info' style={{ position: "absolute" }}>
           <h1>Personal Info</h1>
