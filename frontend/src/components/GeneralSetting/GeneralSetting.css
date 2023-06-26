@@ -42,3 +42,48 @@
 .submit-btn:hover {
   background-color: royalblue;
 }
+
+.change-message {
+  background-color: rgba(5, 226, 5, 0.372);
+  width: fit-content;
+  padding: 10px;
+  border-radius: 8px;
+  border: solid 1px rgb(60, 255, 0);
+}
+
+@media (max-width: 1000px) {
+  .main-container {
+    overflow: auto !important;
+    height: auto;
+    flex-direction: column !important;
+  }
+  .main-container input {
+    width: 100% !important;
+  }
+  .side1,
+  .side2 {
+    margin: 10px 0 !important;
+  }
+
+  .side1::after {
+    display: none;
+  }
+  .img-container {
+    width: 60px;
+    height: 60px;
+  }
+
+  .img-container img {
+    width: 55px;
+    height: 55px;
+  }
+  .change-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 10;
+    width: 100%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(5, 226, 5);
+  }
+}

@@ -7,4 +7,10 @@
 body {
   overflow: hidden;
 }
+
+@media (max-width: 1000px) {
+  body {
+    overflow: auto;
+  }
+}
 /* <spline-viewer url='https://prod.spline.design/Mto4n348N2Uebs8j/scene.splinecode'></spline-viewer> */

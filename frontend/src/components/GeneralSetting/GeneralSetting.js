@@ -13,6 +13,7 @@ const ACTIONS = {
   EMAIL: "email",
   BIRTHDAY: "birthday",
   GENDER: "gender",
+  FINISH: "finish",
 };
 
 function reducer(state, action) {
@@ -41,16 +42,26 @@ function reducer(state, action) {
     case ACTIONS.GENDER:
       return { ...state, gender: action.payload.gender };
       break;
+    case ACTIONS.FINISH:
+      return {
+        profileImg: "",
+        firstName: "",
+        lastName: "",
+        phoneCode: "",
+        phoneNumber: "",
+        email: "",
+        birthday: "",
+        gender: "",
+      };
+      break;
     default:
       return;
       break;
   }
 }
 
-function GeneralSetting() {
-  //   const [profileImg, setProfileImg] = useState();
+function GeneralSetting({ handelFinish }) {
   const [phoneCode, setPhoneCode] = useState();
-  //   const [placeHolder, setPlaceHolder] = useState("");
   const [state, dispatch] = useReducer(reducer, {
     profileImg: "",
     firstName: "",
@@ -68,15 +79,33 @@ function GeneralSetting() {
   useEffect(() => {
     setPhoneCode(PhonePrefix.countries);
   }, []);
-  console.log(state);
+
   function handelImg(e) {
     dispatch({
       type: ACTIONS.PROFILEIMG,
       payload: { url: e.target.files[0] },
     });
   }
+  const [showAlert, setShowAlert] = useState(false);
+
+  function finishChanges() {
+    handelFinish(state);
+    setShowAlert(true);
+
+    const timer = setTimeout(() => {
+      setShowAlert(false);
+    }, 3000);
+
+    dispatch({ type: ACTIONS.FINISH });
+
+    return () => clearTimeout(timer);
+  }
+
   return (
     <>
+      {showAlert && (
+        <div className='change-message'>changed completed successfully</div>
+      )}
       <Container className='main-container d-flex align-items-start'>
         <Container className='side1 mb-5 m-3'>
           <div className='img-container d-flex justify-content-center align-items-center mb-2'>
@@ -93,7 +122,10 @@ function GeneralSetting() {
               />
             )}
           </div>
-          <Form className='d-flex align-items-center gap-3'>
+          <Form
+            onSubmit={(e) => e.preventDefault()}
+            className='d-flex align-items-center gap-3'
+          >
             <input
               className='mt-3 mb-4'
               ref={inp}
@@ -101,9 +133,10 @@ function GeneralSetting() {
               type='file'
             />
           </Form>
-          <Form className='mt-3 '>
+          <Form onSubmit={(e) => e.preventDefault()} className='mt-3 '>
             <Form.Label>First Name:</Form.Label>
             <Form.Control
+              value={state.firstName}
               onChange={(e) =>
                 dispatch({
                   type: ACTIONS.FIRSTNAME,
@@ -115,6 +148,7 @@ function GeneralSetting() {
             />
             <Form.Label>Last Name:</Form.Label>
             <Form.Control
+              value={state.lastName}
               placeHolder='last name...'
               onChange={(e) =>
                 dispatch({
@@ -129,6 +163,7 @@ function GeneralSetting() {
           <Form.Label className=''>Phone Number:</Form.Label>
           <div className='d-flex gap-2 mb-3'>
             <Form.Select
+              value={state.phoneCode}
               onChange={(e) =>
                 dispatch({
                   type: ACTIONS.PHONECODE,
@@ -143,6 +178,7 @@ function GeneralSetting() {
               })}
             </Form.Select>
             <Form.Control
+              value={state.phoneNumber}
               onChange={(e) =>
                 dispatch({
                   type: ACTIONS.PHONENUMBER,
@@ -153,9 +189,10 @@ function GeneralSetting() {
               placeHolder={`${state.phoneNumber}000000000`}
             />
           </div>
-          <Form>
+          <Form onSubmit={(e) => e.preventDefault()}>
             <Form.Label>Email:</Form.Label>
             <Form.Control
+              value={state.email}
               type='email'
               placeHolder='email...'
               onChange={(e) =>
@@ -167,6 +204,7 @@ function GeneralSetting() {
             />
             <Form.Label className='mt-4'>Birthday:</Form.Label>
             <Form.Control
+              value={state.birthday}
               type='date'
               onChange={(e) =>
                 dispatch({
@@ -177,6 +215,7 @@ function GeneralSetting() {
             />
             <Form.Label className='mt-4'>Gender:</Form.Label>
             <Form.Select
+              value={state.gender}
               onChange={(e) =>
                 dispatch({
                   type: ACTIONS.GENDER,
@@ -191,7 +230,10 @@ function GeneralSetting() {
         </Container>
       </Container>
       <Container className='submit-container'>
-        <Button className='submit-btn w-100 p-2'>
+        <Button
+          onClick={() => finishChanges()}
+          className='submit-btn w-100 p-2'
+        >
           <span>SUBMIT CHANGES</span>
         </Button>
       </Container>
