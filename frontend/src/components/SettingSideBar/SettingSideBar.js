@@ -1,8 +1,8 @@
-import React, { useRef } from "react";
-import { Container } from "react-bootstrap";
+import React, { useRef, useState } from "react";
 import "./SettingSideBar.css";
 
-function SettingSideBar({ setChangeSettingContent }) {
+function SettingSideBar({ setChangeSettingContent, setIsSelected }) {
+  // const [isSelected, setIsSelected] = useState(false);
   const general = useRef();
   const info = useRef();
   const password = useRef();
@@ -12,7 +12,9 @@ function SettingSideBar({ setChangeSettingContent }) {
     all.map((ele) => ele.current.classList.remove("selected"));
     option.current.classList.add("selected");
     setChangeSettingContent(option.current.dataset.name);
+    setIsSelected(true);
   }
+
   return (
     <div className={`sidebar`}>
       <div className='sidebar-header'>

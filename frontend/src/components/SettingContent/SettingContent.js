@@ -4,13 +4,16 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import "./SettingContent.css";
 import Modal from "react-bootstrap/Modal";
+import GeneralSetting from "../GeneralSetting/GeneralSetting";
 
-function SettingContent({ option }) {
+function SettingContent({ option, isMatch, setIsSelected }) {
   const [input1, setInput1] = useState("");
   const [input2, setInput2] = useState("");
   const [modalText, setModalText] = useState("");
   const [show, setShow] = useState(false);
   const [color, setColor] = useState(false);
+  const [generalFinish, setGeneralFinish] = useState({});
+
   function handelsubmit(e) {
     e.preventDefault();
     if (input1 === input2) {
@@ -24,18 +27,45 @@ function SettingContent({ option }) {
     }
   }
 
+  function handelGeneralFinish(state) {
+    setGeneralFinish(state);
+    console.log(state);
+  }
+
   let handelClose = () => setShow(false);
   return (
     <>
       <Container className={`setting-content show-${option}`}>
         <Container className='general' style={{ position: "absolute" }}>
-          <h1>General Setting</h1>
+          <div className='head mb-5 m-3 d-flex align-items-center gap-4'>
+            {isMatch && (
+              <span onClick={() => setIsSelected(false)} className='back'>
+                back
+              </span>
+            )}
+            <h1>General Setting</h1>
+          </div>
+          <GeneralSetting handelFinish={handelGeneralFinish} />
         </Container>
         <Container className='info' style={{ position: "absolute" }}>
-          <h1>Personal Info</h1>
+          <div className='head mb-5 m-3 d-flex align-items-center gap-4'>
+            {isMatch && (
+              <span onClick={() => setIsSelected(false)} className='back'>
+                back
+              </span>
+            )}
+            <h1>Personal Info</h1>
+          </div>
         </Container>
         <Container className='password' style={{ position: "absolute" }}>
-          <h1 className='mb-5 m-3'>Change Password</h1>
+          <div className='head mb-5 m-3 d-flex align-items-center gap-4'>
+            {isMatch && (
+              <span onClick={() => setIsSelected(false)} className='back'>
+                back
+              </span>
+            )}
+            <h1>Change Password</h1>
+          </div>
           <Form onSubmit={handelsubmit} className='change-password mb-5 m-3'>
             <Form.Group className='mb-4' controlId='formBasicEmail'>
               <Form.Label>Old password</Form.Label>
