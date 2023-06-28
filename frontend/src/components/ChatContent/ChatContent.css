@@ -96,6 +96,7 @@
 .chat-header
   .back {
   display: none;
+  background-color: #eff1f200;
 }
 
 @media only screen and (min-width: 0px) and (max-width: 999px) {
@@ -105,6 +106,7 @@
 
   .chat-header .back {
     display: block;
+    background-color: #eff1f200;
   }
 }
 
@@ -186,8 +188,3 @@
 } */
 
 /* ============ End Chat Header ============ */
-
-
-.styles_scrollable-div__prSCv::-webkit-scrollbar {
-  /* display: none; */
-}
