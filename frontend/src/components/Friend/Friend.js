@@ -5,7 +5,7 @@ function Friend({ handleSelected, singleUserResult, isGroupCard }) {
 
   if(isGroupCard) {
       return (
-        <div className='single-card' style={{border: '3px dotted blue'}}>
+        <div className='single-card'>
           <Image
             src={singleUserResult?.picture}
             roundedCircle

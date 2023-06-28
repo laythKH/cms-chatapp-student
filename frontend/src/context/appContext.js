@@ -11,6 +11,7 @@ const AppProvider = ({ children }) => {
    const [isLoading, setIsLoading] = useState(false)
    const [selectedChat, setSelectedChat] = useState()
    const [listChats, setListChats] = useState([])
+   const [refetch, setRefetch] = useState(false)
 
    // console.log(user || 'user');
 
@@ -51,7 +52,9 @@ const AppProvider = ({ children }) => {
             selectedChat,
             setSelectedChat,
             listChats,
-            setListChats
+            setListChats,
+            refetch,
+            setRefetch
          }}
       >
          {children}
