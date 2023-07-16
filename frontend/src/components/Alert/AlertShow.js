@@ -18,11 +18,11 @@ function AlertShow() {
       <Alert
          style={{
             position: 'absolute',
-            bottom: showAlert ? '30px' : '-100%',
+            bottom: showAlert ? '20px' : '-100%',
             transition: '0.5s',
             left: '50%',
             transform: "translateX(-50%)",
-            zIndex: 10000,
+            zIndex: 100000,
             boxShadow: '0px 0px 17px 11px #EBEBEB'
          }}
       >

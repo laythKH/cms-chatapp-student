@@ -10,6 +10,33 @@ const UserSchema = new mongoose.Schema({
       minlength: 5,
       trim: true,
    },
+   firstName: {
+      type: String,
+      minlength: 3,
+      maxlength: 20,
+      default: 'first name',
+      trim: true,
+      // required: false,
+   },
+   lastName: {
+      type: String,
+      minlength: 3,
+      maxlength: 20,
+      default: 'last name',
+      trim: true,
+      // required: false,
+   },
+   phoneNumber: {
+      type: String,
+      default: '0000000000',
+      required: false,
+   },
+   dateOfBirth: {
+      type: Date,
+      trim: true,
+      default: Date.now,
+      // required: false,
+   },
    studentNumber: {
       type: String,
       required: [true, 'Please provide number'],
@@ -18,9 +45,15 @@ const UserSchema = new mongoose.Schema({
       type: String,
       default: "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
    },
+   gender: {
+      type: String,
+      enum: ['male', 'female'],
+      // required: false,
+      default: 'male'
+   },
    email: {
       type: String,
-      required: [true, 'Please provide email'],
+      // required: [true, 'Please provide email'],
       validate: {
          validator: validator.isEmail,
          message: 'Please provide a valid email'
@@ -35,8 +68,10 @@ const UserSchema = new mongoose.Schema({
    },
    role: {
       type: String,
+      enum: ['student', 'teacher', 'manager', 'admin'],
       required: [true, 'please provide the Role of user']
-   }
+   },
+   courses: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Course' }]
 })
 
 UserSchema.pre('save', async function () {

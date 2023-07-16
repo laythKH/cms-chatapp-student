@@ -1,4 +1,4 @@
-import { useContext, createContext, useState, useEffect } from "react";
+import { useContext, createContext, useState, useEffect, useCallback } from "react";
 // import { useNavigate } from "react-router-dom";
 import { createBrowserHistory } from 'history';
 
@@ -26,17 +26,27 @@ const AppProvider = ({ children }) => {
 
    const history = createBrowserHistory();
 
+   // const handleRedirect = useCallback((path) => {
+   //    history.push(path);
+   // }, [history]);
+
+   const handleRedirect = useCallback((path) => {
+      if (window.location.pathname !== path) {
+         window.location.href = path;
+      }
+   }, []);
+
+
    useEffect(() => {
       const userInfo = JSON.parse(localStorage.getItem('userInfo'))
 
       if (!userInfo) {
-         history.push('/')
-         // setUser(defaultValue)
+         handleRedirect("/login")
       }
 
       setUser(userInfo)
 
-   }, [])
+   }, [handleRedirect, setUser])
 
    return (
       <AppContext.Provider 

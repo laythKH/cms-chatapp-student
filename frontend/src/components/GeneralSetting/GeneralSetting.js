@@ -3,6 +3,7 @@ import { Button, Container, Form, Image } from "react-bootstrap";
 import "./GeneralSetting.css";
 import Logo from "./choosejpg.jpg";
 import PhonePrefix from "./PhonePrefix.json";
+import { useAppContext } from "../../context/appContext";
 
 const ACTIONS = {
   PROFILEIMG: "profileImg",
@@ -14,12 +15,16 @@ const ACTIONS = {
   BIRTHDAY: "birthday",
   GENDER: "gender",
   FINISH: "finish",
+  SETUSERINFO: "setUserInfo"
 };
 
 function reducer(state, action) {
   switch (action.type) {
     case ACTIONS.PROFILEIMG:
       return { ...state, profileImg: action.payload.url };
+      break;
+    case ACTIONS.SETUSERINFO:
+      return {...state, ...action.payload.userInfo}
       break;
     case ACTIONS.FIRSTNAME:
       return { ...state, firstName: action.payload.first };
@@ -62,6 +67,8 @@ function reducer(state, action) {
 
 function GeneralSetting({ handelFinish }) {
   const [phoneCode, setPhoneCode] = useState();
+  const { user } = useAppContext()
+  // console.log(user);
   const [state, dispatch] = useReducer(reducer, {
     profileImg: "",
     firstName: "",
@@ -80,12 +87,18 @@ function GeneralSetting({ handelFinish }) {
     setPhoneCode(PhonePrefix.countries);
   }, []);
 
+
+  console.log(state);
+
   function handelImg(e) {
     dispatch({
       type: ACTIONS.PROFILEIMG,
       payload: { url: e.target.files[0] },
     });
   }
+
+
+
   const [showAlert, setShowAlert] = useState(false);
 
   function finishChanges() {
@@ -101,6 +114,29 @@ function GeneralSetting({ handelFinish }) {
     return () => clearTimeout(timer);
   }
 
+  useEffect(() => {
+    dispatch({
+      type: ACTIONS.SETUSERINFO,
+      payload: { 
+        userInfo: {
+          firstName: user?.firstName, 
+          lastName: user?.lastName,
+          profileImg: user?.picture,
+          email: user?.email,
+          gender: user?.gender,
+          phoneNumber: user?.phoneNumber,
+          birthday: user?.dateOfBirth
+        }
+      },
+    })
+  },[user])
+
+  if(!user) {
+    return (
+      <h1>Loading....</h1>
+    )
+  }
+
   return (
     <>
       {showAlert && (
@@ -112,15 +148,15 @@ function GeneralSetting({ handelFinish }) {
             <Image
               className={state.profileImg && "d-none"}
               ref={icon}
-              src={Logo}
+              src={state.profileImg}
               roundedCircle
             />
-            {state.profileImg && (
+            {/* state.profileImg && (
               <Image
                 src={URL.createObjectURL(state.profileImg)}
                 roundedCircle
               />
-            )}
+            ) */}
           </div>
           <Form
             onSubmit={(e) => e.preventDefault()}

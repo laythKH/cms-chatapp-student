@@ -45,7 +45,7 @@ const accessChat = async (req, res) => {
          throw new Error(error.message)
       }
    }
-}
+}  
 
 const fetchChats = async (req, res) => {
    try {
@@ -173,5 +173,25 @@ const removeFromGroup = async (req, res) => {
    }
 }
 
+const removeChat = async (req, res) => {
+   const { chatId } = req.body
 
-export { accessChat, fetchChats, createGroupChat, renameGroup, addToGroup, removeFromGroup }
+   const deleteResult = await Chat.deleteOne({ _id: chatId });
+
+   console.log(deleteResult);
+
+
+      res.json({deleteResult})
+
+}
+
+
+export { 
+   accessChat,
+   fetchChats,
+   createGroupChat,
+   renameGroup,
+   addToGroup,
+   removeFromGroup,
+   removeChat
+}

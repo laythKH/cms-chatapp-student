@@ -18,12 +18,14 @@ import backArrow from './back-arrow.svg'
 import axios from "axios";
 import MessagesContainer from "./Messages/messagesContainer/MessagesContainer";
 
+import AlertShow from '../Alert/AlertShow'
+
 const ENDPOINT = "http://localhost:5000";
 var socket, selectedChatCompare;
 
 const ChatContent = ({ handleSelected, setSelect}) => {
   const [showMoreInfo, setShowMoreInfo] = useState(false)
-  const { setSelectedChat, selectedChat, user, setRefetch, refetch } = useAppContext()
+  const { setSelectedChat, selectedChat, user, setRefetch, refetch, setAlertText, setShowAlert, showAlert } = useAppContext()
   const [searchInputAddFriendGroup, setSearchInputAddFriendGroup] = useState('')
   const [changeGroupName, setChangeGroupName] = useState('')
   const [searchResultAddFriend, setSearchResultAddFriend] = useState([])
@@ -89,7 +91,6 @@ const ChatContent = ({ handleSelected, setSelect}) => {
     if(!query) {
       return
     }
-    // console.log(searchGroup);
     try {
       // loading
       const config = {
@@ -109,11 +110,14 @@ const ChatContent = ({ handleSelected, setSelect}) => {
 
   const handleAddPerson = async (singleUser) => {
     if(selectedChat?.users?.some(u => u._id === singleUser._id)) {
-      console.log('User Already exists');
+      console.log('User Already Exists');
+      setAlertText('User Already Exists')
+      setShowAlert(true)
       return
     }
     // console.log(singleUser);
-    const config = {
+    try {
+      const config = {
         headers: {
           Authorization: `Bearer ${user.token}`,
         }
@@ -124,13 +128,17 @@ const ChatContent = ({ handleSelected, setSelect}) => {
         {userId: singleUser._id, chatId: selectedChat._id}, 
       config
     )
-
     setSelectedChat(data)
     setSearchInputAddFriendGroup('')
     setSearchResultAddFriend([])
-
-
     setRefetch(!refetch)
+
+    } catch (error) {
+      setAlertText('Field To Add Friend Try again later')
+      console.log('Field To Add Friend Try again later');
+      setShowAlert(true)
+    }
+
   }
 
   const removeFromGroup = async (singleUser) => {
@@ -148,16 +156,22 @@ const ChatContent = ({ handleSelected, setSelect}) => {
       config
     )
     console.log('remove Person Done');
+    console.log(data);
     setSelectedChat(data)
+    singleUser._id === user._id ? setSelectedChat() : setSelectedChat(data);
     setRefetch(!refetch)
     } catch (error) {
-     console.log(error); 
+     setAlertText('Failed To Remove Check Your conn or try again ')
+     setShowAlert(true)
+     console.log(error);
     }
   }
 
   const handleChangeGroupName = async () => {
     if(!changeGroupName) {
+      setAlertText('please Input The new Name')
       console.log("please Input The new Name");
+      setShowAlert(true)
       return
     }
 
@@ -177,7 +191,9 @@ const ChatContent = ({ handleSelected, setSelect}) => {
     setSelectedChat(data)
     setRefetch(!refetch)
     } catch (error) {
-      console.log('error');
+      setAlertText('Failed To Change Group Name Try Again')
+      console.log(error);
+      setShowAlert(true)
     }
   }
 
@@ -193,19 +209,18 @@ const ChatContent = ({ handleSelected, setSelect}) => {
           },
       };
 
-      // setLoading TRUE
-
       const { data } = await axios.get(`http://127.0.0.1:5000/api/v1/message/${selectedChat._id}`, config)
 
       setMessages(data)
 
-      // setLoading False
-      console.log(data);
+      // console.log(data);
       setMessages(data)
 
       socket.emit('join chat', selectedChat._id)
 
     } catch (error) {
+      setAlertText('display Occured')
+      showAlert(true)
       console.log('display Occured');
     }
   }
@@ -213,7 +228,7 @@ const ChatContent = ({ handleSelected, setSelect}) => {
   const sendMessage = async (e) => {
     if(e.key === 'Enter' && inputMessageValue) {
       e.preventDefault();
-      // console.log('Enter');
+      console.log('Enter');
       socket.emit('stop typing', selectedChat._id)
       try {
         const config = {
@@ -230,10 +245,10 @@ const ChatContent = ({ handleSelected, setSelect}) => {
         )
 
         setInputMessageValue('')
-        console.log('==================================');
-        console.log(`new Message`);
-        console.log(data);
-        console.log('==================================');
+        // console.log('==================================');
+        // console.log(`new Message`);
+        // console.log(data);
+        // console.log('==================================');
         socket.emit('new message', data)
         const updatedMessages = [...messages, data];
         setMessages(updatedMessages)
@@ -243,6 +258,8 @@ const ChatContent = ({ handleSelected, setSelect}) => {
       } catch (error) {
         console.log(error.message);
         console.log('Failed To Load The message');
+        setAlertText('Failed To Load The message try again')
+        showAlert(true)
       }
 
     } 
@@ -271,7 +288,40 @@ const ChatContent = ({ handleSelected, setSelect}) => {
     }, timerLength)
   }
 
+  const deleteChat = async () => {
 
+    try {
+      const config = {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        };
+
+      const { data } = await axios.post(
+        'http://127.0.0.1:5000/api/v1/chat/removechat',
+        {chatId: selectedChat._id},
+        config
+      )
+      
+      if(data.deleteResult.deletedCount) {
+        setSelectedChat()
+        setRefetch(!refetch)
+      }
+
+    } catch (error) {
+      console.log('Error accoured');
+    }
+  }
+
+  const getUserName = () => {
+    const name = selectedChat?.users[0]?._id === user?._id ? selectedChat?.users[1]?.name : selectedChat?.users[0]?.name
+    if(!name) {
+      return 'Null'
+    } else {
+      return name
+    }
+  }
+  
 
   if(!selectedChat) {
     return (
@@ -291,11 +341,11 @@ const ChatContent = ({ handleSelected, setSelect}) => {
         <div className='person-info-holder'>
           {/*<Image src={DarkImage} roundedCircle className='image-style' />*/}
           <div className='person-info'>
-            {/*!selectedChat?.isGroupChat ? (
-             <span>{selectedChat?.users[0]._id === user?._id ? selectedChat?.users[1].name : selectedChat?.users[0].name}</span>
+            {!selectedChat?.isGroupChat ? (
+             <span>{getUserName}</span>
             ) : (
               <span>{selectedChat.chatName}</span>
-            )*/}
+            )}
           </div>
         </div>
         <Image src={moreInfoIcon} style={{width: '30px', height: '30px'}} onClick={handleShowMoreInfo}/>
@@ -335,7 +385,7 @@ const ChatContent = ({ handleSelected, setSelect}) => {
 
     {/* Show More Info For User */}
     {
-      !selectedChat?.isGroupChat ? ( //! If User not admin
+      !selectedChat?.isGroupChat ? ( //! If Not Group
         <Modal show={showMoreInfo} onHide={handleCloseMoreInfo}>
         <Modal.Header closeButton>
           <Modal.Title>{`${personInfo.name} Info`}</Modal.Title>
@@ -344,7 +394,15 @@ const ChatContent = ({ handleSelected, setSelect}) => {
           <h1>name: {personInfo.email}</h1>
           <h1>name: {personInfo.role}</h1>
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer 
+          style={{
+              display: 'flex', 
+              justifyContent: 'center', 
+              backgroundColor: '#f44336', 
+              cursor: 'pointer'
+            }}
+        >
+          <h4 style={{ fontSize: '18px', color: 'white', fontWight: 900, letterSpacing: '5px', padding: 0, margin: 0}} onClick={() => deleteChat()}>Delete Chat</h4>
         </Modal.Footer>
         </Modal>
       ) : user._id === selectedChat.groupAdmin._id ? ( //! if group admin
@@ -443,12 +501,15 @@ const ChatContent = ({ handleSelected, setSelect}) => {
                 )}
               </div>
             </Modal.Body>
-             <Modal.Footer style={{display: 'flex', justifyContent: 'center', backgroundColor: '#f44336', cursor: 'pointer'}}>
+             <Modal.Footer style={{display: 'flex', justifyContent: 'center', backgroundColor: '#f44336', cursor: 'pointer'}}  onClick={() => removeFromGroup(user)}>
               <h4 style={{ fontSize: '18px', color: 'white', fontWight: 900, letterSpacing: '5px', padding: 0, margin: 0}}>Leave Group</h4>
             </Modal.Footer>
           </Modal>
         )
     }
+
+    <AlertShow />
+    
     </>
   );
 };
