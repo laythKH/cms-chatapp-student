@@ -19,6 +19,17 @@ const register = async (req, res) => {
 
    const token = user.createJWT()
 
+   // res
+   //    .status(StatusCodes.OK)
+   //    .json({
+   //       _id: user._id,
+   //       name: user.name,
+   //       email: user.email,
+   //       studentNumber: user.studentNumber,
+   //       token,
+   //       role: user.role
+   //    })
+
    res
       .status(StatusCodes.OK)
       .json({
@@ -26,8 +37,14 @@ const register = async (req, res) => {
          name: user.name,
          email: user.email,
          studentNumber: user.studentNumber,
-         token,
-         role: user.role
+         picture: user.picture,
+         tole: user.role,
+         firstName: user.firstName,
+         lastName: user.lastName,
+         dateOfBirth: user.dateOfBirth,
+         phoneNumber: user.phoneNumber,
+         gender: user.gender,
+         token: token
       })
 
 }
@@ -61,15 +78,20 @@ const login = async (req, res) => {
          _id: user._id,
          name: user.name,
          email: user.email,
-         picture: user.picture,
          studentNumber: user.studentNumber,
-         token,
-         role: user.role
+         picture: user.picture,
+         tole: user.role,
+         firstName: user.firstName,
+         lastName: user.lastName,
+         phoneNumber: user.phoneNumber,
+         dateOfBirth: user.dateOfBirth,
+         gender: user.gender,
+         token: token
       })
    }
 }
 
-const updateUser = (req, res) => {
+const updateUser = (req, res) => {  
    res.status(200).json({ msg: 'updateUser' })
 }
 
