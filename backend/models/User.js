@@ -9,6 +9,7 @@ const UserSchema = new mongoose.Schema({
       type: String,
       minlength: 5,
       trim: true,
+      required: [true, 'Please provide Full NAME'],
    },
    firstName: {
       type: String,
@@ -16,6 +17,7 @@ const UserSchema = new mongoose.Schema({
       maxlength: 20,
       default: 'first name',
       trim: true,
+      required: [true, 'Please provide First Name'],
       // required: false,
    },
    lastName: {
@@ -24,6 +26,7 @@ const UserSchema = new mongoose.Schema({
       maxlength: 20,
       default: 'last name',
       trim: true,
+      required: [true, 'Please provide Last Name'],
       // required: false,
    },
    phoneNumber: {
@@ -39,7 +42,7 @@ const UserSchema = new mongoose.Schema({
    },
    studentNumber: {
       type: String,
-      required: [true, 'Please provide number'],
+      // required: [true, 'Please provide number'],
    },
    picture: {
       type: String,
@@ -58,7 +61,7 @@ const UserSchema = new mongoose.Schema({
          validator: validator.isEmail,
          message: 'Please provide a valid email'
       },
-      unique: true
+      unique: true,
    },
    password: {
       type: String,

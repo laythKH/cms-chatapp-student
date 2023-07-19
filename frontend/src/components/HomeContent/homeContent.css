@@ -1,0 +1,9 @@
+.home-content-main {
+   background-color: #fff;
+   flex: 1;
+   margin: 20px;
+}
+
+.mb-1 {
+   margin-bottom: 10px !important;
+}
