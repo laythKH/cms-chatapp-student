@@ -7,11 +7,9 @@ import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 
 function NavBar() {
-  const navigate = useNavigate();
 
   function handleLogout() {
     localStorage.removeItem("userInfo");
-    navigate("/");
   }
 
   return (
@@ -21,7 +19,7 @@ function NavBar() {
       </Navbar.Brand>
       <Nav>
         <NavLink
-          to='/home'
+          to='/'
           style={(isActive) => {
             return isActive.isActive
               ? {
@@ -84,7 +82,7 @@ function NavBar() {
             </svg>
           </NavLink>
           <NavLink
-            to='/'
+            to='/login'
             data-name='Log out'
             className='logOut'
             onClick={() => {

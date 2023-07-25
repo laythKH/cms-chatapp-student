@@ -1,7 +1,7 @@
 import React from "react";
 import NavBar from "../../components/NavBar/NavBar";
 
-function ChatApp() {
+function HomePage() {
   return (
     <>
       <NavBar />
@@ -10,4 +10,4 @@ function ChatApp() {
   );
 }
 
-export default ChatApp;
+export default HomePage;

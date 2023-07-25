@@ -45,7 +45,9 @@ function Login({ alertText, setAlertText, setShow }) {
 
       setLoading(false);
 
-      navigate("/home");
+      console.log(data);
+
+      navigate("/");
     } catch (error) {
       setAlertText(error.response?.data?.msg || 'Please Check You Connection')
       setShow(true)

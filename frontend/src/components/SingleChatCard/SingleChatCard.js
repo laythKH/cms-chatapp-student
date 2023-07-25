@@ -9,7 +9,7 @@ const SingleChatCard = ({ singleChat, setSelect }) => {
 
 
    const getSender = () => {
-      return users[0]._id === user._id ? users[1].name : users[0].name;
+      return users[0]?._id === user?._id ? users[1]?.name : users[0]?.name;
    }
 
    const selectedChatStyle = {
@@ -30,7 +30,7 @@ const SingleChatCard = ({ singleChat, setSelect }) => {
         style={{ width: "60px", height: "60px" }}
       />
       <div className='title'>
-        <h2>{!isGroupChat ? getSender() : chatName}</h2>
+        <h2>{!isGroupChat ? (getSender() || 'Null') : chatName}</h2>
         <h6> asdasd</h6>
       </div>
     </div>

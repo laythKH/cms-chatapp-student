@@ -1,7 +1,7 @@
 import express from 'express';
 import { protect } from '../middleware/authMiddleware.js';
 
-import { accessChat, fetchChats, createGroupChat, renameGroup, addToGroup, removeFromGroup } from '../controllers/chatController.js';
+import { accessChat, fetchChats, createGroupChat, renameGroup, addToGroup, removeFromGroup, removeChat } from '../controllers/chatController.js';
 
 const router = express.Router();
 
@@ -23,5 +23,7 @@ router.route('/groupremove').put(protect, removeFromGroup);
 //! add someone to the group
 router.route('/groupadd').put(protect, addToGroup);
 
+//! remove chat from chats
+router.route('/removechat').post(protect, removeChat)
 
 export default router

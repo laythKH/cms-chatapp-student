@@ -31,9 +31,9 @@ const ChatSideBar = ({ handleSelected, setSelect }) => {
   const [groupNameInput, setGroupNameInput] = useState('');
   const [searchGroup, setSearchGroup] = useState('');
   const [searchResultGroup, setSearchResultGroup] = useState([])
-  const [loadingGroupSearch, setLoadingGroupSearch] = useState(false)
 
-  const { user, setShowAlert, setAlertText, isLoading, setIsLoading, listChats, setListChats } = useAppContext()
+
+  const { user, setShowAlert, setAlertText, isLoading, setIsLoading, listChats, setListChats, refetch } = useAppContext()
 
   // console.log(user);
   // to the button { addPerson, createGroup }
@@ -195,7 +195,7 @@ const ChatSideBar = ({ handleSelected, setSelect }) => {
 
   useEffect(() => {
     getAllChats()
-  }, [user])
+  }, [user, refetch])
 
   return (
     <>
