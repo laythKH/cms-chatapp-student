@@ -5,6 +5,7 @@ import Form from "react-bootstrap/Form";
 import "./SettingContent.css";
 import Modal from "react-bootstrap/Modal";
 import GeneralSetting from "../GeneralSetting/GeneralSetting";
+import PersonalInfo from "../PersonalInfo/PersonalInfo";
 
 function SettingContent({ option, isMatch, setIsSelected }) {
   const [input1, setInput1] = useState("");
@@ -29,7 +30,6 @@ function SettingContent({ option, isMatch, setIsSelected }) {
 
   function handelGeneralFinish(state) {
     setGeneralFinish(state);
-    console.log(state);
   }
 
   let handelClose = () => setShow(false);
@@ -56,7 +56,10 @@ function SettingContent({ option, isMatch, setIsSelected }) {
             )}
             <h1>Personal Info</h1>
           </div>
+          <PersonalInfo />
         </Container>
+        {/* //change password */}
+
         <Container className='password' style={{ position: "absolute" }}>
           <div className='head mb-5 m-3 d-flex align-items-center gap-4'>
             {isMatch && (
@@ -95,6 +98,7 @@ function SettingContent({ option, isMatch, setIsSelected }) {
               Change
             </Button>
           </Form>
+          {/*  modal */}
           <Modal show={show} onHide={handelClose}>
             <Modal.Header
               style={{

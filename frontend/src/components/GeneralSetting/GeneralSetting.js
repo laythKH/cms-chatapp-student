@@ -72,6 +72,7 @@ function GeneralSetting({ handelFinish }) {
     birthday: "",
     gender: "",
   });
+  console.log(state);
 
   const icon = useRef();
   const inp = useRef();
@@ -186,7 +187,7 @@ function GeneralSetting({ handelFinish }) {
                 })
               }
               type='number'
-              placeHolder={`${state.phoneNumber}000000000`}
+              placeHolder={`${state.phoneCode}000000000`}
             />
           </div>
           <Form onSubmit={(e) => e.preventDefault()}>
