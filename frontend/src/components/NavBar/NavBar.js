@@ -2,14 +2,21 @@ import Image from "react-bootstrap/Image";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Logo from "../assets/Dual Ball-1s-200px (1).svg";
+
 import "./NavBar.css";
 import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
+import { useAppContext } from "../../context/appContext";
+import { useEffect } from "react";
+import { useSocketContext } from "../../context/socketContext";
+
 
 function NavBar() {
+  const { user, setUser } = useAppContext()
 
   function handleLogout() {
     localStorage.removeItem("userInfo");
+    setUser({})
   }
 
   return (
@@ -23,9 +30,9 @@ function NavBar() {
           style={(isActive) => {
             return isActive.isActive
               ? {
-                  borderRadius: "4px",
-                  backgroundColor: "rgba(255, 255, 255, 0.1)",
-                }
+                borderRadius: "4px",
+                backgroundColor: "rgba(255, 255, 255, 0.1)",
+              }
               : {};
           }}
           data-name='Home'
@@ -45,9 +52,9 @@ function NavBar() {
           style={(isActive) => {
             return isActive.isActive
               ? {
-                  borderRadius: "4px",
-                  backgroundColor: "rgba(255, 255, 255, 0.1)",
-                }
+                borderRadius: "4px",
+                backgroundColor: "rgba(255, 255, 255, 0.1)",
+              }
               : {};
           }}
         >
@@ -65,9 +72,9 @@ function NavBar() {
             style={(isActive) => {
               return isActive.isActive
                 ? {
-                    borderRadius: "4px",
-                    backgroundColor: "rgba(255, 255, 255, 0.1)",
-                  }
+                  borderRadius: "4px",
+                  backgroundColor: "rgba(255, 255, 255, 0.1)",
+                }
                 : {};
             }}
             to='/setting'

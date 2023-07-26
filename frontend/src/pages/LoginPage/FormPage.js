@@ -1,4 +1,3 @@
-import React from "react";
 import Login from "./Login";
 import Image from "./assets/sign up-07.jpg";
 
@@ -6,6 +5,8 @@ import "./formPage.css";
 import AlertShow from "../../components/Alert/AlertShow";
 import { Container } from "react-bootstrap";
 import { useAppContext } from "../../context/appContext";
+
+
 
 function FormPage() {
   const { showAlert, setShowAlert, alertText, setAlertText } = useAppContext()

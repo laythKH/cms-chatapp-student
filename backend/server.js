@@ -31,6 +31,7 @@ import messageRoutes from './routes/messageRoutes.js'
 // middleware
 import notFoundMiddleware from './middleware/not-found.js';
 import errorHandlerMiddleware from './middleware/error-handler.js';
+// import authenticateUser from './trying.js';
 
 
 // app.use(cors())
@@ -82,25 +83,83 @@ const port = process.env.PORT || 5000;
 
 connectDB(process.env.MONGO_URL);
 
-const server = app.listen(port, () => {       
+const server = app.listen(port, () => {
    console.log(`Server is listening on port ${port}...`);
 })
 // start();
 
-const io = new Server(server , {
-  pingTimeout: 60000000,
-  cors: {
-    origin: "http://localhost:3000",
-  },
+// const MAX_USERS = 100;
+// let numUsers = 0;
+
+const io = new Server(server, {
+   pingTimeout: 60000000,
+   cors: {
+      origin: "http://localhost:3000",
+   },
 });
 
 io.on("connection", (socket) => {
    console.log('Connected to socket.io');
 
+   //===============================================================================
+   // numUsers++;
+
+   // io.emit('user-count', numUsers);
+
+   // socket.on('login', async ({ collageNumber, password }) => {
+   //    // Check if the user is already logged in
+   //    if (socket.collageNumber) {
+   //       socket.emit('login-error', { message: 'You are already logged in' });
+   //       return;
+   //    }
+   //    console.log('inside the login socket');
+   //    // Check if the maximum number of users has been reached
+   //    if (numUsers >= MAX_USERS) {
+   //       socket.emit('login-error', { message: 'Maximum number of users reached' });
+   //       return;
+   //    }
+
+   //    // Authenticate the user
+   //    const user = await authenticateUser(collageNumber, password);
+   //    console.log(user);
+   //    if (!user) {
+   //       socket.emit('login-error', { message: 'Invalid credentials' });
+   //       return;
+   //    }
+
+   //    // Set the collageNumber property on the socket object
+   //    socket.collageNumber = collageNumber;
+
+   //    // Emit a login-success event to the client
+   //    socket.emit('login-success', { user });
+
+   //    // Update the user count and broadcast it to all clients
+   //    console.log(numUsers);
+   //    numUsers++;
+
+   //    io.emit('user-count', numUsers);
+   // });
+
+   // socket.on('logout', () => {
+   //    // Your logout code goes here
+
+   //    numUsers--;
+   //    io.emit('user-count', numUsers);
+   // });
+
+   // socket.on('disconnect', () => {
+   //    console.log('A user disconnected');
+   //    numUsers--;
+   //    io.emit('user-count', numUsers);
+   // });
+   //===============================================================================
+
+
+
    socket.on("setup", (userData) => {
-    socket.join(userData);
-    socket.emit("connected");
-  });
+      socket.join(userData);
+      socket.emit("connected");
+   });
 
    socket.on('join chat', (room) => {
       socket.join(room)
@@ -115,12 +174,12 @@ io.on("connection", (socket) => {
       console.log(newMessageRecieved);
       var chat = newMessageRecieved.chat;
 
-      if(!chat.users) return console.log('chat.user not define');
+      if (!chat.users) return console.log('chat.user not define');
       // console.log('===========================');
       // console.log(chat.users);
       // console.log('===========================');
       chat.users.forEach(user => {
-         if(user._id === newMessageRecieved.sender._id) {
+         if (user._id === newMessageRecieved.sender._id) {
             return
          }
          // console.log(user);

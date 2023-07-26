@@ -12,8 +12,7 @@ const courseSchema = new mongoose.Schema({
       default: "Here the description"
    },
    assignment: { type: mongoose.Schema.Types.ObjectId, ref: 'Assignment' },
-   teacher: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-   manager: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+   teacher: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 });
 
 export default mongoose.model('Course', courseSchema)

@@ -12,7 +12,7 @@ const SearchForUser = () => {
    const [searchInput, setSearchInput] = useState('')
    const [userInfo, setUserInfo] = useState({})
    const [showUserInfo, setShowUserInfo] = useState(false)
-   const {user, setAlertText, setShowAlert} = useAppContext()
+   const { user, setAlertText, setShowAlert } = useAppContext()
 
    const handleSearch = async () => {
       if (!searchInput) {
@@ -29,13 +29,13 @@ const SearchForUser = () => {
          const { data } = await axios.get(`http://127.0.0.1:5000/api/v1/auth?search=${searchInput}`, config)
          // console.log(data);
          // console.log(data[0]);
-         if(data.length === 0) {
+         if (data.length === 0) {
             setAlertText('there is no with this info')
             setShowAlert(true)
          } else {
             setUserInfo(data[0])
             setShowUserInfo(true)
-            console.log(userInfo);
+            setSearchInput('')
          }
       } catch (error) {
          setAlertText(error.response.data.msg)
@@ -44,19 +44,19 @@ const SearchForUser = () => {
    }
 
    useEffect(() => {
-      console.log(userInfo);
+
    }, [userInfo])
 
 
    return (
-      <div className='hide-scrollbar' style={{width: '100%', height: '100vh', overflow: 'scroll', scrollbarWidth: 'none', padding: '0 0 20px 0'}}>
+      <div className='hide-scrollbar' style={{ width: '100%', height: '100vh', overflow: 'scroll', scrollbarWidth: 'none', padding: '0 0 20px 0' }}>
          <h4>Search For User</h4>
          <InputGroup className="mb-3">
             <Form.Control
                placeholder="Recipient's username"
                aria-label="Recipient's username"
                aria-describedby="basic-addon2"
-               style={{padding: '15px 10px'}}
+               style={{ padding: '15px 10px' }}
                value={searchInput}
                onChange={(e) => setSearchInput(e.target.value)}
             />
@@ -64,8 +64,8 @@ const SearchForUser = () => {
                Button
             </Button>
          </InputGroup>
-         <div style={{padding: '20px'}}>
-            {showUserInfo && <CreateUser userInfo={userInfo} isUpdate={true} />}
+         <div style={{ padding: '20px' }}>
+            {showUserInfo && <CreateUser userInfo={userInfo} isUpdate={true} setShowUserInfo={setShowUserInfo} />}
          </div>
       </div>
    )

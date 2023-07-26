@@ -7,35 +7,31 @@ import { BadRequestError, UnAuthenticatedError } from "../errors/index.js";
 
 
 const createCourse = async (req, res) => {
-   const { name, mangerID, description, teacher, assignment } = req.body
+   const { name, description, teacher, assignment } = req.body
 
-   if(!name || !mangerID) {
+   if (!name || !description) {
       throw new BadRequestError('Please provide all value')
    }
 
-   const courseIsAlreadyExists = await Course.findOne({ name: name }); 
-   if(courseIsAlreadyExists) {
+   const courseIsAlreadyExists = await Course.findOne({ name: name });
+   if (courseIsAlreadyExists) {
       console.log(courseIsAlreadyExists);
       throw new BadRequestError('Course already exists')
    }
 
    let course = await Course.create({
       name,
-      mangerID, 
-      description, 
+      description,
       teacher,
       assignment
    })
 
    course = await course.populate('teacher')
-
+   console.log(course);
    res
       .status(StatusCodes.OK)
       .json(course)
 }
-
-
-
 
 const getAllCourses = async (req, res) => {
    const courses = await Course.find().populate('teacher');
@@ -46,13 +42,14 @@ const getAllCourses = async (req, res) => {
       res.send(courses)
    }
 }
+
 const deleteCourse = async (req, res) => {
    const courseId = req.params.id;
 
    const isCourseFound = await Course.findById(courseId)
 
-   if(isCourseFound) {
-      await Course.deleteOne({_id: courseId})
+   if (isCourseFound) {
+      await Course.deleteOne({ _id: courseId })
 
       res.send(`Course with ID ${courseId} has been deleted`);
    } else {
@@ -61,18 +58,43 @@ const deleteCourse = async (req, res) => {
 
 }
 
-
 const updateCourse = async (req, res) => {
    const courseId = req.params.id;
    const newUpdates = req.body;
 
-   const isFound = await Course.findByIdAndUpdate(courseId, newUpdates);
+   if (!(newUpdates?.name) || !(newUpdates?.description)) {
+      throw new BadRequestError('Please Provide Full Value')
+   }
 
-   if(isFound) {
-      console.log(isFound);
+   try {
+      const course = await Course.findById(courseId);
+
+      if (!course) {
+         throw new NotFoundError(`Course with ID ${courseId} not found`);
+      }
+
+      // Only update the fields that are present in the newUpdates object
+      if (newUpdates.name) {
+         course.name = newUpdates.name;
+      }
+
+      if (newUpdates.description) {
+         course.description = newUpdates.description;
+      }
+
+      if (newUpdates.teacher) {
+         course.teacher = newUpdates.teacher;
+      } else {
+         course.teacher = null; // Set the teacher field to null if it's not present in the newUpdates object
+      }
+
+      const updatedCourse = await course.save();
+
+      console.log(updatedCourse);
       res.send(`Course with ID ${courseId} has been updated`);
-   } else {
-      throw new BadRequestError(`Course with ID ${courseId} not found`)
+   } catch (error) {
+      console.log(error);
+      throw new InternalServerError('Failed to update course');
    }
 }
 
@@ -82,21 +104,82 @@ const getCoursesBasedOnTeacher = async (req, res) => {
 
    const isTeacherFound = await User.findById(teacherId)
 
-   if(isTeacherFound) {
+   if (isTeacherFound) {
       console.log("Inside The If");
       console.log(isTeacherFound);
    }
 
-   const courses = await Course.find({ teacher: teacherId})
+   const courses = await Course.find({ teacher: teacherId })
 
-   if(!courses) {
+   if (!courses) {
       res.send("There no courses yet")
    } else {
       res.send(courses)
    }
 }
 
+// const addCourseToUser = async (req, res) => {
+//    const userId = req.params.userId;
+//    const courseId = req.params.courseId;
+//    console.log(req.params);
+//    console.log('userrrrrrrrrrrrrrrrrrr');
+//    try {
+//       // Find the user document and add the course ID to the "courses" array
+//       const user = await User.findById(userId);
+//       if (!user) {
+//          res.status(404).send();
+//          return;
+//       }
 
 
+//       // Check if the user already has the course
+//       if (user.courses.includes(courseId)) {
+//          res.status(409).send('User already has the course');
+//          return;
+//       }
 
-export { getAllCourses, createCourse, updateCourse, deleteCourse, getCoursesBasedOnTeacher }
+//       user.courses.push(courseId);
+//       await user.save();
+
+//       const populatedUser = await User.findById(userId).populate('courses');
+
+//       res.json(populatedUser);
+
+//    } catch (err) {
+//       console.error(err);
+//       res.status(500).send();
+//    }
+// }
+
+const searchCourseByName = async (req, res) => {
+   const courseName = req.params.id;
+
+   try {
+      const courses = await Course.find({ name: { $regex: courseName, $options: 'i' } }).exec();
+
+      if (courses.length > 0) {
+         // Courses matching the search criteria were found
+         // console.log('Matching courses:', courses);
+         console.log('full of courses');
+         res.status(StatusCodes.OK).send(courses)
+      } else {
+         // No courses matching the search criteria were found
+         console.log('there no course with this name');
+         res.send('there is no course with this name')
+      }
+   } catch (error) {
+      // Handle any errors that occurred during the operation
+      console.error('Error searching for courses:', error);
+   }
+}
+
+
+export {
+   getAllCourses,
+   createCourse,
+   updateCourse,
+   deleteCourse,
+   getCoursesBasedOnTeacher,
+   // addCourseToUser, 
+   searchCourseByName
+}

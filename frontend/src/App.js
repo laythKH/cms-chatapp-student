@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import FormPage from "./pages/LoginPage/FormPage";
 import Error from "./pages/ErrorPage/Error";
 import "./App.css";
@@ -7,9 +7,10 @@ import ChatPage from "./pages/ChatPage/ChatPage";
 import Setting from "./pages/Setting/Setting";
 import HomePage from "./pages/HomePage/HomePage";
 
-export default function App() {
+const App = () => {
+
   return (
-    <div style={{ backgroundColor: "white", height: "100vh", display: "flex" }}>
+    <div style={{ backgroundColor: "white", height: "100vh", display: "flex", width: '100%' }}>
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='/login' element={<FormPage />} />
@@ -21,3 +22,6 @@ export default function App() {
     </div>
   );
 }
+
+
+export default App

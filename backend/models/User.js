@@ -75,6 +75,7 @@ const UserSchema = new mongoose.Schema({
       required: [true, 'please provide the Role of user']
    },
    courses: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Course' }]
+   // courses: [{ type: String }]
 })
 
 UserSchema.pre('save', async function () {

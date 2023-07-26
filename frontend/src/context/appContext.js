@@ -2,10 +2,12 @@ import { useContext, createContext, useState, useEffect, useCallback } from "rea
 // import { useNavigate } from "react-router-dom";
 import { createBrowserHistory } from 'history';
 
+
 const AppContext = createContext()
 
+
 const AppProvider = ({ children }) => {
-   const [user, setUser] = useState()
+   const [user, setUser] = useState({})
    const [showAlert, setShowAlert] = useState(false)
    const [alertText, setAlertText] = useState('')
    const [isLoading, setIsLoading] = useState(false)
@@ -44,19 +46,21 @@ const AppProvider = ({ children }) => {
          handleRedirect("/login")
       }
 
+      console.log(user);
+
       setUser(userInfo)
 
    }, [handleRedirect, setUser])
 
    return (
-      <AppContext.Provider 
-         value={{ 
-            user, 
-            setUser, 
-            showAlert, 
-            setShowAlert, 
-            alertText, 
-            setAlertText ,
+      <AppContext.Provider
+         value={{
+            user,
+            setUser,
+            showAlert,
+            setShowAlert,
+            alertText,
+            setAlertText,
             isLoading,
             setIsLoading,
             selectedChat,
@@ -64,7 +68,7 @@ const AppProvider = ({ children }) => {
             listChats,
             setListChats,
             refetch,
-            setRefetch
+            setRefetch,
          }}
       >
          {children}

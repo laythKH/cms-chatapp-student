@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
@@ -8,10 +8,16 @@ import { useNavigate } from "react-router-dom";
 import loadingSvg from "./assets/Spinner-1s-200px.svg";
 import titleSvg from "./assets/Dual Ball-1s-200px (1).svg";
 import "./Login.css";
+import { useAppContext } from "../../context/appContext";
+import { useSocketContext } from "../../context/socketContext";
+
 
 function Login({ alertText, setAlertText, setShow }) {
+  // const { socket } = useSocketContext()
+  const { user, setUser } = useAppContext()
   const [loading, setLoading] = useState(false);
   const [values, setValues] = useState({ stdNumber: "", password: "" });
+  const [userCount, setUserCount] = useState(0);
   let navigate = useNavigate();
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
@@ -41,8 +47,10 @@ function Login({ alertText, setAlertText, setShow }) {
         config
       );
 
-      localStorage.setItem("userInfo", JSON.stringify(data));
+      // socket.emit('login', { collageNumber: stdNumber, password });
 
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      setUser(data)
       setLoading(false);
 
       console.log(data);
@@ -54,6 +62,21 @@ function Login({ alertText, setAlertText, setShow }) {
       setLoading(false)
     }
   };
+
+
+  // useEffect(() => {
+  //   // if (socket) {
+  //   socket.on('user-count', (count) => {
+  //     setUserCount(count);
+  //   });
+  //   console.log('inside login useEffect socket');
+
+  //   // Clean up the event listener on unmount
+  //   return () => {
+  //     socket.off('user-count');
+  //   };
+  //   // }
+  // }, [socket]);
 
   return (
     <Card
@@ -118,6 +141,7 @@ function Login({ alertText, setAlertText, setShow }) {
           {loading && <img src={loadingSvg} width='40px' alt='alert' />}
         </Button>
       </Form>
+      {/*userCount === 1 ? <p>1 user online</p> : <p>{userCount} users online</p> */}
     </Card>
   );
 }

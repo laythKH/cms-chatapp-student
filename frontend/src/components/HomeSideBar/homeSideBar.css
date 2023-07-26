@@ -1,16 +1,14 @@
 .sidebar {
    display: flex;
    flex-direction: column;
-   min-width: 370px;
-   flex-basis: 25%;
+   min-width: 350px;
    align-items: center;
    background-color: #eff1f2;
 }
 
 @media screen and (max-width: 1000px) {
    .sidebar {
-      flex-basis: 100% !important;
-      /* display: none; */
+      min-width: calc(100vw - 70px);
    }
 }
 
@@ -26,9 +24,12 @@
    margin-top: 2px;
    margin-bottom: 0;
 }
+
 .navs-container {
    width: 100%;
    padding: 10px 15px 0px;
+   height: calc(100vh - 76px);
+   overflow-y: scroll;
 }
 
 .drop-down {
@@ -45,6 +46,18 @@
    background-color: rgba(0, 0, 0, 0.02);
    margin-bottom: 3px;
    transition: 0.5s;
+   cursor: pointer;
+}
+
+@media screen and (max-width: 380px) {
+   .dropdown-singleCard {
+      font-size: 16px;
+      font-weight: 800;
+   }
+
+   .sidebar-header {
+      font-size: 24px;
+   }
 }
 
 .selected {
@@ -52,6 +65,4 @@
    background-color: rgba(25, 84, 148, 0.84);
    border-bottom: none;
    color: #fff;
-   
 }
-

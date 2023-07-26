@@ -9,50 +9,54 @@ import { useAppContext } from '../../context/appContext'
 import AlertShow from '../../components/Alert/AlertShow'
 
 const rolesOption = {
-      admin: {
-          user: true,
-          createUser: true,
-          searchForUser: true,
-          course: true,
-          createCourse: true,
-          searchForCourse: false,
-          assignment: false,
-          createAssignment: false,
-          submitAssignment: false
-      },
-      manager: {
-          user: false,
-          createUser: false,
-          searchForUser: true,
-          course: true,
-          createCourse: true,
-          searchForCourse: true,
-          assignment: false,
-          createAssignment: false,
-          submitAssignment: false
-      },
-      teacher: {
-          user: false,
-          createUser: false,
-          searchForUser: true,
-          course: false,
-          createCourse: false,
-          searchForCourse: false,
-          assignment: true,
-          createAssignment: true,
-          submitAssignment: false
-      },
-      student: {
-          user: false,
-          createUser: false,
-          searchForUser: true,
-          course: false,
-          createCourse: false,
-          searchForCourse: false,
-          assignment: true,
-          createAssignment: false,
-          submitAssignment: true
-      },
+  admin: {
+    user: true,
+    createUser: true,
+    searchForUser: true,
+    course: true,
+    createCourse: true,
+    updateOrDeleteCourse: true,
+    addAndDelCourseToUser: true,
+    assignment: false,
+    createAssignment: false,
+    submitAssignment: false
+  },
+  manager: {
+    user: true,
+    createUser: false,
+    searchForUser: true,
+    course: true,
+    createCourse: true,
+    updateOrDeleteCourse: true,
+    addAndDelCourseToUser: true,
+    assignment: false,
+    createAssignment: false,
+    submitAssignment: false
+  },
+  teacher: {
+    user: false,
+    createUser: false,
+    searchForUser: false,
+    course: false,
+    createCourse: false,
+    updateOrDeleteCourse: true,
+    addAndDelCourseToUser: false,
+    assignment: true,
+    createAssignment: true,
+    submitAssignment: false
+  },
+  student: {
+    user: false,
+    createUser: false,
+    searchForUser: false,
+    course: false,
+    createCourse: false,
+    updateOrDeleteCourse: true,
+    addAndDelCourseToUser: false,
+    assignment: true,
+    createAssignment: false,
+    submitAssignment: true
+  },
 };
 
 const HomePage = () => {
@@ -60,8 +64,7 @@ const HomePage = () => {
   const [roles, setRoles] = useState(rolesOption)
   const [showOption, setShowOption] = useState('')
 
-  const { user } = useAppContext()
-
+  const { user, refetch, setRefetch } = useAppContext()
 
 
 
@@ -70,14 +73,16 @@ const HomePage = () => {
     query: "(min-width: 1000px)",
   });
 
-  
+  console.log(isMatch, isSelected);
+
   useEffect(() => {
-    console.log(roles);
-  }, [user])
+    setRefetch(!refetch)
+    console.log('refetch');
+  }, [user, isMatch])
 
 
   return (
-    <>
+    <div style={{ display: 'flex', position: 'relative', overflow: 'hidden', height: '100vh', width: '100%' }}>
       <NavBar />
       <div className='home-page'>
         {(isMatch || !isSelected) && (
@@ -92,13 +97,14 @@ const HomePage = () => {
             isMatch={!isMatch}
             roles={roles}
             setIsSelected={setIsSelected}
+            isSelected={isSelected}
             showOption={showOption}
           />
         )}
       </div>
 
-      <AlertShow /> 
-    </>
+      <AlertShow />
+    </div>
   )
 }
 
