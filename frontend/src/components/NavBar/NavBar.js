@@ -10,13 +10,12 @@ import { useAppContext } from "../../context/appContext";
 import { useEffect } from "react";
 import { useSocketContext } from "../../context/socketContext";
 
-
 function NavBar() {
-  const { user, setUser } = useAppContext()
+  const { user, setUser } = useAppContext();
 
   function handleLogout() {
     localStorage.removeItem("userInfo");
-    setUser({})
+    setUser({});
   }
 
   return (
@@ -30,9 +29,9 @@ function NavBar() {
           style={(isActive) => {
             return isActive.isActive
               ? {
-                borderRadius: "4px",
-                backgroundColor: "rgba(255, 255, 255, 0.1)",
-              }
+                  borderRadius: "4px",
+                  backgroundColor: "rgba(255, 255, 255, 0.1)",
+                }
               : {};
           }}
           data-name='Home'
@@ -52,9 +51,9 @@ function NavBar() {
           style={(isActive) => {
             return isActive.isActive
               ? {
-                borderRadius: "4px",
-                backgroundColor: "rgba(255, 255, 255, 0.1)",
-              }
+                  borderRadius: "4px",
+                  backgroundColor: "rgba(255, 255, 255, 0.1)",
+                }
               : {};
           }}
         >
@@ -72,9 +71,9 @@ function NavBar() {
             style={(isActive) => {
               return isActive.isActive
                 ? {
-                  borderRadius: "4px",
-                  backgroundColor: "rgba(255, 255, 255, 0.1)",
-                }
+                    borderRadius: "4px",
+                    backgroundColor: "rgba(255, 255, 255, 0.1)",
+                  }
                 : {};
             }}
             to='/setting'
