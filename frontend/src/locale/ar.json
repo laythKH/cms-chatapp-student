@@ -1,0 +1,84 @@
+{
+  "Login": {
+    "title": "مرحبا بعودتك",
+    "stdNum": "رقم الطالب",
+    "password": "كلمة المرور",
+    "txt": "لن تشارك كلمة المرور مع اي شخص",
+    "btn": "تسجيل الدخول"
+  },
+  "Home": {
+    "title": "الصفحة الرئيسية",
+    "User": {
+      "title": "المستخدم",
+      "createUser": {
+        "title": "إنشاء مستخدم",
+        "firstName": "الإسم الأول",
+        "lastName": "الإسم الثاني",
+        "fullName": "الإسم الكامل",
+        "email": "الحساب الإلكتروني",
+        "city": "المدينة",
+        "phoneNumber": "رقم الهاتف",
+        "date": "تاريخ الميلاد",
+        "Gender": {
+          "selectGen": "اختار الجنس",
+          "op1": "ذكر",
+          "op2": "أنثى"
+        },
+        "role": {
+          "selectRole": "إختار دور المستخدم",
+          "op1": "طالب",
+          "op2": "دكتور",
+          "op3": "مدير",
+          "op4": "أدمن"
+        },
+        "createUser": "إنشاء المستخدم"
+      },
+      "searchForUser": {
+        "title": "البحث عن مستخدم",
+        "input": "اسم المستخدم",
+        "button": "بحث"
+      }
+    },
+    "Courses": {
+      "title": "المواد",
+      "createCourse": {
+        "title": "إنشاء المادة",
+        "courseName": "اسم المادة",
+        "CourseDes": "وصف المادة",
+        "addMentor": "إضافة دكتور للمادة",
+        "addMentorBtn": "إضافة",
+        "create": "إنشاء",
+        "courseModal": {
+          "title": "البحث عن دكتور",
+          "input": "رقم الدكتور أو اسمه",
+          "btn": "بحث",
+          "modalFooter": "اضغط على اي مكان للخروج"
+        }
+      },
+      "addDelCourse": {
+        "title": "إضافة وحذف مواد الطالب"
+      },
+      "UpdateCourse": {
+        "title": "تعديل وحذف المواد",
+        "input": "اسم المستخدم",
+        "student": "طالب",
+        "mentor": "دكتور",
+        "table": {
+          "name": "الإسم",
+          "description": "الوصف",
+          "mentor": "الدكتور",
+          "update": "تعديل",
+          "delete": "حذف"
+        },
+        "modal": {
+          "head": "تعديل المادة",
+          "courseTitle": "اسم المادة",
+          "courseDes": "وصف المادة",
+          "addTeacher": "اضافة دكتور",
+          "Go": "بحث",
+          "updateBtn": "تعديل"
+        }
+      }
+    }
+  }
+}

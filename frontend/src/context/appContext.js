@@ -7,6 +7,7 @@ import {
 } from "react";
 // import { useNavigate } from "react-router-dom";
 import { createBrowserHistory } from "history";
+import { useTranslation } from "react-i18next";
 
 const AppContext = createContext();
 
@@ -75,6 +76,8 @@ const AppProvider = ({ children }) => {
     setUser(userInfo);
   }, [handleRedirect, setUser]);
 
+  const { t, i18n } = useTranslation();
+
   return (
     <AppContext.Provider
       value={{
@@ -92,6 +95,8 @@ const AppProvider = ({ children }) => {
         setListChats,
         refetch,
         setRefetch,
+        t,
+        i18n,
       }}
     >
       {children}

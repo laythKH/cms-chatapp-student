@@ -5,11 +5,10 @@ import "./formPage.css";
 import AlertShow from "../../components/Alert/AlertShow";
 import { Container } from "react-bootstrap";
 import { useAppContext } from "../../context/appContext";
+import { Suspense } from "react";
 
-
-
-function FormPage() {
-  const { showAlert, setShowAlert, alertText, setAlertText } = useAppContext()
+function FormPage({ handelLang, lang }) {
+  const { showAlert, setShowAlert, alertText, setAlertText } = useAppContext();
 
   return (
     <Container
@@ -21,11 +20,17 @@ function FormPage() {
     >
       <div className='subContainer d-flex justify-content-center align-items-center'>
         <Login
+          handelLang={handelLang}
+          lang={lang}
           alertText={alertText}
           setAlertText={setAlertText}
           setShow={setShowAlert}
         />
-        <AlertShow alertText={alertText} show={showAlert} setShow={setShowAlert} />
+        <AlertShow
+          alertText={alertText}
+          show={showAlert}
+          setShow={setShowAlert}
+        />
       </div>
       <div
         className='largScreenImg d-flex align-items-center'

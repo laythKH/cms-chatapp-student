@@ -1,0 +1,85 @@
+{
+  "Login": {
+    "title": "Welcome Back",
+    "stdNum": "Student Number",
+    "password": "Password",
+    "txt": "We'll never share your password with anyone else.",
+    "btn": "Login"
+  },
+  "Home": {
+    "title": "Home",
+    "User": {
+      "title": "User",
+      "createUser": {
+        "title": "Create User",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "fullName": "Full Name",
+        "email": "Email",
+        "city": "City",
+        "phoneNumber": "Phone Number",
+        "date": "Date Of Birth",
+        "Gender": {
+          "selectGen": "Select Gender",
+          "op1": "male",
+          "op2": "female"
+        },
+        "role": {
+          "selectRole": "Select The Role Of Student",
+          "op1": "Student",
+          "op2": "Teacher",
+          "op3": "Manager",
+          "op4": "Admin"
+        },
+        "createUser": "Create User"
+      },
+      "searchForUser": {
+        "title": "Search For User",
+        "input": "Recipient's username",
+        "button": "search"
+      }
+    },
+    "Courses": {
+      "title": "Courses",
+      "createCourse": {
+        "title": "Create Course",
+        "courseName": "Course Name",
+        "CourseDes": "Course Description",
+        "addMentor": "Add Mentor For This Course",
+        "addMentorBtn": "Add Mentor",
+        "create": "create",
+        "courseModal": {
+          "title": "Search For Mentoق",
+          "input": "Mentor Number OR Name",
+          "btn": "Go",
+          "modalFooter": "Click Any Where to Close"
+        }
+      },
+
+      "addDelCourse": {
+        "title": "Add & Del Course User"
+      },
+      "UpdateCourse": {
+        "title": "Update & Del Course",
+        "input": "Recipient's username",
+        "student": "student",
+        "mentor": "mentor",
+        "table": {
+          "name": "name",
+          "description": "description",
+          "mentor": "mentor",
+          "update": "update",
+          "delete": "delete"
+        },
+        "modal": {
+          "head": "Update Course",
+          "courseTitle": "Course Title",
+          "courseDes": "Course Description",
+          "addTeacher": "Add Teacher",
+          "Go": "Search",
+          "updateBtn": "Update Value"
+        }
+      }
+    }
+  }
+}
