@@ -51,9 +51,9 @@ const CreateCourse = () => {
 
   const handleSearch = async () => {
     if (!searchInputField) {
-      setAlertText('Please Fill The Field')
-      setShowAlert(true)
-      return
+      setAlertText("Please Fill The Field");
+      setShowAlert(true);
+      return;
     }
 
     try {
@@ -92,25 +92,30 @@ const CreateCourse = () => {
       const config = {
         headers: {
           Authorization: `Bearer ${user.token}`,
-        }
+        },
       };
 
       if (formData.teacher) {
-        const { data } = await axios.post(`http://127.0.0.1:5000/api/v1/course/`, { ...formData }, config)
+        const { data } = await axios.post(
+          `http://127.0.0.1:5000/api/v1/course/`,
+          { ...formData },
+          config
+        );
       } else {
-        const { data } = await axios.post(`http://127.0.0.1:5000/api/v1/course/`, { name: formData?.name, description: formData?.description }, config)
+        const { data } = await axios.post(
+          `http://127.0.0.1:5000/api/v1/course/`,
+          { name: formData?.name, description: formData?.description },
+          config
+        );
       }
 
-
-      setAlertText('Course Created')
-      setShowAlert(true)
+      setAlertText("Course Created");
+      setShowAlert(true);
     } catch (error) {
-      setAlertText(error.response.data.msg)
-      setShowAlert(true)
+      setAlertText(error.response.data.msg);
+      setShowAlert(true);
     }
   };
-
-
 
   return (
     <>
