@@ -57,10 +57,9 @@ const AppProvider = ({ children }) => {
   //     handleRedirect("/login");
   //   }
 
-<<<<<<< HEAD
+
   //   console.log(user);
-=======
-<<<<<<< HEAD
+
   const { t, i18n } = useTranslation();
 
   return (
@@ -88,37 +87,10 @@ const AppProvider = ({ children }) => {
     </AppContext.Provider>
   );
 };
-=======
-      console.log(user);
->>>>>>> 271f4697c73514c20968e78d91e9908bb6054075
->>>>>>> cf35db2b5c5fee2162db245c47be9820a715d7f9
 
-  //   setUser(userInfo);
-  // }, [handleRedirect, setUser]);
+//   setUser(userInfo);
+// }, [handleRedirect, setUser]);
 
-  return (
-    <AppContext.Provider
-      value={{
-        user,
-        setUser,
-        showAlert,
-        setShowAlert,
-        alertText,
-        setAlertText,
-        isLoading,
-        setIsLoading,
-        selectedChat,
-        setSelectedChat,
-        listChats,
-        setListChats,
-        refetch,
-        setRefetch,
-      }}
-    >
-      {children}
-    </AppContext.Provider>
-  );
-};
 
 const useAppContext = () => {
   return useContext(AppContext);

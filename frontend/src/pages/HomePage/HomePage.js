@@ -19,10 +19,6 @@ const rolesOption = {
     addAndDelCourseToUser: true,
     assignment: true,
     createAssignment: true,
-<<<<<<< HEAD
-=======
-    getAllSubmitedAssignment: true,
->>>>>>> 271f4697c73514c20968e78d91e9908bb6054075
     submitAssignment: true
   },
   //change premission
@@ -67,7 +63,7 @@ const rolesOption = {
   },
 };
 
-const HomePage = ({handelLang}) => {
+const HomePage = ({ handelLang }) => {
   const [isSelected, setIsSelected] = useState(false);
   const [roles, setRoles] = useState(rolesOption)
   const [showOption, setShowOption] = useState('')
@@ -78,17 +74,12 @@ const HomePage = ({handelLang}) => {
     query: "(min-width: 1000px)",
   });
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 271f4697c73514c20968e78d91e9908bb6054075
   useEffect(() => {
     setRefetch(!refetch)
   }, [user, isMatch])
 
 
   return (
-<<<<<<< HEAD
     <div
       style={{
         display: "flex",
@@ -99,10 +90,6 @@ const HomePage = ({handelLang}) => {
       }}
     >
       <NavBar handelLang={handelLang} />
-=======
-    <div style={{ display: 'flex', position: 'relative', overflow: 'hidden', height: '100vh', width: '100%' }}>
-      {(isMatch || !isSelected) && <NavBar />}
->>>>>>> 271f4697c73514c20968e78d91e9908bb6054075
       <div className='home-page'>
         {(isMatch || !isSelected) && (
           <HomeSideBar
