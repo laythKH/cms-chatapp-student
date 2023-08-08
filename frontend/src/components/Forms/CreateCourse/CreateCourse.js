@@ -109,6 +109,20 @@ const CreateCourse = () => {
         );
       }
 
+      if (formData.teacher) {
+        const { data } = await axios.post(
+          `http://127.0.0.1:5000/api/v1/course/`,
+          { ...formData },
+          config
+        );
+      } else {
+        const { data } = await axios.post(
+          `http://127.0.0.1:5000/api/v1/course/`,
+          { name: formData?.name, description: formData?.description },
+          config
+        );
+      }
+
       setAlertText("Course Created");
       setShowAlert(true);
     } catch (error) {
@@ -117,9 +131,36 @@ const CreateCourse = () => {
     }
   };
 
+  useEffect(() => {
+    console.log(selectedTeacher);
+  }, [formData, setFormData, selectedTeacher]);
+
   return (
     <>
-      <Form>
+      <Form style={{ padding: "20px 0" }}>
+        <Form.Group className='mb-3' controlId='formGridAddress1'>
+          <Form.Label>{t("Home.Courses.createCourse.courseName")}: </Form.Label>
+          <Form.Control
+            type='text'
+            name='name'
+            value={formData.name}
+            onChange={handleChange}
+            placeholder={t("Home.Courses.createCourse.courseName")}
+          />
+        </Form.Group>
+
+        <Form.Group className='mb-3' controlId='exampleForm.ControlTextarea1'>
+          <Form.Label>{t("Home.Courses.createCourse.CourseDes")}</Form.Label>
+          <Form.Control
+            as='textarea'
+            rows={3}
+            name='description'
+            value={formData.description}
+            onChange={handleChange}
+            placeholder={t("Home.Courses.createCourse.CourseDes")}
+          />
+        </Form.Group>
+
         <Form.Group
           className='mb-3'
           controlId='exampleForm.ControlTextarea1'
