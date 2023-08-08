@@ -16,7 +16,6 @@ const App = () => {
         <Route path='/login' element={<FormPage />} />
         <Route path='/chat' element={<ChatPage />} />
         <Route path='/setting' element={<Setting />} />
-
         <Route path='*' element={<Error />} />
       </Routes>
     </div>

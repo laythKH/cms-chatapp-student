@@ -8,11 +8,11 @@ import { NavLink } from "react-router-dom";
 import { useAppContext } from "../../context/appContext";
 
 function NavBar() {
-  const { user, setUser } = useAppContext()
+  const { user, setUser } = useAppContext();
 
   function handleLogout() {
     localStorage.removeItem("userInfo");
-    setUser({})
+    setUser({});
   }
 
   return (
