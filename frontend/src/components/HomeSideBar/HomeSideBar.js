@@ -122,7 +122,7 @@ const HomeSideBar = ({ roles, setShowOption, setIsSelected }) => {
             <Accordion.Body>
               <div
                 className='dropdown-singleCard'
-                data-name='updateOrDeleteCourse'
+                data-name='addLecture'
                 ref={addLectures}
                 onClick={() => handleShow(addLectures)}
               >
