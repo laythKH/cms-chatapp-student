@@ -110,6 +110,7 @@
   },
   "Setting": {
     "title": "Setting",
+    "back": "back",
     "generalSetting": {
       "title": "General Setting",
       "alertChange": "change completed successfully",
@@ -119,7 +120,11 @@
       "title": "Personal Info"
     },
     "changePassword": {
-      "title": "Change Password"
+      "title": "Change Password",
+      "input1": "Old Password",
+      "input2": "New Password",
+      "input3": "Confirm New Password",
+      "btn": "Change"
     }
   }
 }

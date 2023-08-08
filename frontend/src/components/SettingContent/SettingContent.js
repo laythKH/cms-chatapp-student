@@ -6,6 +6,7 @@ import "./SettingContent.css";
 import Modal from "react-bootstrap/Modal";
 import GeneralSetting from "../GeneralSetting/GeneralSetting";
 import PersonalInfo from "../PersonalInfo/PersonalInfo";
+import { useAppContext } from "../../context/appContext";
 
 function SettingContent({ option, isMatch, setIsSelected }) {
   const [input1, setInput1] = useState("");
@@ -14,6 +15,8 @@ function SettingContent({ option, isMatch, setIsSelected }) {
   const [show, setShow] = useState(false);
   const [color, setColor] = useState(false);
   const [generalFinish, setGeneralFinish] = useState({});
+
+  const { t } = useAppContext();
 
   function handelsubmit(e) {
     e.preventDefault();
@@ -40,10 +43,10 @@ function SettingContent({ option, isMatch, setIsSelected }) {
           <div className='head mb-5 m-3 d-flex align-items-center gap-4'>
             {isMatch && (
               <span onClick={() => setIsSelected(false)} className='back'>
-                back
+                {t("Setting.back")}
               </span>
             )}
-            <h1>General Setting</h1>
+            <h1>{t("Setting.generalSetting.title")}</h1>
           </div>
           <GeneralSetting handelFinish={handelGeneralFinish} />
         </Container>
@@ -51,10 +54,10 @@ function SettingContent({ option, isMatch, setIsSelected }) {
           <div className='head mb-5 m-3 d-flex align-items-center gap-4'>
             {isMatch && (
               <span onClick={() => setIsSelected(false)} className='back'>
-                back
+                {t("Setting.back")}
               </span>
             )}
-            <h1>Personal Info</h1>
+            <h1> {t("Setting.personalInfo.title")}</h1>
           </div>
           <PersonalInfo />
         </Container>
@@ -64,30 +67,33 @@ function SettingContent({ option, isMatch, setIsSelected }) {
           <div className='head mb-5 m-3 d-flex align-items-center gap-4'>
             {isMatch && (
               <span onClick={() => setIsSelected(false)} className='back'>
-                back
+                {t("Setting.back")}
               </span>
             )}
-            <h1>Change Password</h1>
+            <h1> {t("Setting.changePassword.title")}</h1>
           </div>
           <Form onSubmit={handelsubmit} className='change-password mb-5 m-3'>
             <Form.Group className='mb-4' controlId='formBasicEmail'>
-              <Form.Label>Old password</Form.Label>
-              <Form.Control type='password' placeholder='old password...' />
-            </Form.Group>
-            <Form.Group className='mb-4' controlId='formBasicEmail'>
-              <Form.Label>New password</Form.Label>
+              <Form.Label>{t("Setting.changePassword.input1")}</Form.Label>
               <Form.Control
-                onChange={(e) => setInput1(e.target.value)}
                 type='password'
-                placeholder='new password...'
+                placeholder={`${t("Setting.changePassword.input1")}...`}
               />
             </Form.Group>
             <Form.Group className='mb-4' controlId='formBasicEmail'>
-              <Form.Label>confirm new password</Form.Label>
+              <Form.Label>{t("Setting.changePassword.input2")}</Form.Label>
+              <Form.Control
+                onChange={(e) => setInput1(e.target.value)}
+                type='password'
+                placeholder={`${t("Setting.changePassword.input2")}...`}
+              />
+            </Form.Group>
+            <Form.Group className='mb-4' controlId='formBasicEmail'>
+              <Form.Label>{t("Setting.changePassword.input3")}</Form.Label>
               <Form.Control
                 onChange={(e) => setInput2(e.target.value)}
                 type='password'
-                placeholder='confirm new password...'
+                placeholder={`${t("Setting.changePassword.input3")}...`}
               />
             </Form.Group>
             <Button
@@ -95,7 +101,7 @@ function SettingContent({ option, isMatch, setIsSelected }) {
               style={{ backgroundColor: "rgb(25, 85, 148)" }}
               type='submit'
             >
-              Change
+              {t("Setting.changePassword.btn")}
             </Button>
           </Form>
           {/*  modal */}
