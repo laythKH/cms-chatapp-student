@@ -1,12 +1,11 @@
-
-import NavBar from '../../components/NavBar/NavBar'
-import HomeContent from '../../components/HomeContent/HomeContent'
-import HomeSideBar from '../../components/HomeSideBar/HomeSideBar'
-import './homepage.css'
-import { useMediaQuery } from 'react-responsive'
-import { useEffect, useState } from 'react'
-import { useAppContext } from '../../context/appContext'
-import AlertShow from '../../components/Alert/AlertShow'
+import NavBar from "../../components/NavBar/NavBar";
+import HomeContent from "../../components/HomeContent/HomeContent";
+import HomeSideBar from "../../components/HomeSideBar/HomeSideBar";
+import "./homepage.css";
+import { useMediaQuery } from "react-responsive";
+import { useEffect, useState } from "react";
+import { useAppContext } from "../../context/appContext";
+import AlertShow from "../../components/Alert/AlertShow";
 
 const rolesOption = {
   admin: {
@@ -19,7 +18,7 @@ const rolesOption = {
     addAndDelCourseToUser: true,
     assignment: true,
     createAssignment: true,
-    submitAssignment: true
+    submitAssignment: true,
   },
   //change premission
   manager: {
@@ -33,7 +32,7 @@ const rolesOption = {
     assignment: false,
     createAssignment: false,
     getAllSubmitedAssignment: true,
-    submitAssignment: true
+    submitAssignment: true,
   },
   teacher: {
     user: false,
@@ -46,7 +45,7 @@ const rolesOption = {
     assignment: true,
     createAssignment: true,
     getAllSubmitedAssignment: true,
-    submitAssignment: true
+    submitAssignment: true,
   },
   student: {
     user: false,
@@ -59,25 +58,24 @@ const rolesOption = {
     assignment: true,
     createAssignment: false,
     getAllSubmitedAssignment: true,
-    submitAssignment: true
+    submitAssignment: true,
   },
 };
 
 const HomePage = ({ handelLang }) => {
   const [isSelected, setIsSelected] = useState(false);
-  const [roles, setRoles] = useState(rolesOption)
-  const [showOption, setShowOption] = useState('')
+  const [roles, setRoles] = useState(rolesOption);
+  const [showOption, setShowOption] = useState("");
 
-  const { user, refetch, setRefetch } = useAppContext()
+  const { user, refetch, setRefetch } = useAppContext();
   // console.log(showNavBasedOnRole);
   const isMatch = useMediaQuery({
     query: "(min-width: 1000px)",
   });
 
   useEffect(() => {
-    setRefetch(!refetch)
-  }, [user, isMatch])
-
+    setRefetch(!refetch);
+  }, [user, isMatch]);
 
   return (
     <div
@@ -89,7 +87,7 @@ const HomePage = ({ handelLang }) => {
         width: "100%",
       }}
     >
-      <NavBar handelLang={handelLang} />
+      {(isMatch || !isSelected) && <NavBar />}
       <div className='home-page'>
         {(isMatch || !isSelected) && (
           <HomeSideBar
@@ -112,6 +110,6 @@ const HomePage = ({ handelLang }) => {
       <AlertShow />
     </div>
   );
-}
+};
 
-export default HomePage
+export default HomePage;
