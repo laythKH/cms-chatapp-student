@@ -76,6 +76,8 @@ const AppProvider = ({ children }) => {
     setUser(userInfo);
   }, [handleRedirect, setUser]);
 
+  //   console.log(user);
+
   const { t, i18n } = useTranslation();
 
   return (
@@ -103,6 +105,9 @@ const AppProvider = ({ children }) => {
     </AppContext.Provider>
   );
 };
+
+//   setUser(userInfo);
+// }, [handleRedirect, setUser]);
 
 const useAppContext = () => {
   return useContext(AppContext);
