@@ -18,12 +18,7 @@ const rolesOption = {
     addAndDelCourseToUser: true,
     assignment: true,
     createAssignment: true,
-<<<<<<< HEAD
-    getAllSubmitedAssignment: true,
     submitAssignment: true,
-=======
-    submitAssignment: true
->>>>>>> eae805294fc30759d4e8a2577eeee2c96fb71d75
   },
   //change premission
   manager: {
