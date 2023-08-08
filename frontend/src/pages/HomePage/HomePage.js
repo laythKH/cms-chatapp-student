@@ -87,7 +87,7 @@ const HomePage = ({ handelLang }) => {
         width: "100%",
       }}
     >
-      {(isMatch || !isSelected) && <NavBar />}
+      {(isMatch || !isSelected) && <NavBar handelLang={handelLang} />}
       <div className='home-page'>
         {(isMatch || !isSelected) && (
           <HomeSideBar

@@ -117,7 +117,7 @@ const HomeSideBar = ({ roles, setShowOption, setIsSelected }) => {
               </Accordion.Body>
             </Accordion.Item>
           )}
-          <Accordion.Item eventKey='2'>
+          <Accordion.Item eventKey='2' style={{ marginBottom: "15px" }}>
             <Accordion.Header>{t("Home.lectures.title")}</Accordion.Header>
             <Accordion.Body>
               <div
@@ -138,46 +138,9 @@ const HomeSideBar = ({ roles, setShowOption, setIsSelected }) => {
               </div>
             </Accordion.Body>
           </Accordion.Item>
-          {permissions?.course && (
-            <Accordion.Item eventKey='1' style={{ marginBottom: "15px" }}>
-              <Accordion.Header>Courses</Accordion.Header>
-              <Accordion.Body>
-                {permissions?.createCourse && (
-                  <div
-                    className='dropdown-singleCard'
-                    data-name='createCourse'
-                    ref={createCourse}
-                    onClick={() => handleShow(createCourse)}
-                  >
-                    Create Course
-                  </div>
-                )}
-                {permissions?.addAndDelCourseToUser && (
-                  <div
-                    className='dropdown-singleCard'
-                    data-name='addAndDelCourseToUser'
-                    ref={addAndDelCourseToUser}
-                    onClick={() => handleShow(addAndDelCourseToUser)}
-                  >
-                    Add & Del Course User
-                  </div>
-                )}
-                {permissions?.updateOrDeleteCourse && (
-                  <div
-                    className='dropdown-singleCard'
-                    data-name='updateOrDeleteCourse'
-                    ref={updateOrDeleteCourse}
-                    onClick={() => handleShow(updateOrDeleteCourse)}
-                  >
-                    Update & Del Course
-                  </div>
-                )}
-              </Accordion.Body>
-            </Accordion.Item>
-          )}
 
           {permissions?.assignment && (
-            <Accordion.Item eventKey='2' style={{ marginBottom: "15px" }}>
+            <Accordion.Item eventKey='3' style={{ marginBottom: "15px" }}>
               <Accordion.Header>Assignment</Accordion.Header>
               <Accordion.Body>
                 {permissions?.createAssignment && (
