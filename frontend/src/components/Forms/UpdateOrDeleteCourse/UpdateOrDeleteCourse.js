@@ -81,7 +81,7 @@ const UpdateOrDeleteCourse = () => {
         setAlertText("Course has been updated");
         setShowAlert(true);
 
-        handleSearchCourse();
+        // handleSearchCourse();
       }
     } catch (error) {
       console.log(error);
@@ -226,7 +226,9 @@ const UpdateOrDeleteCourse = () => {
     handleSearchCourse();
   }, []);
 
-  useEffect(() => {}, [searchResults, setSearchResults]);
+  useEffect(() => {
+
+  }, [searchResults, setSearchResults]);
 
   useEffect(() => {
     handleSearchTable();
