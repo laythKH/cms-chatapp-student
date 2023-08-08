@@ -161,7 +161,7 @@ const ChatSideBar = ({ handleSelected, setSelect }) => {
 
     } catch (error) {
       // console.log(error);
-      setAlertText("Failed To Get Search Result");
+      setAlertText(`${error?.response?.data?.msg} try log in again`);
       setShowAlert(true);
     }
   };
