@@ -9,7 +9,7 @@ function AlertShow() {
    useEffect(() => {
       const timer = setTimeout(() => {
          setShowAlert(false)
-      }, 1000);
+      }, 3000);
 
       return () => clearTimeout(timer);
    }, [showAlert]);
@@ -29,7 +29,7 @@ function AlertShow() {
          {alertText}
       </Alert>
 
-      );
-   }
+   );
+}
 
-   export default AlertShow;
+export default AlertShow;

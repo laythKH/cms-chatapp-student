@@ -22,8 +22,6 @@ router.route('/:id')
    .patch(protect, updateCourse)
 router.route('/search/:id')
    .get(protect, getCoursesBasedOnTeacher)
-// router.route('/:userId/courses/:courseId')
-//    .post(addCourseToUser)
-// .delete(deleteCourseFromUser)
+
 
 export default router

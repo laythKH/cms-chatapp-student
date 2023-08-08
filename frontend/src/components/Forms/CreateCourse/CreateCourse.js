@@ -2,6 +2,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 
+<<<<<<< HEAD
 import Friend from "../../Friend/Friend";
 import { useEffect, useState } from "react";
 import { Col, FloatingLabel, Image, InputGroup, Row } from "react-bootstrap";
@@ -23,6 +24,21 @@ const CreateCourse = () => {
     setShowAlert,
     user,
   } = useAppContext();
+=======
+import Friend from '../../Friend/Friend'
+import { useEffect, useState } from 'react';
+import { Col, FloatingLabel, Image, Row } from 'react-bootstrap';
+import { useAppContext } from '../../../context/appContext';
+import axios from 'axios';
+import DeleteSvg from './icons8-delete.svg'
+
+const CreateCourse = () => {
+   const [showModal, setShowModal] = useState(false)
+   const [searchInputField, setSearchInputField] = useState('')
+   const [searchResult, setSearchResult] = useState()
+   const [selectedTeacher, setSelectedTeacher] = useState()
+   const { isLoading, setIsLoading, setAlertText, setShowAlert, user } = useAppContext()
+>>>>>>> 271f4697c73514c20968e78d91e9908bb6054075
 
   const [formData, setFormData] = useState({
     name: "",
@@ -49,6 +65,7 @@ const CreateCourse = () => {
     setSearchResult([]);
   };
 
+<<<<<<< HEAD
   // Search For Mentor
   const handleSearch = async () => {
     // console.log(searchInputField);
@@ -57,10 +74,19 @@ const CreateCourse = () => {
       setShowAlert(true);
       return;
     }
+=======
+   const handleSearch = async () => {
+      if (!searchInputField) {
+         setAlertText('Please Fill The Field')
+         setShowAlert(true)
+         return
+      }
+>>>>>>> 271f4697c73514c20968e78d91e9908bb6054075
 
     try {
       setIsLoading(true);
 
+<<<<<<< HEAD
       const config = {
         headers: {
           Authorization: `Bearer ${user.token}`,
@@ -84,6 +110,23 @@ const CreateCourse = () => {
       ...prevFormData,
       teacher: singleUserResult._id,
     }));
+=======
+         const config = {
+            headers: {
+               Authorization: `Bearer ${user.token}`,
+            }
+         };
+         const { data } = await axios.get(`http://127.0.0.1:5000/api/v1/auth?search=${searchInputField}`, config)
+
+         setIsLoading(false)
+         setSearchResult(data)
+
+      } catch (error) {
+         setAlertText('Failed To Get Search Result')
+         setShowAlert(true)
+      }
+   }
+>>>>>>> 271f4697c73514c20968e78d91e9908bb6054075
 
     setSelectedTeacher(singleUserResult);
   };
@@ -110,6 +153,7 @@ const CreateCourse = () => {
     }
   };
 
+<<<<<<< HEAD
   useEffect(() => {
     console.log(selectedTeacher);
   }, [formData, setFormData, selectedTeacher]);
@@ -139,6 +183,30 @@ const CreateCourse = () => {
             placeholder={t("Home.Courses.createCourse.CourseDes")}
           />
         </Form.Group>
+=======
+         const config = {
+            headers: {
+               Authorization: `Bearer ${user.token}`,
+            }
+         };
+
+         if (formData.teacher) {
+            const { data } = await axios.post(`http://127.0.0.1:5000/api/v1/course/`, { ...formData }, config)
+         } else {
+            const { data } = await axios.post(`http://127.0.0.1:5000/api/v1/course/`, { name: formData?.name, description: formData?.description }, config)
+         }
+
+
+         setAlertText('Course Created')
+         setShowAlert(true)
+      } catch (error) {
+         setAlertText(error.response.data.msg)
+         setShowAlert(true)
+      }
+   }
+
+
+>>>>>>> 271f4697c73514c20968e78d91e9908bb6054075
 
         <Form.Group
           className='mb-3'

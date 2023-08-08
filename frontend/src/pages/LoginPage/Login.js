@@ -9,6 +9,10 @@ import loadingSvg from "./assets/Spinner-1s-200px.svg";
 import titleSvg from "./assets/Logo.png";
 import "./Login.css";
 import { useAppContext } from "../../context/appContext";
+<<<<<<< HEAD
+=======
+
+>>>>>>> 271f4697c73514c20968e78d91e9908bb6054075
 
 function Login({ alertText, setAlertText, setShow, handelLang, lang }) {
   const { t, user, setUser } = useAppContext();

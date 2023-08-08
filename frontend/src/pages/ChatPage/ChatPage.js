@@ -8,10 +8,16 @@ import ChatContent from "../../components/ChatContent/ChatContent";
 import { useAppContext } from "../../context/appContext";
 import axios from "axios";
 
+<<<<<<< HEAD
 const ChatPage = ({ handelLang }) => {
   const [select, setSelect] = useState(false);
   const { selectedChat, setSelectedChat, user, listChats, setListChats } =
     useAppContext();
+=======
+const ChatPage = () => {
+  const [select, setSelect] = useState(false)
+  const { setSelectedChat, user, listChats, setListChats} = useAppContext()
+>>>>>>> 271f4697c73514c20968e78d91e9908bb6054075
 
   // console.log(selectedChat);
 
@@ -41,9 +47,14 @@ const ChatPage = ({ handelLang }) => {
     }
   };
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 271f4697c73514c20968e78d91e9908bb6054075
   const isMatch = useMediaQuery({
     query: "(min-width: 1000px)",
   });
+  
   return (
     <>
       {(isMatch || !select) && <NavBar handelLang={handelLang} />}

@@ -19,6 +19,10 @@ const rolesOption = {
     addAndDelCourseToUser: true,
     assignment: true,
     createAssignment: true,
+<<<<<<< HEAD
+=======
+    getAllSubmitedAssignment: true,
+>>>>>>> 271f4697c73514c20968e78d91e9908bb6054075
     submitAssignment: true
   },
   //change premission
@@ -32,7 +36,8 @@ const rolesOption = {
     addAndDelCourseToUser: true,
     assignment: false,
     createAssignment: false,
-    submitAssignment: false
+    getAllSubmitedAssignment: true,
+    submitAssignment: true
   },
   teacher: {
     user: false,
@@ -44,7 +49,8 @@ const rolesOption = {
     addAndDelCourseToUser: false,
     assignment: true,
     createAssignment: true,
-    submitAssignment: false
+    getAllSubmitedAssignment: true,
+    submitAssignment: true
   },
   student: {
     user: false,
@@ -56,6 +62,7 @@ const rolesOption = {
     addAndDelCourseToUser: false,
     assignment: true,
     createAssignment: false,
+    getAllSubmitedAssignment: true,
     submitAssignment: true
   },
 };
@@ -66,22 +73,22 @@ const HomePage = ({handelLang}) => {
   const [showOption, setShowOption] = useState('')
 
   const { user, refetch, setRefetch } = useAppContext()
-
-
-
   // console.log(showNavBasedOnRole);
   const isMatch = useMediaQuery({
     query: "(min-width: 1000px)",
   });
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 271f4697c73514c20968e78d91e9908bb6054075
   useEffect(() => {
     setRefetch(!refetch)
-    console.log('refetch');
   }, [user, isMatch])
 
 
   return (
+<<<<<<< HEAD
     <div
       style={{
         display: "flex",
@@ -92,6 +99,10 @@ const HomePage = ({handelLang}) => {
       }}
     >
       <NavBar handelLang={handelLang} />
+=======
+    <div style={{ display: 'flex', position: 'relative', overflow: 'hidden', height: '100vh', width: '100%' }}>
+      {(isMatch || !isSelected) && <NavBar />}
+>>>>>>> 271f4697c73514c20968e78d91e9908bb6054075
       <div className='home-page'>
         {(isMatch || !isSelected) && (
           <HomeSideBar

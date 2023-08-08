@@ -9,8 +9,8 @@ import { BadRequestError, UnAuthenticatedError } from "../errors/index.js";
 const createCourse = async (req, res) => {
    const { name, description, teacher, assignment } = req.body
 
-   if (!name || !description) {
-      throw new BadRequestError('Please provide all value')
+   if (!name) {
+      throw new BadRequestError('Please provide course name')
    }
 
    const courseIsAlreadyExists = await Course.findOne({ name: name });
@@ -62,7 +62,7 @@ const updateCourse = async (req, res) => {
    const courseId = req.params.id;
    const newUpdates = req.body;
 
-   if (!(newUpdates?.name) || !(newUpdates?.description)) {
+   if (!(newUpdates?.name)) {
       throw new BadRequestError('Please Provide Full Value')
    }
 

@@ -138,7 +138,6 @@ const ChatSideBar = ({ handleSelected, setSelect }) => {
 
   // Search For New Friends
   const handleSearch = async () => {
-    // console.log(searchInputField);
     if (!searchInputField) {
       setAlertText("Please Fill The Field");
       setShowAlert(true);
@@ -153,15 +152,13 @@ const ChatSideBar = ({ handleSelected, setSelect }) => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
-      const { data } = await axios.get(
-        `http://127.0.0.1:5000/api/v1/auth?search=${searchInputField}`,
-        config
-      );
+      console.log('hhhhhhhhhhhhhhhhhhhhhhhhhhhhh');
+      const { data } = await axios.get(`http://127.0.0.1:5000/api/v1/auth?search=${searchInputField}`, config)
 
       console.log(data);
-      setIsLoading(false);
-      setSearchResult(data);
+      setIsLoading(false)
+      setSearchResult(data)
+
     } catch (error) {
       // console.log(error);
       setAlertText("Failed To Get Search Result");
@@ -202,7 +199,7 @@ const ChatSideBar = ({ handleSelected, setSelect }) => {
 
       // console.log(data);
       setListChats(data);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {

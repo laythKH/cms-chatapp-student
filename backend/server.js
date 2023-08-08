@@ -21,11 +21,11 @@ import cookieParser from "cookie-parser";
 import connectDB from "./db/connect.js";
 
 // routers
-import userRoutes from "./routes/userRoutes.js";
-import noteRouter from "./routes/noteRoutes.js";
-import courseRoutes from "./routes/courseRoutes.js";
-import chatRoutes from "./routes/chatRoutes.js";
-import messageRoutes from "./routes/messageRoutes.js";
+import userRoutes from './routes/userRoutes.js';
+import noteRouter from './routes/noteRoutes.js';
+import courseRoutes from './routes/courseRoutes.js';
+import chatRoutes from './routes/chatRoutes.js'
+import messageRoutes from './routes/messageRoutes.js'
 
 // middleware
 import notFoundMiddleware from "./middleware/not-found.js";
@@ -42,7 +42,7 @@ import errorHandlerMiddleware from "./middleware/error-handler.js";
 //   next();
 // });
 //=====================================================
-app.use(cors());
+app.use(cors())
 
 if (process.env.NODE_ENV !== "production") {
   app.use(morgan("dev"));
@@ -63,14 +63,21 @@ app.get("/", (req, res) => {
   res.json({ msg: "welcome" });
 });
 
-app.use("/api/v1/auth", userRoutes);
-app.use("/api/v1/note", noteRouter);
-app.use("/api/v1/course", courseRoutes);
-app.use("/api/v1/chat", chatRoutes);
-app.use("/api/v1/message", messageRoutes);
+app.get('/', (req, res) => {
+  res.json({ msg: 'welcome' })
+})
 
-app.use(notFoundMiddleware);
-app.use(errorHandlerMiddleware);
+app.use('/api/v1/auth', userRoutes)
+app.use('/api/v1/note', noteRouter)
+app.use('/api/v1/course', courseRoutes)
+app.use('/api/v1/chat', chatRoutes)
+app.use('/api/v1/message', messageRoutes)
+
+
+
+app.use(notFoundMiddleware)
+app.use(errorHandlerMiddleware)
+
 
 const port = process.env.PORT || 5000;
 
@@ -92,7 +99,7 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-  console.log("Connected to socket.io");
+  console.log('Connected to socket.io');
 
   //===============================================================================
   // numUsers++;
@@ -146,6 +153,8 @@ io.on("connection", (socket) => {
   //    io.emit('user-count', numUsers);
   // });
   //===============================================================================
+
+
 
   socket.on("setup", (userData) => {
     socket.join(userData);

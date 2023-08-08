@@ -61,21 +61,23 @@ const AppProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    localStorage.setItem("userInfo", JSON.stringify(user1));
-  });
-
-  useEffect(() => {
-    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-
+    const userInfo = JSON.parse(localStorage.getItem('userInfo'))
     if (!userInfo) {
-      handleRedirect("/login");
+      handleRedirect("/login")
     }
+    setUser(userInfo)
+    useEffect(() => {
+      localStorage.setItem("userInfo", JSON.stringify(user1));
+    });
 
-    console.log(user);
+    useEffect(() => {
+      const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
-    setUser(userInfo);
-  }, [handleRedirect, setUser]);
+      if (!userInfo) {
+        handleRedirect("/login");
+      }
 
+<<<<<<< HEAD
   const { t, i18n } = useTranslation();
 
   return (
@@ -103,9 +105,39 @@ const AppProvider = ({ children }) => {
     </AppContext.Provider>
   );
 };
+=======
+      console.log(user);
+>>>>>>> 271f4697c73514c20968e78d91e9908bb6054075
 
-const useAppContext = () => {
-  return useContext(AppContext);
-};
+      setUser(userInfo);
+    }, [handleRedirect, setUser]);
 
-export { AppProvider, useAppContext };
+    return (
+      <AppContext.Provider
+        value={{
+          user,
+          setUser,
+          showAlert,
+          setShowAlert,
+          alertText,
+          setAlertText,
+          isLoading,
+          setIsLoading,
+          selectedChat,
+          setSelectedChat,
+          listChats,
+          setListChats,
+          refetch,
+          setRefetch,
+        }}
+      >
+        {children}
+      </AppContext.Provider>
+    );
+  };
+
+  const useAppContext = () => {
+    return useContext(AppContext);
+  };
+
+  export { AppProvider, useAppContext };
