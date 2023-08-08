@@ -33,6 +33,7 @@ const CreateUser = ({ userInfo, isUpdate = false, setShowUserInfo }) => {
   };
 
   const createUser = async () => {
+<<<<<<< HEAD
     const {
       firstName,
       lastName,
@@ -48,6 +49,13 @@ const CreateUser = ({ userInfo, isUpdate = false, setShowUserInfo }) => {
       setAlertText("Please Fill FirstName && LastName && Role");
       setShowAlert(true);
       return;
+=======
+    const { firstName, lastName, name, email, city, phoneNumber, dateOfBirth, gender, role } = formData
+    if (!firstName || !lastName || !role) {
+      setAlertText('Please Fill FirstName && LastName && Role')
+      setShowAlert(true)
+      return
+>>>>>>> 7a6b414d4fc21b14418adc190454a9a48bde7dae
     }
 
     try {
@@ -262,8 +270,8 @@ const CreateUser = ({ userInfo, isUpdate = false, setShowUserInfo }) => {
             ? "Loading..."
             : "Update Info"
           : isLoading
-          ? "Loading..."
-          : t("Home.User.createUser.createUser")}
+            ? "Loading..."
+            : t("Home.User.createUser.createUser")}
       </Button>
     </Form>
   );
