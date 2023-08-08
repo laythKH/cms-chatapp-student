@@ -43,21 +43,17 @@ const UpdateOrDeleteCourse = () => {
     setSearchModalResult();
   };
 
-<<<<<<< HEAD
   const handleShowModal = (singleCourse) => {
     setModalInfoValue(singleCourse);
     setShowModal(true);
   };
-=======
-   const handleChange = (event) => {
-      const { name, value } = event.target;
-      setModalInfoValue((prevFormData) => ({
-         ...prevFormData,
-         [name]: value,
-      }));
-   };
-
->>>>>>> 271f4697c73514c20968e78d91e9908bb6054075
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setModalInfoValue((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
 
   const handleSearchCourse = async () => {
     try {
@@ -73,27 +69,19 @@ const UpdateOrDeleteCourse = () => {
       );
       console.log(data);
 
-<<<<<<< HEAD
       if (data) {
         setSearchCourseResult(data);
         setSearchResults(data);
-=======
-         console.log(data);
+        console.log(data);
 
-         setShowModal(false)
-         setSearchInputFieldModal('')
-         setViewSearchBar(false)
-         setSearchModalResult()
-         setAlertText('Course has been updated')
-         setShowAlert(true)
+        setShowModal(false);
+        setSearchInputFieldModal("");
+        setViewSearchBar(false);
+        setSearchModalResult();
+        setAlertText("Course has been updated");
+        setShowAlert(true);
 
-         handleSearchCourse()
-
-      } catch (error) {
-         console.log('=====================');
-         console.log(error);
-         // Handle error response
->>>>>>> 271f4697c73514c20968e78d91e9908bb6054075
+        handleSearchCourse();
       }
     } catch (error) {
       console.log(error);
@@ -348,7 +336,9 @@ const UpdateOrDeleteCourse = () => {
               className='mb-3'
               controlId='exampleForm.ControlTextarea1'
             >
-              <Form.Label>{t("Home.Courses.UpdateCourse.modal.courseDes")}</Form.Label>
+              <Form.Label>
+                {t("Home.Courses.UpdateCourse.modal.courseDes")}
+              </Form.Label>
               <Form.Control
                 as='textarea'
                 rows={3}
@@ -429,7 +419,6 @@ const UpdateOrDeleteCourse = () => {
                     isGroupCard={false}
                     handleSelected={() => handleSelectTeacherModal(item)}
                   />
-<<<<<<< HEAD
                 </div>
               ))}
           </Form>
@@ -454,117 +443,3 @@ const UpdateOrDeleteCourse = () => {
 };
 
 export default UpdateOrDeleteCourse;
-=======
-               </InputGroup.Text>
-            </InputGroup>
-         </div>
-         <Table striped="columns" className="styled-table">
-            <thead>
-               <tr>
-                  <th style={{ width: '10px !important' }} >#</th>
-                  <th>name</th>
-                  <th>description</th>
-                  <th>mentor</th>
-                  <th>Update</th>
-                  <th>Delete</th>
-               </tr>
-            </thead>
-            <tbody>
-               {searchResults?.map((singleCourse, idx) => (
-                  <tr key={idx + singleCourse?.name}>
-                     <td style={{ width: '10px' }}>{idx + 1}</td>
-                     <td>{singleCourse?.name}</td>
-                     <td>{singleCourse?.description.slice(0, 20)}...</td>
-                     <td>{singleCourse?.teacher?.name}</td>
-                     <td><Button variant="outline-success" onClick={() => handleShowModal(singleCourse)}>Update</Button></td>
-                     <td><Button variant="danger" onClick={() => handleDeleteCourse(singleCourse)}>Delete</Button></td>
-                  </tr>
-               ))}
-            </tbody>
-            <tfoot>
-
-            </tfoot>
-         </Table>
-
-
-         <Modal show={showModal} onHide={hideModal}>
-            <Modal.Header closeButton>
-               <Modal.Title>Modal heading</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-               <Form>
-                  <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                     <Form.Label>Course Title</Form.Label>
-                     <Form.Control
-                        type="text"
-                        placeholder="Course name.."
-                        name='name'
-                        value={modalInfoValue?.name}
-                        onChange={handleChange}
-                     />
-                  </Form.Group>
-                  <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                     <Form.Label>Course Description</Form.Label>
-                     <Form.Control
-                        as="textarea"
-                        rows={3}
-                        name='description'
-                        value={modalInfoValue?.description}
-                        onChange={handleChange}
-                     />
-                  </Form.Group>
-                  {modalInfoValue?.teacher && (
-                     <Row style={{ alignItems: 'center' }}>
-                        <Col lg={10} xl={10}>
-                           <Friend singleUserResult={modalInfoValue?.teacher} isGroupCard={true} />
-                        </Col>
-                        <Col lg={2} xl={2}>
-                           <div style={{ backgroundColor: '#e57373', borderRadius: '8px', display: 'flex', justifyContent: 'center' }}>
-                              <Image src={deleteSvg} width='50px' onClick={handleDeleteTeacher} />
-                           </div>
-                        </Col>
-                     </Row>
-                  )}
-                  {(!(modalInfoValue?.teacher) && !viewSearchBar) && (
-                     <Button style={{ width: '100%', fontWeight: '600', letterSpacing: '7px', backgroundColor: '#26A69A', borderColor: '#3949AB' }} onClick={() => setViewSearchBar(true)}>Add Teacher</Button>
-                  )}
-                  {viewSearchBar && (
-                     <Row className="align-items-center">
-                        <Col xs={12} md={10} style={{ paddingBottom: '15px' }}>
-                           <FloatingLabel
-                              controlId="floatingInput"
-                              label="Mentor Number OR Name"
-                           >
-                              <Form.Control type="text"
-                                 value={searchInputFieldModal}
-                                 onChange={(e) => setSearchInputFieldModal(e.target.value)}
-                              />
-                           </FloatingLabel>
-                        </Col>
-                        <Col xs={12} md={2} style={{ paddingBottom: '15px' }}>
-                           <Button variant="secondary" size="lg" style={{ width: '100%', fontWeight: 'bold' }} onClick={handleSearchModal}>
-                              GO
-                           </Button>
-                        </Col>
-                     </Row>
-                  )}
-                  {searchModalResult && searchModalResult?.map((item) => (
-                     <div>
-                        <Friend singleUserResult={item} isGroupCard={false} handleSelected={() => handleSelectTeacherModal(item)} />
-                     </div>
-                  ))}
-               </Form>
-            </Modal.Body>
-            <Modal.Footer>
-               <Button style={{ width: '100%', fontWeight: '600', letterSpacing: '7px', backgroundColor: '#3F51B5', borderColor: '#3949AB' }} onClick={() => handleUpdateCourse(modalInfoValue)}>Update Value</Button>
-            </Modal.Footer>
-         </Modal>
-
-
-
-      </>
-   )
-}
-
-export default UpdateOrDeleteCourse
->>>>>>> 271f4697c73514c20968e78d91e9908bb6054075
