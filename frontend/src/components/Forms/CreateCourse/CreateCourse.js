@@ -92,77 +92,29 @@ const CreateCourse = () => {
       const config = {
         headers: {
           Authorization: `Bearer ${user.token}`,
-        },
+        }
       };
-      const { data } = await axios.post(
-        `http://127.0.0.1:5000/api/v1/course/`,
-        { ...formData },
-        config
-      );
 
-      setAlertText("Course Created");
-      setShowAlert(true);
+      if (formData.teacher) {
+        const { data } = await axios.post(`http://127.0.0.1:5000/api/v1/course/`, { ...formData }, config)
+      } else {
+        const { data } = await axios.post(`http://127.0.0.1:5000/api/v1/course/`, { name: formData?.name, description: formData?.description }, config)
+      }
+
+
+      setAlertText('Course Created')
+      setShowAlert(true)
     } catch (error) {
-      setAlertText(error.response.data.msg);
-      setShowAlert(true);
+      setAlertText(error.response.data.msg)
+      setShowAlert(true)
     }
   };
 
-<<<<<<< HEAD
-  useEffect(() => {
-    console.log(selectedTeacher);
-  }, [formData, setFormData, selectedTeacher]);
+
 
   return (
     <>
-      <Form style={{ padding: "20px 0" }}>
-        <Form.Group className='mb-3' controlId='formGridAddress1'>
-          <Form.Label>{t("Home.Courses.createCourse.courseName")}: </Form.Label>
-          <Form.Control
-            type='text'
-            name='name'
-            value={formData.name}
-            onChange={handleChange}
-            placeholder={t("Home.Courses.createCourse.courseName")}
-          />
-        </Form.Group>
-
-        <Form.Group className='mb-3' controlId='exampleForm.ControlTextarea1'>
-          <Form.Label>{t("Home.Courses.createCourse.CourseDes")}</Form.Label>
-          <Form.Control
-            as='textarea'
-            rows={3}
-            name='description'
-            value={formData.description}
-            onChange={handleChange}
-            placeholder={t("Home.Courses.createCourse.CourseDes")}
-          />
-        </Form.Group>
-=======
-         const config = {
-          headers: {
-          Authorization: `Bearer ${user.token}`,
-            }
-         };
-
-        if (formData.teacher) {
-            const {data} = await axios.post(`http://127.0.0.1:5000/api/v1/course/`, {...formData}, config)
-         } else {
-            const {data} = await axios.post(`http://127.0.0.1:5000/api/v1/course/`, {name: formData?.name, description: formData?.description }, config)
-         }
-
-
-        setAlertText('Course Created')
-        setShowAlert(true)
-      } catch (error) {
-          setAlertText(error.response.data.msg)
-         setShowAlert(true)
-      }
-   }
-
-
->>>>>>> 271f4697c73514c20968e78d91e9908bb6054075
-
+      <Form>
         <Form.Group
           className='mb-3'
           controlId='exampleForm.ControlTextarea1'
