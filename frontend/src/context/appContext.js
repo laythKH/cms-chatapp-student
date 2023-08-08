@@ -20,63 +20,46 @@ const AppProvider = ({ children }) => {
   const [listChats, setListChats] = useState([]);
   const [refetch, setRefetch] = useState(false);
 
-  // console.log(user || 'user');
-
-  const defaultValue = {
-    _id: "648f36d1a19039c85a133b8b",
-    email: "salim@gmail.com",
-    name: "salim Alkhouy",
-    picture:
-      "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
-    role: "admin",
-    token:
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OGYzNmQxYTE5MDM5Yzg1YTEzM2I4YiIsImlhdCI6MTY4NzQ0MjcxMCwiZXhwIjoxNjg3NTI5MTEwfQ.k7C8mVb2Wq3kfp9TfcPc8u7RQjhrD_Sc4URm_74agZ4",
-  };
-
-  const history = createBrowserHistory();
-
-  // const handleRedirect = useCallback((path) => {
-  //    history.push(path);
-  // }, [history]);
-
   const handleRedirect = useCallback((path) => {
     if (window.location.pathname !== path) {
       window.location.href = path;
     }
   }, []);
-
-  const user1 = {
-    _id: 938591985092,
-    name: "mario abood",
-    firstName: "mario",
-    lastName: "abood",
-    phoneNumber: "0000000000",
-    studentNumber: "1020001",
-    picture: "",
-    gender: "male",
-    password: "300200100",
-    role: "admin",
-    courses: [],
-    dateOfBirth: "",
-  };
-
+  // const user1 = {
+  //   _id: 938591985092,
+  //   name: "mario abood",
+  //   firstName: "mario",
+  //   lastName: "abood",
+  //   phoneNumber: "0000000000",
+  //   studentNumber: "1020001",
+  //   picture: "",
+  //   gender: "male",
+  //   password: "300200100",
+  //   role: "admin",
+  //   courses: [],
+  //   dateOfBirth: "",
+  // };
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem('userInfo'))
     if (!userInfo) {
       handleRedirect("/login")
     }
     setUser(userInfo)
-    useEffect(() => {
-      localStorage.setItem("userInfo", JSON.stringify(user1));
-    });
+  }, [])
+  // useEffect(() => {
+  //   localStorage.setItem("userInfo", JSON.stringify(user1));
+  // });
 
-    useEffect(() => {
-      const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  // useEffect(() => {
+  //   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
-      if (!userInfo) {
-        handleRedirect("/login");
-      }
+  //   if (!userInfo) {
+  //     handleRedirect("/login");
+  //   }
 
+<<<<<<< HEAD
+  //   console.log(user);
+=======
 <<<<<<< HEAD
   const { t, i18n } = useTranslation();
 
@@ -108,36 +91,37 @@ const AppProvider = ({ children }) => {
 =======
       console.log(user);
 >>>>>>> 271f4697c73514c20968e78d91e9908bb6054075
+>>>>>>> cf35db2b5c5fee2162db245c47be9820a715d7f9
 
-      setUser(userInfo);
-    }, [handleRedirect, setUser]);
+  //   setUser(userInfo);
+  // }, [handleRedirect, setUser]);
 
-    return (
-      <AppContext.Provider
-        value={{
-          user,
-          setUser,
-          showAlert,
-          setShowAlert,
-          alertText,
-          setAlertText,
-          isLoading,
-          setIsLoading,
-          selectedChat,
-          setSelectedChat,
-          listChats,
-          setListChats,
-          refetch,
-          setRefetch,
-        }}
-      >
-        {children}
-      </AppContext.Provider>
-    );
-  };
+  return (
+    <AppContext.Provider
+      value={{
+        user,
+        setUser,
+        showAlert,
+        setShowAlert,
+        alertText,
+        setAlertText,
+        isLoading,
+        setIsLoading,
+        selectedChat,
+        setSelectedChat,
+        listChats,
+        setListChats,
+        refetch,
+        setRefetch,
+      }}
+    >
+      {children}
+    </AppContext.Provider>
+  );
+};
 
-  const useAppContext = () => {
-    return useContext(AppContext);
-  };
+const useAppContext = () => {
+  return useContext(AppContext);
+};
 
-  export { AppProvider, useAppContext };
+export { AppProvider, useAppContext };
