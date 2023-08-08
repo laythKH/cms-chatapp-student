@@ -13,6 +13,8 @@ const HomeSideBar = ({ roles, setShowOption, setIsSelected }) => {
   const createCourse = useRef();
   const addAndDelCourseToUser = useRef();
   const updateOrDeleteCourse = useRef();
+  const showLectures = useRef();
+  const addLectures = useRef();
 
   const NavBarBasedOnUserRole = () => {
     const role = user?.role;
@@ -27,6 +29,8 @@ const HomeSideBar = ({ roles, setShowOption, setIsSelected }) => {
       createCourse,
       addAndDelCourseToUser,
       updateOrDeleteCourse,
+      addLectures,
+      showLectures,
     ];
     all.map((ele) => ele.current.classList.remove("selected"));
     s.current.classList.add("selected");
@@ -72,7 +76,7 @@ const HomeSideBar = ({ roles, setShowOption, setIsSelected }) => {
             </Accordion.Item>
           )}
           {permissions?.course && (
-            <Accordion.Item eventKey='1'>
+            <Accordion.Item eventKey='1' style={{ marginBottom: "15px" }}>
               <Accordion.Header>{t("Home.Courses.title")}</Accordion.Header>
               <Accordion.Body>
                 {permissions?.createCourse && (
@@ -108,6 +112,27 @@ const HomeSideBar = ({ roles, setShowOption, setIsSelected }) => {
               </Accordion.Body>
             </Accordion.Item>
           )}
+          <Accordion.Item eventKey='2'>
+            <Accordion.Header>{t("Home.lectures.title")}</Accordion.Header>
+            <Accordion.Body>
+              <div
+                className='dropdown-singleCard'
+                data-name='updateOrDeleteCourse'
+                ref={addLectures}
+                onClick={() => handleShow(addLectures)}
+              >
+                {t("Home.lectures.addLectures")}
+              </div>
+              <div
+                className='dropdown-singleCard'
+                data-name='updateOrDeleteCourse'
+                ref={showLectures}
+                onClick={() => handleShow(showLectures)}
+              >
+                {t("Home.lectures.showLectures")}
+              </div>
+            </Accordion.Body>
+          </Accordion.Item>
         </Accordion>
       </div>
     </div>

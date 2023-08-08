@@ -49,7 +49,7 @@
         "addMentorBtn": "Add Mentor",
         "create": "create",
         "courseModal": {
-          "title": "Search For Mentoق",
+          "title": "Search For Mentor",
           "input": "Mentor Number OR Name",
           "btn": "Go",
           "modalFooter": "Click Any Where to Close"
@@ -80,6 +80,44 @@
           "updateBtn": "Update Value"
         }
       }
+    },
+    "lectures": {
+      "title": "lectures",
+      "addLectures": "Add lectures",
+      "showLectures": "Show Lectures"
+    }
+  },
+  "Chat": {
+    "title": "Messages",
+    "addPerson": {
+      "title": "Add Person",
+      "modal": {
+        "title": "Searching For Friends",
+        "input": "Student Number OR Name",
+        "Go": "Go",
+        "modalFooter": "Click Any Where to Close"
+      }
+    },
+    "createGroup": {
+      "title": "Create Group",
+      "modal": {
+        "input1": "Group Name",
+        "input2": "Add Users",
+        "createGroup": "Create",
+        "modalFooter": "Click Any Where to Close"
+      }
+    }
+  },
+  "Setting": {
+    "title": "Setting",
+    "generalSetting": {
+      "title": "General Setting"
+    },
+    "personalInfo": {
+      "title": "Personal Info"
+    },
+    "changePassword": {
+      "title": "Change Password"
     }
   }
 }

@@ -39,8 +39,8 @@ const App = () => {
           path='/login'
           element={<FormPage lang={lang} handelLang={handelLang} />}
         />
-        <Route path='/chat' element={<ChatPage />} />
-        <Route path='/setting' element={<Setting />} />
+        <Route path='/chat' element={<ChatPage handelLang={handelLang} />} />
+        <Route path='/setting' element={<Setting handelLang={handelLang} />} />
         <Route path='*' element={<Error />} />
       </Routes>
     </div>

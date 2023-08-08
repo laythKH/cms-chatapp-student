@@ -79,6 +79,44 @@
           "updateBtn": "تعديل"
         }
       }
+    },
+    "lectures": {
+      "title": "المحاضرات",
+      "addLectures": "اضافة محاضرات",
+      "showLectures": "عرض المحاضرات"
+    }
+  },
+  "Chat": {
+    "title": "الرسائل",
+    "addPerson": {
+      "title": "إضافة شخص",
+      "modal": {
+        "title": "البحث عن أصدقاء",
+        "input": "رقم الشخص أو اسمه",
+        "Go": "بحث",
+        "modalFooter": "اضغط على اي مكان للخروج"
+      }
+    },
+    "createGroup": {
+      "title": "انشاء مجموعة",
+      "modal": {
+        "input1": "اسم المجموعة",
+        "input2": "إضافة أعضاء",
+        "createGroup": "إنشاء",
+        "modalFooter": "اضغط على اي مكان للخروج"
+      }
+    }
+  },
+  "Setting": {
+    "title": "الإعدادات",
+    "generalSetting": {
+      "title": "الإعدادات العامة"
+    },
+    "personalInfo": {
+      "title": "المعلومات الشخصية"
+    },
+    "changePassword": {
+      "title": "تغيير كلمة المرور"
     }
   }
 }

@@ -1,11 +1,14 @@
 import React, { useRef, useState } from "react";
 import "./SettingSideBar.css";
+import { useAppContext } from "../../context/appContext";
 
 function SettingSideBar({ setChangeSettingContent, setIsSelected }) {
   // const [isSelected, setIsSelected] = useState(false);
   const general = useRef();
   const info = useRef();
   const password = useRef();
+
+  const { t } = useAppContext();
 
   function handelSetting(option) {
     let all = [general, info, password];
@@ -18,7 +21,7 @@ function SettingSideBar({ setChangeSettingContent, setIsSelected }) {
   return (
     <div className={`sidebar`}>
       <div className='sidebar-header'>
-        <h3>Setting</h3>
+        <h3>{t("Setting.title")}</h3>
       </div>
       <div className='friends-container-holder'>
         <div className='upper-style'></div>
@@ -29,17 +32,17 @@ function SettingSideBar({ setChangeSettingContent, setIsSelected }) {
             onClick={() => handelSetting(general)}
             ref={general}
           >
-            General Setting
+            {t("Setting.generalSetting.title")}
           </h5>
           <h5 data-name='info' onClick={() => handelSetting(info)} ref={info}>
-            Personal Info
+            {t("Setting.personalInfo.title")}
           </h5>
           <h5
             data-name='password'
             onClick={() => handelSetting(password)}
             ref={password}
           >
-            Change Password
+            {t("Setting.changePassword.title")}
           </h5>
         </div>
       </div>
