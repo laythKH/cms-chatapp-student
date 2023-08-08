@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 
 import Friend from '../../Friend/Friend'
 import { useEffect, useState } from 'react';
-import { Col, FloatingLabel, Image, InputGroup, Row } from 'react-bootstrap';
+import { Col, FloatingLabel, Image, Row } from 'react-bootstrap';
 import { useAppContext } from '../../../context/appContext';
 import axios from 'axios';
 import DeleteSvg from './icons8-delete.svg'
@@ -14,7 +14,7 @@ const CreateCourse = () => {
    const [searchInputField, setSearchInputField] = useState('')
    const [searchResult, setSearchResult] = useState()
    const [selectedTeacher, setSelectedTeacher] = useState()
-   const { isLoading, setIsLoading, setAlertText, alertText, setShowAlert, user } = useAppContext()
+   const { isLoading, setIsLoading, setAlertText, setShowAlert, user } = useAppContext()
 
    const [formData, setFormData] = useState({
       name: '',
@@ -41,9 +41,7 @@ const CreateCourse = () => {
       setSearchResult([])
    }
 
-   // Search For Mentor
    const handleSearch = async () => {
-      // console.log(searchInputField);
       if (!searchInputField) {
          setAlertText('Please Fill The Field')
          setShowAlert(true)
@@ -58,15 +56,12 @@ const CreateCourse = () => {
                Authorization: `Bearer ${user.token}`,
             }
          };
-         console.log('hhhhhhhhhhhhhhhhhhhhhhhhhhhhh');
          const { data } = await axios.get(`http://127.0.0.1:5000/api/v1/auth?search=${searchInputField}`, config)
 
-         console.log(data);
          setIsLoading(false)
          setSearchResult(data)
 
       } catch (error) {
-         // console.log(error);
          setAlertText('Failed To Get Search Result')
          setShowAlert(true)
       }
@@ -90,21 +85,23 @@ const CreateCourse = () => {
                Authorization: `Bearer ${user.token}`,
             }
          };
-         console.log('hhhhhhhhhhhhhhhhhhhhhhhhhhhhh');
-         const { data } = await axios.post(`http://127.0.0.1:5000/api/v1/course/`, { ...formData }, config)
+
+         if (formData.teacher) {
+            const { data } = await axios.post(`http://127.0.0.1:5000/api/v1/course/`, { ...formData }, config)
+         } else {
+            const { data } = await axios.post(`http://127.0.0.1:5000/api/v1/course/`, { name: formData?.name, description: formData?.description }, config)
+         }
+
 
          setAlertText('Course Created')
          setShowAlert(true)
-         // console.log(data);
       } catch (error) {
          setAlertText(error.response.data.msg)
          setShowAlert(true)
       }
    }
 
-   useEffect(() => {
-      console.log(selectedTeacher);
-   }, [formData, setFormData, selectedTeacher])
+
 
    return (
       <>

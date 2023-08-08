@@ -27,6 +27,8 @@ import noteRouter from './routes/noteRoutes.js';
 import courseRoutes from './routes/courseRoutes.js';
 import chatRoutes from './routes/chatRoutes.js'
 import messageRoutes from './routes/messageRoutes.js'
+import taskRoutes from './routes/taskRoutes.js'
+import submissionTaskRoutes from './routes/submissionTaskRouter.js'
 
 // middleware
 import notFoundMiddleware from './middleware/not-found.js';
@@ -45,6 +47,8 @@ import errorHandlerMiddleware from './middleware/error-handler.js';
 //   next();
 // });
 //=====================================================
+
+
 app.use(cors())
 
 if (process.env.NODE_ENV !== 'production') {
@@ -64,7 +68,11 @@ app.use(cookieParser());
 
 
 app.get('/', (req, res) => {
-   res.json({ msg: 'welcome' })
+   res.send(`
+         <div style="height:100vh; display:flex; justify-content: center; align-items: center;">
+            <h1>Welcome to CMS API SYS</h1>
+         </div>
+         `)
 })
 
 app.use('/api/v1/auth', userRoutes)
@@ -72,7 +80,8 @@ app.use('/api/v1/note', noteRouter)
 app.use('/api/v1/course', courseRoutes)
 app.use('/api/v1/chat', chatRoutes)
 app.use('/api/v1/message', messageRoutes)
-
+app.use('/api/v1/task', taskRoutes)
+app.use('/api/v1/solution', submissionTaskRoutes)
 
 
 app.use(notFoundMiddleware)
@@ -99,62 +108,6 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-   console.log('Connected to socket.io');
-
-   //===============================================================================
-   // numUsers++;
-
-   // io.emit('user-count', numUsers);
-
-   // socket.on('login', async ({ collageNumber, password }) => {
-   //    // Check if the user is already logged in
-   //    if (socket.collageNumber) {
-   //       socket.emit('login-error', { message: 'You are already logged in' });
-   //       return;
-   //    }
-   //    console.log('inside the login socket');
-   //    // Check if the maximum number of users has been reached
-   //    if (numUsers >= MAX_USERS) {
-   //       socket.emit('login-error', { message: 'Maximum number of users reached' });
-   //       return;
-   //    }
-
-   //    // Authenticate the user
-   //    const user = await authenticateUser(collageNumber, password);
-   //    console.log(user);
-   //    if (!user) {
-   //       socket.emit('login-error', { message: 'Invalid credentials' });
-   //       return;
-   //    }
-
-   //    // Set the collageNumber property on the socket object
-   //    socket.collageNumber = collageNumber;
-
-   //    // Emit a login-success event to the client
-   //    socket.emit('login-success', { user });
-
-   //    // Update the user count and broadcast it to all clients
-   //    console.log(numUsers);
-   //    numUsers++;
-
-   //    io.emit('user-count', numUsers);
-   // });
-
-   // socket.on('logout', () => {
-   //    // Your logout code goes here
-
-   //    numUsers--;
-   //    io.emit('user-count', numUsers);
-   // });
-
-   // socket.on('disconnect', () => {
-   //    console.log('A user disconnected');
-   //    numUsers--;
-   //    io.emit('user-count', numUsers);
-   // });
-   //===============================================================================
-
-
 
    socket.on("setup", (userData) => {
       socket.join(userData);

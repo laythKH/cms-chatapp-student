@@ -7,6 +7,9 @@ import { Button, Image } from 'react-bootstrap';
 
 import backArrowSvg from './back-arrow.svg'
 import UpdateOrDeleteCourse from '../Forms/UpdateOrDeleteCourse/UpdateOrDeleteCourse';
+import CreateAssignment from '../Forms/CreateAssignment/CreateAssignment';
+import SubmitedAssignment from '../Forms/SubmitedAssignment/SubmitedAssignment';
+import SubmitAssignment from '../Forms/SubmitAssignment/SubmitAssignment';
 
 const HomeContent = ({ showOption, roles, setIsSelected, isSelected, isMatch }) => {
 
@@ -29,6 +32,9 @@ const HomeContent = ({ showOption, roles, setIsSelected, isSelected, isMatch }) 
         {showOption === 'createCourse' && <CreateCourse />}
         {showOption === 'addAndDelCourseToUser' && <AddRemoveCourseUser />}
         {showOption === 'updateOrDeleteCourse' && <UpdateOrDeleteCourse />}
+        {showOption === 'createAssignment' && <CreateAssignment />}
+        {showOption === 'getAllSubmitedAssignment' && <SubmitedAssignment />}
+        {showOption === 'submitAssignment' && <SubmitAssignment />}
       </div>
     </div>
   )

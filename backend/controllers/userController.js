@@ -14,53 +14,34 @@ const getNextUserNumber = async () => {
 }
 
 const register = async (req, res) => {
-   const { name, email, role, firstName, lastName, gender, dateOfBirth, phoneNumber } = req.body
-   // console.log(firstName, lastName, collageNumber, email, role);
-   // if (!name || !studentNumber || !email || !role) {
+   const { name, email, role, firstName, lastName, gender, dateOfBirth, phoneNumber
+   } = req?.body
    if (!name || !role) {
       throw new BadRequestError('Please provide all value')
    }
-
    const userAlreadyExists = await User.findOne({ name })
    if (userAlreadyExists) {
       throw new BadRequestError('User already exists')
    }
-
    const studentNumber = await getNextUserNumber();
-   // console.log(studentNumber);
-
    const user = await User.create({ firstName, lastName, name, email, role, studentNumber, phoneNumber, gender, dateOfBirth })
-
    const token = user.createJWT()
-
-   // res
-   //    .status(StatusCodes.OK)
-   //    .json({
-   //       _id: user._id,
-   //       name: user.name,
-   //       email: user.email,
-   //       studentNumber: user.studentNumber,
-   //       token,
-   //       role: user.role
-   //    })
-
    res
       .status(StatusCodes.OK)
       .json({
-         _id: user._id,
-         studentNumber: user.studentNumber,
-         name: user.name,
-         email: user.email,
-         picture: user.picture,
-         role: user.role,
-         firstName: user.firstName,
-         lastName: user.lastName,
-         dateOfBirth: user.dateOfBirth,
-         phoneNumber: user.phoneNumber,
-         gender: user.gender,
+         _id: user?._id,
+         studentNumber: user?.studentNumber,
+         name: user?.name,
+         email: user?.email,
+         picture: user?.picture,
+         role: user?.role,
+         firstName: user?.firstName,
+         lastName: user?.lastName,
+         dateOfBirth: user?.dateOfBirth,
+         phoneNumber: user?.phoneNumber,
+         gender: user?.gender,
          token: token
       })
-
 }
 
 const login = async (req, res) => {

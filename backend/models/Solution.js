@@ -12,7 +12,7 @@ const solutionSchema = new mongoose.Schema({
    },
    status: {
       type: String,
-      enum: ['Pending', 'Approved'],
+      enum: ['Pending', 'Approved', 'OutOfDate', 'Rejected'],
       default: 'Pending'
    },
    student: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },

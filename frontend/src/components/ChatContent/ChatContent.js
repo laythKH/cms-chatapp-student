@@ -2,11 +2,9 @@ import React, { useEffect, useState } from "react";
 import { io } from 'socket.io-client';
 import "./ChatContent.css";
 import Image from "react-bootstrap/Image";
-import DarkImage from "./193331.jpg";
 import Form from "react-bootstrap/Form";
 import Logo from "./193331.jpg";
 import { Button, Col, FloatingLabel, InputGroup, Modal, Row } from "react-bootstrap";
-import Sender from "./Sender/Sender";
 import { useAppContext } from "../../context/appContext";
 import moreInfoIcon from './more-info-icon.svg'
 import Friend from '../Friend/Friend'

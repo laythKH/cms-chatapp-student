@@ -25,6 +25,14 @@ const UpdateOrDeleteCourse = () => {
 
    const { user, setAlertText, setShowAlert } = useAppContext()
 
+   const handleChange = (event) => {
+      const { name, value } = event.target;
+      setModalInfoValue((prevFormData) => ({
+         ...prevFormData,
+         [name]: value,
+      }));
+   };
+
 
    const hideModal = () => {
       setShowModal(false)
@@ -158,6 +166,7 @@ const UpdateOrDeleteCourse = () => {
          handleSearchCourse()
 
       } catch (error) {
+         console.log('=====================');
          console.log(error);
          // Handle error response
       }
@@ -257,7 +266,7 @@ const UpdateOrDeleteCourse = () => {
                ))}
             </tbody>
             <tfoot>
-               asdsssssssss
+
             </tfoot>
          </Table>
 
@@ -273,7 +282,9 @@ const UpdateOrDeleteCourse = () => {
                      <Form.Control
                         type="text"
                         placeholder="Course name.."
+                        name='name'
                         value={modalInfoValue?.name}
+                        onChange={handleChange}
                      />
                   </Form.Group>
                   <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
@@ -281,7 +292,9 @@ const UpdateOrDeleteCourse = () => {
                      <Form.Control
                         as="textarea"
                         rows={3}
+                        name='description'
                         value={modalInfoValue?.description}
+                        onChange={handleChange}
                      />
                   </Form.Group>
                   {modalInfoValue?.teacher && (

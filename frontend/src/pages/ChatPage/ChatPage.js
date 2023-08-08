@@ -10,7 +10,7 @@ import axios from "axios";
 
 const ChatPage = () => {
   const [select, setSelect] = useState(false)
-  const {selectedChat, setSelectedChat, user, listChats, setListChats} = useAppContext()
+  const { setSelectedChat, user, listChats, setListChats} = useAppContext()
 
   // console.log(selectedChat);
 
@@ -41,12 +41,10 @@ const ChatPage = () => {
   };
 
 
-
-
-
   const isMatch = useMediaQuery({
     query: "(min-width: 1000px)",
   });
+  
   return (
     <>
       {(isMatch || !select) && <NavBar />}

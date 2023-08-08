@@ -9,7 +9,7 @@ import loadingSvg from "./assets/Spinner-1s-200px.svg";
 import titleSvg from "./assets/Dual Ball-1s-200px (1).svg";
 import "./Login.css";
 import { useAppContext } from "../../context/appContext";
-import { useSocketContext } from "../../context/socketContext";
+
 
 
 function Login({ alertText, setAlertText, setShow }) {

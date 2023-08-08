@@ -14,6 +14,9 @@ const HomeSideBar = ({ roles, setShowOption, setIsSelected }) => {
   const createCourse = useRef()
   const addAndDelCourseToUser = useRef()
   const updateOrDeleteCourse = useRef()
+  const createAssignment = useRef()
+  const getAllSubmitedAssignment = useRef()
+  const submitAssignment = useRef()
 
   const NavBarBasedOnUserRole = () => {
     const role = user?.role;
@@ -23,12 +26,11 @@ const HomeSideBar = ({ roles, setShowOption, setIsSelected }) => {
 
 
   const handleShow = (s) => {
-    let all = [createUser, searchForUser, createCourse, addAndDelCourseToUser, updateOrDeleteCourse];
-    all.map((ele) => ele.current.classList.remove("selected"));
+    let all = [createUser, searchForUser, createCourse, addAndDelCourseToUser, updateOrDeleteCourse, createAssignment, getAllSubmitedAssignment, submitAssignment];
+    all.map((ele) => ele?.current?.classList?.remove("selected"));
     s.current.classList.add("selected");
     setShowOption(s.current.dataset.name)
     setIsSelected(true)
-    // console.log(`showOption :::  ${s.current.dataset.name}`);
   }
 
 
@@ -62,7 +64,7 @@ const HomeSideBar = ({ roles, setShowOption, setIsSelected }) => {
               }
             </Accordion.Body>
           </Accordion.Item>}
-          {permissions?.course && <Accordion.Item eventKey="1">
+          {permissions?.course && <Accordion.Item eventKey="1" style={{ marginBottom: '15px' }}>
             <Accordion.Header>Courses</Accordion.Header>
             <Accordion.Body>
               {permissions?.createCourse &&
@@ -91,6 +93,38 @@ const HomeSideBar = ({ roles, setShowOption, setIsSelected }) => {
               }
             </Accordion.Body>
           </Accordion.Item>}
+
+          {permissions?.assignment && <Accordion.Item eventKey="2" style={{ marginBottom: '15px' }}>
+            <Accordion.Header>Assignment</Accordion.Header>
+            <Accordion.Body>
+              {permissions?.createAssignment &&
+                <div
+                  className='dropdown-singleCard'
+                  data-name="createAssignment"
+                  ref={createAssignment}
+                  onClick={() => handleShow(createAssignment)}
+                >Create Assignment</div>
+              }
+              {permissions?.getAllSubmitedAssignment &&
+                <div
+                  className='dropdown-singleCard'
+                  data-name="getAllSubmitedAssignment"
+                  ref={getAllSubmitedAssignment}
+                  onClick={() => handleShow(getAllSubmitedAssignment)}
+                >Submited Assignment</div>
+              }
+              {permissions?.submitAssignment &&
+                <div
+                  className='dropdown-singleCard'
+                  data-name="submitAssignment"
+                  ref={submitAssignment}
+                  onClick={() => handleShow(submitAssignment)}
+                >Submite Assignment</div>
+              }
+            </Accordion.Body>
+          </Accordion.Item>}
+
+
         </Accordion>
       </div>
 

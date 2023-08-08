@@ -33,7 +33,7 @@ const CreateUser = ({ userInfo, isUpdate = false, setShowUserInfo }) => {
 
    const createUser = async () => {
       const { firstName, lastName, name, email, city, phoneNumber, dateOfBirth, gender, role } = formData
-      if (!firstName || !lastName || !role || !email) {
+      if (!firstName || !lastName || !role) {
          setAlertText('Please Fill FirstName && LastName && Role')
          setShowAlert(true)
          return

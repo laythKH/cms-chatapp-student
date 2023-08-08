@@ -17,9 +17,10 @@ const rolesOption = {
     createCourse: true,
     updateOrDeleteCourse: true,
     addAndDelCourseToUser: true,
-    assignment: false,
-    createAssignment: false,
-    submitAssignment: false
+    assignment: true,
+    createAssignment: true,
+    getAllSubmitedAssignment: true,
+    submitAssignment: true
   },
   manager: {
     user: true,
@@ -31,7 +32,8 @@ const rolesOption = {
     addAndDelCourseToUser: true,
     assignment: false,
     createAssignment: false,
-    submitAssignment: false
+    getAllSubmitedAssignment: true,
+    submitAssignment: true
   },
   teacher: {
     user: false,
@@ -43,7 +45,8 @@ const rolesOption = {
     addAndDelCourseToUser: false,
     assignment: true,
     createAssignment: true,
-    submitAssignment: false
+    getAllSubmitedAssignment: true,
+    submitAssignment: true
   },
   student: {
     user: false,
@@ -55,6 +58,7 @@ const rolesOption = {
     addAndDelCourseToUser: false,
     assignment: true,
     createAssignment: false,
+    getAllSubmitedAssignment: true,
     submitAssignment: true
   },
 };
@@ -65,25 +69,19 @@ const HomePage = () => {
   const [showOption, setShowOption] = useState('')
 
   const { user, refetch, setRefetch } = useAppContext()
-
-
-
   // console.log(showNavBasedOnRole);
   const isMatch = useMediaQuery({
     query: "(min-width: 1000px)",
   });
 
-  console.log(isMatch, isSelected);
-
   useEffect(() => {
     setRefetch(!refetch)
-    console.log('refetch');
   }, [user, isMatch])
 
 
   return (
     <div style={{ display: 'flex', position: 'relative', overflow: 'hidden', height: '100vh', width: '100%' }}>
-      <NavBar />
+      {(isMatch || !isSelected) && <NavBar />}
       <div className='home-page'>
         {(isMatch || !isSelected) && (
           <HomeSideBar

@@ -4,12 +4,8 @@ import Navbar from "react-bootstrap/Navbar";
 import Logo from "../assets/Dual Ball-1s-200px (1).svg";
 
 import "./NavBar.css";
-import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { useAppContext } from "../../context/appContext";
-import { useEffect } from "react";
-import { useSocketContext } from "../../context/socketContext";
-
 
 function NavBar() {
   const { user, setUser } = useAppContext()

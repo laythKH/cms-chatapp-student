@@ -27,8 +27,6 @@ const SearchForUser = () => {
             }
          };
          const { data } = await axios.get(`http://127.0.0.1:5000/api/v1/auth?search=${searchInput}`, config)
-         // console.log(data);
-         // console.log(data[0]);
          if (data.length === 0) {
             setAlertText('there is no with this info')
             setShowAlert(true)
@@ -43,9 +41,6 @@ const SearchForUser = () => {
       }
    }
 
-   useEffect(() => {
-
-   }, [userInfo])
 
 
    return (
