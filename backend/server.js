@@ -26,6 +26,7 @@ import noteRouter from './routes/noteRoutes.js';
 import courseRoutes from './routes/courseRoutes.js';
 import chatRoutes from './routes/chatRoutes.js'
 import messageRoutes from './routes/messageRoutes.js'
+import submissionTaskRoutes from './routes/submissionTaskRouter.js'
 
 // middleware
 import notFoundMiddleware from "./middleware/not-found.js";
@@ -72,6 +73,7 @@ app.use('/api/v1/note', noteRouter)
 app.use('/api/v1/course', courseRoutes)
 app.use('/api/v1/chat', chatRoutes)
 app.use('/api/v1/message', messageRoutes)
+app.use('/api/v1/solution', submissionTaskRoutes)
 
 
 

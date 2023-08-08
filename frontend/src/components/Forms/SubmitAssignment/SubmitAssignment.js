@@ -83,14 +83,15 @@ const SubmitAssignment = () => {
 
    const getAllTask = async () => {
       const { data } = await axios.get(`http://localhost:5000/api/v1/solution/${user._id}`)
-      const filteredArray = data?.courses.filter(course => course.assignment);
+      console.log(data);
+      const filteredArray = data?.courses?.filter(course => course.assignment);
       if (filteredArray) {
          setCourseWithAssignment(filteredArray)
       }
    }
 
    useEffect(() => {
-      if (user._id) {
+      if (user?._id) {
          getAllTask()
       }
    }, [user])
