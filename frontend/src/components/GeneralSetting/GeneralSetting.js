@@ -15,7 +15,7 @@ const ACTIONS = {
   BIRTHDAY: "birthday",
   GENDER: "gender",
   FINISH: "finish",
-  SETUSERINFO: "setUserInfo"
+  SETUSERINFO: "setUserInfo",
 };
 
 function reducer(state, action) {
@@ -24,7 +24,7 @@ function reducer(state, action) {
       return { ...state, profileImg: action.payload.url };
       break;
     case ACTIONS.SETUSERINFO:
-      return {...state, ...action.payload.userInfo}
+      return { ...state, ...action.payload.userInfo };
       break;
     case ACTIONS.FIRSTNAME:
       return { ...state, firstName: action.payload.first };
@@ -67,7 +67,7 @@ function reducer(state, action) {
 
 function GeneralSetting({ handelFinish }) {
   const [phoneCode, setPhoneCode] = useState();
-  const { user } = useAppContext()
+  const { t, user } = useAppContext();
   // console.log(user);
   const [state, dispatch] = useReducer(reducer, {
     profileImg: "",
@@ -88,7 +88,6 @@ function GeneralSetting({ handelFinish }) {
     setPhoneCode(PhonePrefix.countries);
   }, []);
 
-
   console.log(state);
 
   function handelImg(e) {
@@ -97,8 +96,6 @@ function GeneralSetting({ handelFinish }) {
       payload: { url: e.target.files[0] },
     });
   }
-
-
 
   const [showAlert, setShowAlert] = useState(false);
 
@@ -118,30 +115,30 @@ function GeneralSetting({ handelFinish }) {
   useEffect(() => {
     dispatch({
       type: ACTIONS.SETUSERINFO,
-      payload: { 
+      payload: {
         userInfo: {
-          firstName: user?.firstName, 
+          firstName: user?.firstName,
           lastName: user?.lastName,
           profileImg: user?.picture,
           email: user?.email,
           gender: user?.gender,
           phoneNumber: user?.phoneNumber,
-          birthday: user?.dateOfBirth
-        }
+          birthday: user?.dateOfBirth,
+        },
       },
-    })
-  },[user])
+    });
+  }, [user]);
 
-  if(!user) {
-    return (
-      <h1>Loading....</h1>
-    )
+  if (!user) {
+    return <h1>Loading....</h1>;
   }
 
   return (
     <>
       {showAlert && (
-        <div className='change-message'>changed completed successfully</div>
+        <div className='change-message'>
+          {t("Setting.generalSetting.alertChange")}
+        </div>
       )}
       <Container className='main-container d-flex align-items-start'>
         <Container className='side1 mb-5 m-3'>
@@ -171,7 +168,7 @@ function GeneralSetting({ handelFinish }) {
             />
           </Form>
           <Form onSubmit={(e) => e.preventDefault()} className='mt-3 '>
-            <Form.Label>First Name:</Form.Label>
+            <Form.Label>{t("Home.User.createUser.firstName")}</Form.Label>
             <Form.Control
               value={state.firstName}
               onChange={(e) =>
@@ -181,12 +178,12 @@ function GeneralSetting({ handelFinish }) {
                 })
               }
               className='mb-4'
-              placeHolder='first name...'
+              placeHolder={`${t("Home.User.createUser.firstName")}...`}
             />
-            <Form.Label>Last Name:</Form.Label>
+            <Form.Label>{t("Home.User.createUser.lastName")}:</Form.Label>
             <Form.Control
               value={state.lastName}
-              placeHolder='last name...'
+              placeHolder={`${t("Home.User.createUser.lastName")}...`}
               onChange={(e) =>
                 dispatch({
                   type: ACTIONS.LASTNAME,
@@ -197,7 +194,9 @@ function GeneralSetting({ handelFinish }) {
           </Form>
         </Container>
         <Container className='side2 mb-5 m-3'>
-          <Form.Label className=''>Phone Number:</Form.Label>
+          <Form.Label className=''>
+            {t("Home.User.createUser.phoneNumber")}:
+          </Form.Label>
           <div className='d-flex gap-2 mb-3'>
             <Form.Select
               value={state.phoneCode}
@@ -227,11 +226,11 @@ function GeneralSetting({ handelFinish }) {
             />
           </div>
           <Form onSubmit={(e) => e.preventDefault()}>
-            <Form.Label>Email:</Form.Label>
+            <Form.Label>{t("Home.User.createUser.email")}:</Form.Label>
             <Form.Control
               value={state.email}
               type='email'
-              placeHolder='email...'
+              placeHolder={`${t("Home.User.createUser.email")}...`}
               onChange={(e) =>
                 dispatch({
                   type: ACTIONS.EMAIL,
@@ -239,7 +238,9 @@ function GeneralSetting({ handelFinish }) {
                 })
               }
             />
-            <Form.Label className='mt-4'>Birthday:</Form.Label>
+            <Form.Label className='mt-4'>
+              {t("Home.User.createUser.date")}:
+            </Form.Label>
             <Form.Control
               value={state.birthday}
               type='date'
@@ -250,7 +251,9 @@ function GeneralSetting({ handelFinish }) {
                 })
               }
             />
-            <Form.Label className='mt-4'>Gender:</Form.Label>
+            <Form.Label className='mt-4'>
+              {t("Home.User.createUser.Gender.selectGen")}:
+            </Form.Label>
             <Form.Select
               value={state.gender}
               onChange={(e) =>
@@ -260,8 +263,8 @@ function GeneralSetting({ handelFinish }) {
                 })
               }
             >
-              <option>male</option>
-              <option>female</option>
+              <option>{t("Home.User.createUser.Gender.op1")}</option>
+              <option>{t("Home.User.createUser.Gender.op2")}</option>
             </Form.Select>
           </Form>
         </Container>
@@ -271,7 +274,7 @@ function GeneralSetting({ handelFinish }) {
           onClick={() => finishChanges()}
           className='submit-btn w-100 p-2'
         >
-          <span>SUBMIT CHANGES</span>
+          <span>{t("Setting.generalSetting.changeBtn")}</span>
         </Button>
       </Container>
     </>

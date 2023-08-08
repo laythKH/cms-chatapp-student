@@ -110,7 +110,9 @@
   "Setting": {
     "title": "الإعدادات",
     "generalSetting": {
-      "title": "الإعدادات العامة"
+      "title": "الإعدادات العامة",
+      "alertChange": "تم النعديل بنجاح",
+      "changeBtn": "حفظ التغيرر"
     },
     "personalInfo": {
       "title": "المعلومات الشخصية"

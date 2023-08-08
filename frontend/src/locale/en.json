@@ -111,7 +111,9 @@
   "Setting": {
     "title": "Setting",
     "generalSetting": {
-      "title": "General Setting"
+      "title": "General Setting",
+      "alertChange": "change completed successfully",
+      "changeBtn": "Submit Change"
     },
     "personalInfo": {
       "title": "Personal Info"
