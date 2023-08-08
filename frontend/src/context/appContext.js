@@ -7,6 +7,7 @@ import {
 } from "react";
 // import { useNavigate } from "react-router-dom";
 import { createBrowserHistory } from "history";
+import { useTranslation } from "react-i18next";
 
 const AppContext = createContext();
 
@@ -56,7 +57,41 @@ const AppProvider = ({ children }) => {
   //     handleRedirect("/login");
   //   }
 
+<<<<<<< HEAD
   //   console.log(user);
+=======
+<<<<<<< HEAD
+  const { t, i18n } = useTranslation();
+
+  return (
+    <AppContext.Provider
+      value={{
+        user,
+        setUser,
+        showAlert,
+        setShowAlert,
+        alertText,
+        setAlertText,
+        isLoading,
+        setIsLoading,
+        selectedChat,
+        setSelectedChat,
+        listChats,
+        setListChats,
+        refetch,
+        setRefetch,
+        t,
+        i18n,
+      }}
+    >
+      {children}
+    </AppContext.Provider>
+  );
+};
+=======
+      console.log(user);
+>>>>>>> 271f4697c73514c20968e78d91e9908bb6054075
+>>>>>>> cf35db2b5c5fee2162db245c47be9820a715d7f9
 
   //   setUser(userInfo);
   // }, [handleRedirect, setUser]);

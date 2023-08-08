@@ -1,14 +1,22 @@
-import React, { useEffect, useState, useRef } from 'react'
-import Accordion from 'react-bootstrap/Accordion';
+import React, { useEffect, useState, useRef } from "react";
+import Accordion from "react-bootstrap/Accordion";
 
-
-import './homeSideBar.css'
-import { useAppContext } from '../../context/appContext';
+import "./homeSideBar.css";
+import { useAppContext } from "../../context/appContext";
 
 const HomeSideBar = ({ roles, setShowOption, setIsSelected }) => {
-  const { user } = useAppContext()
-  const [permissions, setPermissions] = useState({})
+  const { t, user } = useAppContext();
+  const [permissions, setPermissions] = useState({});
 
+<<<<<<< HEAD
+  const createUser = useRef();
+  const searchForUser = useRef();
+  const createCourse = useRef();
+  const addAndDelCourseToUser = useRef();
+  const updateOrDeleteCourse = useRef();
+  const showLectures = useRef();
+  const addLectures = useRef();
+=======
   const createUser = useRef()
   const searchForUser = useRef()
   const createCourse = useRef()
@@ -17,15 +25,32 @@ const HomeSideBar = ({ roles, setShowOption, setIsSelected }) => {
   const createAssignment = useRef()
   const getAllSubmitedAssignment = useRef()
   const submitAssignment = useRef()
+>>>>>>> 271f4697c73514c20968e78d91e9908bb6054075
 
   const NavBarBasedOnUserRole = () => {
     const role = user?.role;
     const permissions = roles[role];
-    setPermissions(permissions)
-  }
-
+    setPermissions(permissions);
+  };
 
   const handleShow = (s) => {
+<<<<<<< HEAD
+    let all = [
+      createUser,
+      searchForUser,
+      createCourse,
+      addAndDelCourseToUser,
+      updateOrDeleteCourse,
+      addLectures,
+      showLectures,
+    ];
+    all.map((ele) => ele.current.classList.remove("selected"));
+    s.current.classList.add("selected");
+    setShowOption(s.current.dataset.name);
+    setIsSelected(true);
+    // console.log(`showOption :::  ${s.current.dataset.name}`);
+  };
+=======
     let all = [createUser, searchForUser, createCourse, addAndDelCourseToUser, updateOrDeleteCourse, createAssignment, getAllSubmitedAssignment, submitAssignment];
     all.map((ele) => ele?.current?.classList?.remove("selected"));
     s.current.classList.add("selected");
@@ -33,36 +58,104 @@ const HomeSideBar = ({ roles, setShowOption, setIsSelected }) => {
     setIsSelected(true)
   }
 
+>>>>>>> 271f4697c73514c20968e78d91e9908bb6054075
 
   useEffect(() => {
-    NavBarBasedOnUserRole()
-  }, [user])
+    NavBarBasedOnUserRole();
+  }, [user]);
 
   return (
     <div className='sidebar'>
       <h3 className='sidebar-header'>Home</h3>
       <div className='navs-container'>
-        <Accordion defaultActiveKey={['0']} alwaysOpen className='drop-down'>
-          {permissions?.user && <Accordion.Item eventKey="0" style={{ marginBottom: '15px' }}>
-            <Accordion.Header>User</Accordion.Header>
+        <Accordion defaultActiveKey={["0"]} alwaysOpen className='drop-down'>
+          {permissions?.user && (
+            <Accordion.Item eventKey='0' style={{ marginBottom: "15px" }}>
+              <Accordion.Header>{t("Home.User.title")}</Accordion.Header>
+              <Accordion.Body>
+                {permissions?.createUser && (
+                  <div
+                    className='dropdown-singleCard'
+                    data-name='createUser'
+                    ref={createUser}
+                    onClick={() => handleShow(createUser)}
+                  >
+                    {t("Home.User.createUser.title")}
+                  </div>
+                )}
+                {permissions?.searchForUser && (
+                  <div
+                    className='dropdown-singleCard'
+                    data-name='searchForUser'
+                    ref={searchForUser}
+                    onClick={() => handleShow(searchForUser)}
+                  >
+                    {t("Home.User.searchForUser.title")}
+                  </div>
+                )}
+              </Accordion.Body>
+            </Accordion.Item>
+          )}
+          {permissions?.course && (
+            <Accordion.Item eventKey='1' style={{ marginBottom: "15px" }}>
+              <Accordion.Header>{t("Home.Courses.title")}</Accordion.Header>
+              <Accordion.Body>
+                {permissions?.createCourse && (
+                  <div
+                    className='dropdown-singleCard'
+                    data-name='createCourse'
+                    ref={createCourse}
+                    onClick={() => handleShow(createCourse)}
+                  >
+                    {t("Home.Courses.createCourse.title")}
+                  </div>
+                )}
+                {permissions?.addAndDelCourseToUser && (
+                  <div
+                    className='dropdown-singleCard'
+                    data-name='addAndDelCourseToUser'
+                    ref={addAndDelCourseToUser}
+                    onClick={() => handleShow(addAndDelCourseToUser)}
+                  >
+                    {t("Home.Courses.addDelCourse.title")}
+                  </div>
+                )}
+                {permissions?.updateOrDeleteCourse && (
+                  <div
+                    className='dropdown-singleCard'
+                    data-name='updateOrDeleteCourse'
+                    ref={updateOrDeleteCourse}
+                    onClick={() => handleShow(updateOrDeleteCourse)}
+                  >
+                    {t("Home.Courses.UpdateCourse.title")}
+                  </div>
+                )}
+              </Accordion.Body>
+            </Accordion.Item>
+          )}
+          <Accordion.Item eventKey='2'>
+            <Accordion.Header>{t("Home.lectures.title")}</Accordion.Header>
             <Accordion.Body>
-              {permissions?.createUser &&
-                <div
-                  className='dropdown-singleCard'
-                  data-name="createUser"
-                  ref={createUser}
-                  onClick={() => handleShow(createUser)}
-                >Create User</div>
-              }
-              {permissions?.searchForUser &&
-                <div
-                  className='dropdown-singleCard'
-                  data-name="searchForUser"
-                  ref={searchForUser}
-                  onClick={() => handleShow(searchForUser)}
-                >Search For User</div>
-              }
+              <div
+                className='dropdown-singleCard'
+                data-name='updateOrDeleteCourse'
+                ref={addLectures}
+                onClick={() => handleShow(addLectures)}
+              >
+                {t("Home.lectures.addLectures")}
+              </div>
+              <div
+                className='dropdown-singleCard'
+                data-name='updateOrDeleteCourse'
+                ref={showLectures}
+                onClick={() => handleShow(showLectures)}
+              >
+                {t("Home.lectures.showLectures")}
+              </div>
             </Accordion.Body>
+<<<<<<< HEAD
+          </Accordion.Item>
+=======
           </Accordion.Item>}
           {permissions?.course && <Accordion.Item eventKey="1" style={{ marginBottom: '15px' }}>
             <Accordion.Header>Courses</Accordion.Header>
@@ -125,11 +218,11 @@ const HomeSideBar = ({ roles, setShowOption, setIsSelected }) => {
           </Accordion.Item>}
 
 
+>>>>>>> 271f4697c73514c20968e78d91e9908bb6054075
         </Accordion>
       </div>
-
     </div>
-  )
-}
+  );
+};
 
-export default HomeSideBar
+export default HomeSideBar;

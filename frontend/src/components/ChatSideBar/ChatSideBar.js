@@ -40,6 +40,7 @@ const ChatSideBar = ({ handleSelected, setSelect }) => {
     listChats,
     setListChats,
     refetch,
+    t,
   } = useAppContext();
 
   const handleClick = () => {
@@ -210,7 +211,7 @@ const ChatSideBar = ({ handleSelected, setSelect }) => {
       {/* Main ChatSideBar */}
       <div className={`sidebar display-none`}>
         <div className='sidebar-header'>
-          <h3>Messages </h3>
+          <h3>{t("Chat.title")} </h3>
           <CustomButton color='rgb(25, 85, 148)' handleClick={handleClick}>
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -234,13 +235,13 @@ const ChatSideBar = ({ handleSelected, setSelect }) => {
               color='rgb(25, 85, 148)'
               handleClick={handleAddPerson}
             >
-              Add Person
+              {t("Chat.addPerson.title")}
             </CustomButton>
             <CustomButton
               color='rgb(25, 85, 148)'
               handleClick={handleCreateGroup}
             >
-              Create group
+              {t("Chat.createGroup.title")}
             </CustomButton>
           </div>
         </div>
@@ -259,7 +260,7 @@ const ChatSideBar = ({ handleSelected, setSelect }) => {
       <Modal show={showAddSingleUser} onHide={handleCloseAddPerson}>
         <Modal.Header closeButton>
           <Modal.Title style={{ fontWeight: "bold" }}>
-            Searching For Friends
+            {t("Chat.addPerson.modal.title")}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -267,7 +268,7 @@ const ChatSideBar = ({ handleSelected, setSelect }) => {
             <Col xs={12} md={10} style={{ paddingBottom: "15px" }}>
               <FloatingLabel
                 controlId='floatingInput'
-                label='Student Number OR Name'
+                label={t("Chat.addPerson.modal.input")}
               >
                 <Form.Control
                   type='text'
@@ -283,7 +284,7 @@ const ChatSideBar = ({ handleSelected, setSelect }) => {
                 size='lg'
                 style={{ width: "100%", fontWeight: "bold" }}
               >
-                GO
+                {t("Chat.addPerson.modal.Go")}
               </Button>
             </Col>
           </Row>
@@ -313,19 +314,24 @@ const ChatSideBar = ({ handleSelected, setSelect }) => {
             fontWeight: "bold",
           }}
         >
-          Click Any Where to Close
+          {t("Chat.addPerson.modal.modalFooter")}
         </Modal.Footer>
       </Modal>
 
       {/* here to Create Group */}
       <Modal show={showCreateGroup} onHide={handleCloseCreateGroup}>
         <Modal.Header closeButton>
-          <Modal.Title style={{ fontWeight: "bold" }}>Create Group</Modal.Title>
+          <Modal.Title style={{ fontWeight: "bold" }}>
+            {t("Chat.createGroup.title")}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body style={{ padding: "20px 20px 0 20px" }}>
           <Row className='align-items-center'>
             <Col style={{ paddingBottom: "15px" }}>
-              <FloatingLabel controlId='floatingInput' label='Group Name'>
+              <FloatingLabel
+                controlId='floatingInput'
+                label={t("Chat.createGroup.modal.input1")}
+              >
                 <Form.Control
                   style={{ marginBottom: "15px" }}
                   type='text'
@@ -333,7 +339,10 @@ const ChatSideBar = ({ handleSelected, setSelect }) => {
                   onChange={(e) => setGroupNameInput(e.target.value)}
                 />
               </FloatingLabel>
-              <FloatingLabel controlId='floatingInput' label='Add Users'>
+              <FloatingLabel
+                controlId='floatingInput'
+                label={t("Chat.createGroup.modal.input2")}
+              >
                 <Form.Control
                   type='text'
                   onChange={(e) => handleSearchGroupMembers(e.target.value)}
@@ -403,7 +412,7 @@ const ChatSideBar = ({ handleSelected, setSelect }) => {
           style={{ margin: "10px", fontWeight: 700, letterSpacing: "2px" }}
           onClick={handleSubmitCreateGroup}
         >
-          Create Group
+          {t("Chat.createGroup.modal.createGroup")}
         </Button>
         <Modal.Footer
           style={{
@@ -412,7 +421,7 @@ const ChatSideBar = ({ handleSelected, setSelect }) => {
             fontWeight: "bold",
           }}
         >
-          Click Any Where to Close
+          {t("Chat.createGroup.modal.modalFooter")}
         </Modal.Footer>
       </Modal>
 

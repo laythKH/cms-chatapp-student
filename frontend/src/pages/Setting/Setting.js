@@ -5,7 +5,7 @@ import NavBar from "../../components/NavBar/NavBar";
 import SettingSideBar from "../../components/SettingSideBar/SettingSideBar";
 import SettingContent from "../../components/SettingContent/SettingContent";
 
-function Setting() {
+function Setting({ handelLang }) {
   const [changeSettingContent, setChangeSettingContent] = useState("");
 
   function handelSettingContent(option) {
@@ -22,7 +22,7 @@ function Setting() {
 
   return (
     <>
-      <NavBar />
+      <NavBar handelLang={handelLang} />
       {(isMatch || !isSelected) && (
         <SettingSideBar
           setChangeSettingContent={handelSettingContent}
