@@ -130,7 +130,7 @@ const HomeSideBar = ({ roles, setShowOption, setIsSelected }) => {
               </div>
               <div
                 className='dropdown-singleCard'
-                data-name='updateOrDeleteCourse'
+                data-name='showLectures'
                 ref={showLectures}
                 onClick={() => handleShow(showLectures)}
               >

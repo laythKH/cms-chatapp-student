@@ -32,19 +32,18 @@
   padding: 0 10px !important;
 }
 
-.single-url {
-  display: block;
+.single-show-url {
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
   position: relative !important;
-  width: 100% !important;
   text-align: center !important;
   padding: 10px 5px !important;
   background-color: #fff !important;
-  border-radius: 5px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: flex-start !important;
+  border-radius: 5px;
   text-decoration: none;
   color: black;
+  width: 100%;
   font-size: 18px;
   letter-spacing: 1.2px;
   border: 1px dotted #3949ab;
@@ -52,7 +51,7 @@
   transition: 0.5s;
 }
 
-.single-url::after {
+/* .single-url::after {
   content: "Download Lecture";
   position: absolute;
   width: 100%;
@@ -67,9 +66,27 @@
   align-items: center;
   justify-content: center;
   transition: 0.2s;
+} */
+
+.download {
+  position: absolute;
+  border-radius: 5px;
+  padding: 15px;
+  width: 20px;
+  height: 20px;
+  right: -15%;
+  background-color: #3949ab;
+  transition: 0.3s;
 }
 
-.single-url:hover::after {
-  left: 0;
-  top: 0;
+svg {
+  position: absolute;
+
+  color: white;
+  width: 20px;
+  height: 20px;
+}
+
+.single-show-url:hover .download {
+  right: 5%;
 }

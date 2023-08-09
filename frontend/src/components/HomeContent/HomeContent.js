@@ -12,6 +12,7 @@ import SubmitedAssignment from "../Forms/SubmitedAssignment/SubmitedAssignment";
 import SubmitAssignment from "../Forms/SubmitAssignment/SubmitAssignment";
 import AddLecture from "../Forms/AddLecture/AddLecture";
 import { useAppContext } from "../../context/appContext";
+import ShowLecture from "../Forms/ShowLecture/ShowLecture";
 
 // const HomeContent = ({ showOption, roles, setIsSelected, isSelected, isMatch }) => {
 
@@ -62,6 +63,7 @@ const HomeContent = ({
         {showOption === "getAllSubmitedAssignment" && <SubmitedAssignment />}
         {showOption === "submitAssignment" && <SubmitAssignment />}
         {showOption === "addLecture" && <AddLecture />}
+        {showOption === "showLectures" && <ShowLecture />}
       </div>
     </div>
   );

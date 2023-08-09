@@ -10,7 +10,6 @@ function AddLecture() {
     { title: "برمجة 1", Url: "", lectureTitle: "" },
     { title: "لغات البرمحة", Url: "", lectureTitle: "" },
   ]);
-  //   const [updatedCourse, setUpdatedCourse] = useState({});
   const [titleOfLecture, setTitleOfLecture] = useState("");
   const [googleURL, setGoogleURL] = useState("");
   const [showModal, setShowModal] = useState({
@@ -53,9 +52,11 @@ function AddLecture() {
               </div>
               <hr />
               <div className='blocks-of-lectrues single-lecture-body'>
-                <a className='single-url' href={course.Url}>
-                  {course.lectureTitle}
-                </a>
+                {course.lectureTitle && (
+                  <a className='single-url' href={course.Url}>
+                    {course.lectureTitle}
+                  </a>
+                )}
               </div>
               <hr />
             </Container>
