@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button, Container, Form, Modal } from "react-bootstrap";
 import { useAppContext } from "../../../context/appContext";
 
@@ -38,6 +38,9 @@ function AddLecture() {
 
     closeModal();
   }
+
+
+
 
   return (
     <>

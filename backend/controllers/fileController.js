@@ -52,5 +52,6 @@ const getAllFilesRelatedTOTeacher = async (req, res) => {
 
 
 export {
-   createFile
+   createFile,
+   getAllFilesRelatedTOTeacher
 }
