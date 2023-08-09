@@ -50,6 +50,7 @@
   border: 1px dotted #3949ab;
   overflow: hidden;
   transition: 0.5s;
+  margin-bottom: 8px;
 }
 
 .single-url::after {
@@ -72,4 +73,15 @@
 .single-url:hover::after {
   left: 0;
   top: 0;
+}
+
+.no-files {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -40px;
+  font-size: 20px;
+  font-weight: 800;
 }

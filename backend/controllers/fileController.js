@@ -1,5 +1,5 @@
 import File from '../models/files.js'
-
+import Course from '../models/Course.js';
 
 import { BadRequestError, UnAuthenticatedError } from "../errors/index.js";
 
@@ -20,7 +20,38 @@ const createFile = async (req, res) => {
    res.status(201).json(savedFile);
 }
 
+const getAllFilesRelatedTOTeacher = async (req, res) => {
+   try {
+      const teacherId = req.params.teacherId;
+
+      // Find courses for the specific teacher
+      const courses = await Course.find({ teacher: teacherId });
+
+      // Iterate over the courses and fetch the related files for each course
+      const coursesWithFiles = await Promise.all(
+         courses.map(async (course) => {
+            console.log(`course ===> ${course._id}`);
+            const files = await File.find({ course: course._id });
+            console.log(`singleFile ===> ${files}`);
+            return {
+               courseName: course.name,
+               courseId: course._id,
+               files: files
+            };
+         })
+      );
+
+      console.log(coursesWithFiles);
+      res.json(coursesWithFiles);
+   } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Something went wrong' });
+   }
+}
+
+
 
 export {
-   createFile
+   createFile,
+   getAllFilesRelatedTOTeacher
 }
