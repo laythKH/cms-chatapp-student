@@ -30,18 +30,18 @@ const getAllFilesRelatedTOTeacher = async (req, res) => {
       // Iterate over the courses and fetch the related files for each course
       const coursesWithFiles = await Promise.all(
          courses.map(async (course) => {
+            console.log(`course ===> ${course._id}`);
             const files = await File.find({ course: course._id });
-
+            console.log(`singleFile ===> ${files}`);
             return {
                courseName: course.name,
-               files: files.map((file) => ({
-                  name: file.name,
-                  url: file.url
-               }))
+               courseId: course._id,
+               files: files
             };
          })
       );
 
+      console.log(coursesWithFiles);
       res.json(coursesWithFiles);
    } catch (error) {
       console.error(error);

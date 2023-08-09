@@ -1,18 +1,18 @@
 import { useState, useEffect } from "react";
 import { Button, Container, Form, Modal } from "react-bootstrap";
 import { useAppContext } from "../../../context/appContext";
+import axios from 'axios';
 
 import "./addLecture.css";
 
 function AddLecture() {
-  const [courses, setCourses] = useState([
-    { title: "الإنترنت والويب", Url: "", lectureTitle: "" },
-    { title: "برمجة 1", Url: "", lectureTitle: "" },
-    { title: "لغات البرمحة", Url: "", lectureTitle: "" },
-  ]);
+  const { user, setAlertText, setShowAlert } = useAppContext()
+  const [courses, setCourses] = useState();
+
   //   const [updatedCourse, setUpdatedCourse] = useState({});
   const [titleOfLecture, setTitleOfLecture] = useState("");
   const [googleURL, setGoogleURL] = useState("");
+  const [courseId, setCourseId] = useState()
   const [showModal, setShowModal] = useState({
     case: false,
     key: "",
@@ -22,45 +22,80 @@ function AddLecture() {
 
   function handelAddLecture(course) {
     setShowModal({ case: true, key: course });
+    setCourseId(course?.courseId)
   }
 
   function closeModal() {
     setShowModal({ case: false, key: "" });
+    setGoogleURL('')
+    setTitleOfLecture('')
   }
 
-  function handelSubmit() {
-    courses.map((course) => {
-      if (course.title === showModal.key) {
-        course.Url = googleURL;
-        course.lectureTitle = titleOfLecture;
-      }
-    });
+  const handelSubmit = async () => {
+    if (!googleURL || !titleOfLecture) {
+      setAlertText('Please Provide All Values')
+      setShowAlert(true)
+      return
+    }
 
+    const request = await axios.post(
+      'http://localhost:5000/api/v1/file/',
+      {
+        name: titleOfLecture,
+        url: googleURL,
+        courseId: courseId
+      }
+    )
+    getAllInfo()
     closeModal();
   }
 
+  const getAllInfo = async () => {
+    try {
+      const { data } = await axios(`http://localhost:5000/api/v1/file/${user._id}`)
+      setCourses(data)
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
 
+
+  useEffect(() => {
+    getAllInfo()
+  }, [user])
 
   return (
     <>
       <Container className='d-flex main-holder'>
-        {courses?.map((course) => {
+        {courses && courses?.map((course) => {
           return (
-            <Container key={course.title} className='single-lecture-holder'>
+            <Container key={course?.courseName} className='single-lecture-holder'>
               <div className='title d-flex justify-content-between align-items-center single-lecture-header'>
-                <h5>{course.title}</h5>
-                <Button onClick={() => handelAddLecture(course.title)}>
+                <h5>{course?.courseName}</h5>
+                <Button onClick={() => handelAddLecture(course)}>
                   Add Lecture
                 </Button>
               </div>
-              <hr />
-              <div className='blocks-of-lectrues single-lecture-body'>
-                <a className='single-url' href={course.Url}>
-                  {course.lectureTitle}
-                </a>
-              </div>
-              <hr />
+              {(course?.files?.length > 0) ? (
+                <>
+                  <hr />
+                  <div className='blocks-of-lectrues single-lecture-body'>
+                    {course.files && course.files.map((singleUrl) => (
+                      <a className='single-url' href={singleUrl.url}>
+                        {singleUrl.name}
+                      </a>
+                    ))}
+                  </div>
+                  <hr />
+                </>
+              ) : (
+                <div className='no-files'>
+                  There is no Files Yet
+                </div>
+              )
+              }
             </Container>
           );
         })}
