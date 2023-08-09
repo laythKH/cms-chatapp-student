@@ -67,6 +67,12 @@ function AddLecture() {
     getAllInfo();
   }, [user]);
 
+  if (!courses) {
+    return (
+      <div>There Is No Courses Yet</div>
+    )
+  }
+
   return (
     <>
       <Container className='d-flex main-holder'>

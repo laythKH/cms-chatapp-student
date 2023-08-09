@@ -46,7 +46,7 @@ const SearchForUser = () => {
     }
   };
 
-  useEffect(() => {}, [userInfo]);
+  useEffect(() => { }, [userInfo]);
 
   return (
     <div
@@ -63,7 +63,7 @@ const SearchForUser = () => {
       <InputGroup className='mb-3'>
         <Form.Control
           placeholder={t("Home.User.searchForUser.input")}
-          aria-label="Recipient's username"
+          aria-label="Recipient's Id"
           aria-describedby='basic-addon2'
           style={{ padding: "15px 10px" }}
           value={searchInput}
