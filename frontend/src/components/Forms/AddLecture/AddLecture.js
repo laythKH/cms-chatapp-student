@@ -46,6 +46,10 @@ function AddLecture() {
         courseId: courseId
       }
     )
+
+    setAlertText('file created')
+    setShowAlert(true)
+
     getAllInfo()
     closeModal();
   }
