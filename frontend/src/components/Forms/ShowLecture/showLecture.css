@@ -79,7 +79,7 @@
   transition: 0.3s;
 }
 
-svg {
+.bi-download {
   position: absolute;
 
   color: white;
