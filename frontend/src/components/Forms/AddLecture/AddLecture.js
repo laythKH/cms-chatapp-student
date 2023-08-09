@@ -83,7 +83,7 @@ function AddLecture() {
                   <hr />
                   <div className='blocks-of-lectrues single-lecture-body'>
                     {course.files && course.files.map((singleUrl) => (
-                      <a className='single-url' href={singleUrl.url}>
+                      <a className='single-url' href={singleUrl.url} target="_blank">
                         {singleUrl.name}
                       </a>
                     ))}
