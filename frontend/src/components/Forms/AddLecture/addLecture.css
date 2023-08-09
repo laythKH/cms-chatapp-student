@@ -1,0 +1,75 @@
+.main-holder {
+   display: flex !important;
+   flex-wrap: wrap !important;
+   gap: 10px !important;
+}
+
+.single-lecture-holder {
+   width: 350px !important;
+   padding: 20px !important;
+   border: 1px solid black !important;
+   height: 300px !important;
+   border-radius: 9px !important;
+   border-color: #3949ab !important;
+   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px !important;
+}
+
+.single-lecture-header {
+   position: sticky !important;
+   top: 0 !important;
+   padding: 10px 15px !important;
+   background-color: #3949ab !important;
+   border-radius: 9px !important;
+   color: #fff !important;
+}
+
+.single-lecture-header h5 {
+   margin-bottom: 0 !important;
+   text-transform: capitalize !important;
+}
+
+.single-lecture-body {
+   padding: 0 10px !important;
+}
+
+.single-url {
+   display: block;
+   position: relative !important;
+   width: 100% !important;
+   text-align: center !important;
+   padding: 10px 5px !important;
+   background-color: #fff !important;
+   border-radius: 5px !important;
+   display: flex !important;
+   align-items: center !important;
+   justify-content: flex-start !important;
+   text-decoration: none;
+   color: black;
+   font-size: 18px;
+   letter-spacing: 1.2px;
+   border: 1px dotted #3949ab;
+   overflow: hidden;
+   transition: 0.5s;
+}
+
+.single-url::after {
+   content: 'Download Lecture';
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   left: 100%;
+   top: 100%;
+   background-color: #3949ab;
+   color: #fff;
+   font-weight: 600;
+   letter-spacing: 4px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   transition: 0.2s;
+}
+
+.single-url:hover::after {
+   left: 0;
+   top: 0;
+}

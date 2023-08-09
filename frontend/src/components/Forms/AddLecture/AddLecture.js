@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Button, Container, Form, Modal } from "react-bootstrap";
 import { useAppContext } from "../../../context/appContext";
 
+import "./addLecture.css";
+
 function AddLecture() {
   const [courses, setCourses] = useState([
     { title: "الإنترنت والويب", Url: "", lectureTitle: "" },
@@ -38,53 +40,28 @@ function AddLecture() {
   }
 
   return (
-    <Container
-      style={{
-        flexWrap: "wrap",
-        gap: "10px",
-      }}
-      className='d-flex'
-    >
-      {courses?.map((course) => {
-        return (
-          <Container
-            key={course.title}
-            style={{
-              width: "350px",
-              padding: "20px",
-              border: "1px solid black",
-              height: "300px",
-            }}
-          >
-            <div className='title d-flex justify-content-between align-items-center'>
-              <h5>{course.title}</h5>
-              <Button onClick={() => handelAddLecture(course.title)}>
-                إضافة محاضرة
-              </Button>
-            </div>
-            <hr />
-            <div className='blocks-of-lectrues'>
-              <Form.Label style={{ marginTop: "20px" }}>
-                Google Drive URL
-              </Form.Label>
-              <br />
-              {course.lectureTitle}:
-              <a
-                style={{
-                  padding: "10px",
-                  marginTop: "5px",
-                  width: "10%",
-                }}
-                href='#'
-              >
-                <br />
-                {course.Url}
-              </a>
-            </div>
-            <hr />
-          </Container>
-        );
-      })}
+    <>
+      <Container className='d-flex main-holder'>
+        {courses?.map((course) => {
+          return (
+            <Container key={course.title} className='single-lecture-holder'>
+              <div className='title d-flex justify-content-between align-items-center single-lecture-header'>
+                <h5>{course.title}</h5>
+                <Button onClick={() => handelAddLecture(course.title)}>
+                  Add Lecture
+                </Button>
+              </div>
+              <hr />
+              <div className='blocks-of-lectrues single-lecture-body'>
+                <a className='single-url' href={course.Url}>
+                  {course.lectureTitle}
+                </a>
+              </div>
+              <hr />
+            </Container>
+          );
+        })}
+      </Container>
 
       <Modal show={showModal.case} onHide={closeModal}>
         <Modal.Header closeButton>
@@ -127,7 +104,7 @@ function AddLecture() {
           {t("Home.Courses.createCourse.courseModal.modalFooter")}
         </Modal.Footer>
       </Modal>
-    </Container>
+    </>
   );
 }
 
