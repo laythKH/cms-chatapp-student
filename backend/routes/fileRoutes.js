@@ -5,7 +5,6 @@ const router = express.Router();
 //! GET ALL TASK FOR SPECIFIC TEACHER
 router.route('/')
    .post(createFile)
-
-
+router.route('/:teacherId')
 
 export default router
