@@ -43,6 +43,10 @@ function AddLecture() {
       url: googleURL,
       courseId: courseId,
     });
+
+    setAlertText("file created");
+    setShowAlert(true);
+
     getAllInfo();
     closeModal();
   };
