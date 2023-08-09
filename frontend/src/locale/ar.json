@@ -8,6 +8,9 @@
   },
   "Home": {
     "title": "الصفحة الرئيسية",
+    "content": {
+      "title": "الرجاء اختيار شيئا"
+    },
     "User": {
       "title": "المستخدم",
       "createUser": {
@@ -84,6 +87,15 @@
       "title": "المحاضرات",
       "addLectures": "اضافة محاضرات",
       "showLectures": "عرض المحاضرات"
+    },
+    "assignment": {
+      "title": "الوظائف",
+      "createAssignment": {
+        "title": "إنشاء وظيفة"
+      },
+      "submitAssignment": {
+        "title": "ارسال الوظيفة"
+      }
     }
   },
   "Chat": {

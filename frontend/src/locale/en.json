@@ -8,6 +8,9 @@
   },
   "Home": {
     "title": "Home",
+    "content": {
+      "title": "Please Select Thing"
+    },
     "User": {
       "title": "User",
       "createUser": {
@@ -85,6 +88,15 @@
       "title": "lectures",
       "addLectures": "Add lectures",
       "showLectures": "Show Lectures"
+    },
+    "assignment": {
+      "title": "Assignment",
+      "createAssignment": {
+        "title": "Create Assignment"
+      },
+      "submitAssignment": {
+        "title": "Submit Assignment"
+      }
     }
   },
   "Chat": {

@@ -4,9 +4,9 @@ import { useAppContext } from "../../../context/appContext";
 
 function AddLecture() {
   const [courses, setCourses] = useState([
-    { title: "math", Url: "", lectureTitle: "" },
-    { title: "Net & web", Url: "", lectureTitle: "" },
-    { title: "Programming", Url: "", lectureTitle: "" },
+    { title: "الإنترنت والويب", Url: "", lectureTitle: "" },
+    { title: "برمجة 1", Url: "", lectureTitle: "" },
+    { title: "لغات البرمحة", Url: "", lectureTitle: "" },
   ]);
   //   const [updatedCourse, setUpdatedCourse] = useState({});
   const [titleOfLecture, setTitleOfLecture] = useState("");
@@ -59,7 +59,7 @@ function AddLecture() {
             <div className='title d-flex justify-content-between align-items-center'>
               <h5>{course.title}</h5>
               <Button onClick={() => handelAddLecture(course.title)}>
-                add lecture
+                إضافة محاضرة
               </Button>
             </div>
             <hr />

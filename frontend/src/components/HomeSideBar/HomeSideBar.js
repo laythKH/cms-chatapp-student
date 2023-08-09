@@ -50,7 +50,7 @@ const HomeSideBar = ({ roles, setShowOption, setIsSelected }) => {
 
   return (
     <div className='sidebar'>
-      <h3 className='sidebar-header'>Home</h3>
+      <h3 className='sidebar-header'>{t("Home.title")}</h3>
       <div className='navs-container'>
         <Accordion defaultActiveKey={["0"]} alwaysOpen className='drop-down'>
           {permissions?.user && (
@@ -141,7 +141,7 @@ const HomeSideBar = ({ roles, setShowOption, setIsSelected }) => {
 
           {permissions?.assignment && (
             <Accordion.Item eventKey='3' style={{ marginBottom: "15px" }}>
-              <Accordion.Header>Assignment</Accordion.Header>
+              <Accordion.Header>{t("Home.assignment.title")}</Accordion.Header>
               <Accordion.Body>
                 {permissions?.createAssignment && (
                   <div
@@ -150,7 +150,7 @@ const HomeSideBar = ({ roles, setShowOption, setIsSelected }) => {
                     ref={createAssignment}
                     onClick={() => handleShow(createAssignment)}
                   >
-                    Create Assignment
+                    {t("Home.assignment.createAssignment.title")}
                   </div>
                 )}
                 {permissions?.getAllSubmitedAssignment && (
@@ -160,7 +160,7 @@ const HomeSideBar = ({ roles, setShowOption, setIsSelected }) => {
                     ref={getAllSubmitedAssignment}
                     onClick={() => handleShow(getAllSubmitedAssignment)}
                   >
-                    Submited Assignment
+                    {t("Home.assignment.getAllSubmit.title")}
                   </div>
                 )}
                 {permissions?.submitAssignment && (
@@ -170,7 +170,7 @@ const HomeSideBar = ({ roles, setShowOption, setIsSelected }) => {
                     ref={submitAssignment}
                     onClick={() => handleShow(submitAssignment)}
                   >
-                    Submite Assignment
+                    {t("Home.assignment.submitAssignment.title")}
                   </div>
                 )}
               </Accordion.Body>

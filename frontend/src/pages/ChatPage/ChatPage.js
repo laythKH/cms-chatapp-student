@@ -8,7 +8,7 @@ import ChatContent from "../../components/ChatContent/ChatContent";
 import { useAppContext } from "../../context/appContext";
 import axios from "axios";
 
-const ChatPage = ({ handelLang }) => {
+const ChatPage = ({ handelLang, lang }) => {
   const [select, setSelect] = useState(false);
   const { selectedChat, setSelectedChat, user, listChats, setListChats } =
     useAppContext();
@@ -47,7 +47,7 @@ const ChatPage = ({ handelLang }) => {
 
   return (
     <>
-      {(isMatch || !select) && <NavBar handelLang={handelLang} />}
+      {(isMatch || !select) && <NavBar handelLang={handelLang} lang={lang} />}
       {/* {isMatch && <NavBar changeIcons={changeIcons} />} */}
       <div className='main-container-chatpage'>
         {(isMatch || !select) && (

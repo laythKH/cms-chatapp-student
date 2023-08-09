@@ -62,7 +62,7 @@ const rolesOption = {
   },
 };
 
-const HomePage = ({ handelLang }) => {
+const HomePage = ({ handelLang, lang }) => {
   const [isSelected, setIsSelected] = useState(false);
   const [roles, setRoles] = useState(rolesOption);
   const [showOption, setShowOption] = useState("");
@@ -87,7 +87,9 @@ const HomePage = ({ handelLang }) => {
         width: "100%",
       }}
     >
-      {(isMatch || !isSelected) && <NavBar handelLang={handelLang} />}
+      {(isMatch || !isSelected) && (
+        <NavBar handelLang={handelLang} lang={lang} />
+      )}
       <div className='home-page'>
         {(isMatch || !isSelected) && (
           <HomeSideBar
