@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { Button, Container, Form, Modal } from "react-bootstrap";
 import { useAppContext } from "../../../context/appContext";
 
-import './addLecture.css'
+import "./addLecture.css";
 
 function AddLecture() {
   const [courses, setCourses] = useState([
-    { title: "math", Url: "", lectureTitle: "" },
-    { title: "Net & web", Url: "", lectureTitle: "" },
-    { title: "Programming", Url: "", lectureTitle: "" },
+    { title: "الإنترنت والويب", Url: "", lectureTitle: "" },
+    { title: "برمجة 1", Url: "", lectureTitle: "" },
+    { title: "لغات البرمحة", Url: "", lectureTitle: "" },
   ]);
   //   const [updatedCourse, setUpdatedCourse] = useState({});
   const [titleOfLecture, setTitleOfLecture] = useState("");
@@ -40,12 +40,11 @@ function AddLecture() {
   }
 
   return (
-
     <>
       <Container className='d-flex main-holder'>
         {courses?.map((course) => {
           return (
-            <Container key={course.title} className="single-lecture-holder">
+            <Container key={course.title} className='single-lecture-holder'>
               <div className='title d-flex justify-content-between align-items-center single-lecture-header'>
                 <h5>{course.title}</h5>
                 <Button onClick={() => handelAddLecture(course.title)}>
@@ -54,7 +53,7 @@ function AddLecture() {
               </div>
               <hr />
               <div className='blocks-of-lectrues single-lecture-body'>
-                <a className="single-url" href={course.Url}>
+                <a className='single-url' href={course.Url}>
                   {course.lectureTitle}
                 </a>
               </div>
@@ -62,12 +61,7 @@ function AddLecture() {
             </Container>
           );
         })}
-
-
       </Container>
-
-
-
 
       <Modal show={showModal.case} onHide={closeModal}>
         <Modal.Header closeButton>

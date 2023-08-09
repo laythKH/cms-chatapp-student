@@ -34,13 +34,22 @@ const App = () => {
       }}
     >
       <Routes>
-        <Route path='/' element={<HomePage handelLang={handelLang} />} />
+        <Route
+          path='/'
+          element={<HomePage handelLang={handelLang} lang={lang} />}
+        />
         <Route
           path='/login'
           element={<FormPage lang={lang} handelLang={handelLang} />}
         />
-        <Route path='/chat' element={<ChatPage handelLang={handelLang} />} />
-        <Route path='/setting' element={<Setting handelLang={handelLang} />} />
+        <Route
+          path='/chat'
+          element={<ChatPage handelLang={handelLang} lang={lang} />}
+        />
+        <Route
+          path='/setting'
+          element={<Setting handelLang={handelLang} lang={lang} />}
+        />
         <Route path='*' element={<Error />} />
       </Routes>
     </div>

@@ -11,6 +11,7 @@ import CreateAssignment from "../Forms/CreateAssignment/CreateAssignment";
 import SubmitedAssignment from "../Forms/SubmitedAssignment/SubmitedAssignment";
 import SubmitAssignment from "../Forms/SubmitAssignment/SubmitAssignment";
 import AddLecture from "../Forms/AddLecture/AddLecture";
+import { useAppContext } from "../../context/appContext";
 
 // const HomeContent = ({ showOption, roles, setIsSelected, isSelected, isMatch }) => {
 
@@ -21,6 +22,7 @@ const HomeContent = ({
   isSelected,
   isMatch,
 }) => {
+  const { t } = useAppContext();
   if (!isSelected) {
     return (
       <div
@@ -31,7 +33,7 @@ const HomeContent = ({
           alignItems: "center",
         }}
       >
-        <h1>Please Select Thing</h1>
+        <h1>{t("Home.content.title")}</h1>
       </div>
     );
   }
