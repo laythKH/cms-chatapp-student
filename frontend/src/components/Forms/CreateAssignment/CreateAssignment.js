@@ -27,6 +27,7 @@ const CreateAssignment = () => {
          setCourses(data)
 
       } catch (error) {
+         console.log(error);
          setAlertText(error?.response?.data?.msg)
          setShowAlert(true)
       }

@@ -27,7 +27,6 @@ const getAllAssignment = async (req, res) => {
 
 const createAssignment = async (req, res) => {
    const { name, description, course, dueDate } = req.body
-   console.log(req.body);
 
    if (!name || !description || !course || !dueDate) {
       throw new BadRequestError('There is missing info')
@@ -38,7 +37,6 @@ const createAssignment = async (req, res) => {
    if (isThereAssignmentForSpecificCourse?.length !== 0) {
       console.log(isThereAssignmentForSpecificCourse);
       throw new BadRequestError('There is Already Assignment For this course')
-
    }
 
    const assignment = new Assignment({
@@ -59,7 +57,6 @@ const createAssignment = async (req, res) => {
    await findTheTargetCourse.save()
 
    // ==============================================
-
 
    if (assignment) {
       res.status(StatusCodes.OK).send(assignment)

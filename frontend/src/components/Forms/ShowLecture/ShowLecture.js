@@ -23,6 +23,13 @@ function ShowLecture() {
     }
   }, [user])
 
+
+  if (!courses) {
+    return (
+      <div>There is no Courses Yet</div>
+    )
+  }
+
   return (
     <>
       <Container className='d-flex main-holder'>

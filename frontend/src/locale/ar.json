@@ -37,7 +37,7 @@
         "createUser": "إنشاء المستخدم"
       },
       "searchForUser": {
-        "title": "البحث عن مستخدم",
+        "title": "تحديث معلومات المستخدم",
         "input": "اسم المستخدم",
         "button": "بحث"
       }
@@ -95,6 +95,9 @@
       },
       "submitAssignment": {
         "title": "ارسال الوظيفة"
+      },
+      "getAllSubmit": {
+        "title": "جلب الوظائف المنجزة"
       }
     }
   },
@@ -122,7 +125,6 @@
   "Setting": {
     "title": "الإعدادات",
     "back": "عودة",
-
     "generalSetting": {
       "title": "الإعدادات العامة",
       "alertChange": "تم النعديل بنجاح",

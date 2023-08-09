@@ -9,7 +9,7 @@ const HomeSideBar = ({ roles, setShowOption, setIsSelected }) => {
   const [permissions, setPermissions] = useState({});
 
   const createUser = useRef();
-  const searchForUser = useRef();
+  const updateUserInfp = useRef();
   const createCourse = useRef();
   const addAndDelCourseToUser = useRef();
   const updateOrDeleteCourse = useRef();
@@ -18,6 +18,8 @@ const HomeSideBar = ({ roles, setShowOption, setIsSelected }) => {
   const submitAssignment = useRef();
   const showLectures = useRef();
   const addLectures = useRef();
+  const addLecture = useRef();
+  const showLecures = useRef();
 
   const NavBarBasedOnUserRole = () => {
     const role = user?.role;
@@ -30,7 +32,7 @@ const HomeSideBar = ({ roles, setShowOption, setIsSelected }) => {
       createUser,
       addLectures,
       showLectures,
-      searchForUser,
+      updateUserInfp,
       createCourse,
       addAndDelCourseToUser,
       updateOrDeleteCourse,
@@ -67,12 +69,12 @@ const HomeSideBar = ({ roles, setShowOption, setIsSelected }) => {
                     {t("Home.User.createUser.title")}
                   </div>
                 )}
-                {permissions?.searchForUser && (
+                {permissions?.updateUserInfp && (
                   <div
                     className='dropdown-singleCard'
-                    data-name='searchForUser'
-                    ref={searchForUser}
-                    onClick={() => handleShow(searchForUser)}
+                    data-name='updateUserInfp'
+                    ref={updateUserInfp}
+                    onClick={() => handleShow(updateUserInfp)}
                   >
                     {t("Home.User.searchForUser.title")}
                   </div>
@@ -117,27 +119,27 @@ const HomeSideBar = ({ roles, setShowOption, setIsSelected }) => {
               </Accordion.Body>
             </Accordion.Item>
           )}
-          <Accordion.Item eventKey='2' style={{ marginBottom: "15px" }}>
+          {permissions?.lecture && <Accordion.Item eventKey='2' style={{ marginBottom: "15px" }}>
             <Accordion.Header>{t("Home.lectures.title")}</Accordion.Header>
             <Accordion.Body>
-              <div
+              {permissions?.addLecture && <div
                 className='dropdown-singleCard'
                 data-name='addLecture'
                 ref={addLectures}
                 onClick={() => handleShow(addLectures)}
               >
                 {t("Home.lectures.addLectures")}
-              </div>
-              <div
+              </div>}
+              {permissions?.showLectures && <div
                 className='dropdown-singleCard'
                 data-name='showLectures'
                 ref={showLectures}
                 onClick={() => handleShow(showLectures)}
               >
                 {t("Home.lectures.showLectures")}
-              </div>
+              </div>}
             </Accordion.Body>
-          </Accordion.Item>
+          </Accordion.Item>}
 
           {permissions?.assignment && (
             <Accordion.Item eventKey='3' style={{ marginBottom: "15px" }}>

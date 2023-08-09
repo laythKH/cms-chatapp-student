@@ -55,7 +55,7 @@ const HomeContent = ({
       )}
       <div style={{ padding: "10px 0" }}>
         {showOption === "createUser" && <CreateUser />}
-        {showOption === "searchForUser" && <SearchForUser />}
+        {showOption === "updateUserInfp" && <SearchForUser />}
         {showOption === "createCourse" && <CreateCourse />}
         {showOption === "addAndDelCourseToUser" && <AddRemoveCourseUser />}
         {showOption === "updateOrDeleteCourse" && <UpdateOrDeleteCourse />}

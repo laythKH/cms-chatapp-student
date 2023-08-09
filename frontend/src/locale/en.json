@@ -37,7 +37,7 @@
         "createUser": "Create User"
       },
       "searchForUser": {
-        "title": "Search For User",
+        "title": "Update User Info",
         "input": "Recipient's username",
         "button": "search"
       }
@@ -58,7 +58,6 @@
           "modalFooter": "Click Any Where to Close"
         }
       },
-
       "addDelCourse": {
         "title": "Add & Del Course User"
       },
@@ -96,6 +95,9 @@
       },
       "submitAssignment": {
         "title": "Submit Assignment"
+      },
+      "getAllSubmit": {
+        "title": "submitted Assignment"
       }
     }
   },
