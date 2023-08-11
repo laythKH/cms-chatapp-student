@@ -109,22 +109,23 @@ const CreateCourse = () => {
         );
       }
 
-      if (formData.teacher) {
-        const { data } = await axios.post(
-          `http://127.0.0.1:5000/api/v1/course/`,
-          { ...formData },
-          config
-        );
-      } else {
-        const { data } = await axios.post(
-          `http://127.0.0.1:5000/api/v1/course/`,
-          { name: formData?.name, description: formData?.description },
-          config
-        );
-      }
+      // if (formData.teacher) {
+      //   const { data } = await axios.post(
+      //     `http://127.0.0.1:5000/api/v1/course/`,
+      //     { ...formData },
+      //     config
+      //   );
+      // } else {
+      //   const { data } = await axios.post(
+      //     `http://127.0.0.1:5000/api/v1/course/`,
+      //     { name: formData?.name, description: formData?.description },
+      //     config
+      //   );
+      // }
 
       setAlertText("Course Created");
       setShowAlert(true);
+      // setAlertText('')
     } catch (error) {
       setAlertText(error.response.data.msg);
       setShowAlert(true);

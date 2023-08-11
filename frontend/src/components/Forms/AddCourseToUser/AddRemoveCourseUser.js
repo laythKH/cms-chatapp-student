@@ -84,12 +84,13 @@ const AddRemoveCourseUser = () => {
          console.log(`in axios =======> ${inputModalSearch}`);
          const { data } = await axios.get(`http://127.0.0.1:5000/api/v1/course/${inputModalSearch}`, config)
          console.log(data);
-         if (data.length === 0 || !inputModalSearch) {
+         if (data?.isThereData === false || !inputModalSearch) {
             setAlertText('There is no course with this name')
             setShowAlert(true)
             setShowCourseResult(false)
+            return
          } else {
-            setSearchCourseResult(data)
+            setSearchCourseResult(data.data)
             setShowCourseResult(true)
          }
 
@@ -110,7 +111,7 @@ const AddRemoveCourseUser = () => {
          // console.log(`course ID =======> ${courseId}`);
          // console.log(`user ID =======> ${userInfo._id}`);
          const { data } = await axios.post(`http://127.0.0.1:5000/api/v1/auth/${userInfo._id}/courses/${courseId}`, config)
-
+         console.log(data);
          setUserInfo({
             _id: data?._id,
             user: data?.name,
@@ -192,12 +193,12 @@ const AddRemoveCourseUser = () => {
                      </Card.Body>
                   </Card>
                   <Card>
-                     <Card.Body style={{ placeItems: 'flex-start' }}>
+                     <Card.Body style={{ placeItems: 'flex-start', width: ' 100%' }}>
                         <Card.Title>Student Courses</Card.Title>
                         <div style={{ overflowY: 'scroll', maxHeight: '400px' }}>
-                           <Row xs={1} md={2}>
+                           <Row style={{ width: '100%' }}>
                               {userInfo?.courses?.map((sCourse, idx) => (
-                                 <Col key={idx}>
+                                 <Col key={idx} xs={12} md={12} lg={6}>
                                     <Card className="course-card" style={{ marginBottom: '10px' }}>
                                        <div className='remove-item'>
                                           <button className='remove-item-btn'>
@@ -251,7 +252,7 @@ const AddRemoveCourseUser = () => {
                   </Button>
                </InputGroup>
                <Container className='course-holder'>
-                  {(showCourseResult) && <Row style={{ alignContent: 'center' }}>
+                  {(showCourseResult && searchCourseResult.length !== 0) && <Row style={{ alignContent: 'center' }}>
                      {searchCourseResult?.map((singleCourse) => (
                         <>
                            <Col xs={12} md={10} style={{ alignSelf: 'center' }}>
