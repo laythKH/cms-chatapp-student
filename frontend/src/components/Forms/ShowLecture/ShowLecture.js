@@ -3,31 +3,30 @@ import { Button, Container, Modal } from "react-bootstrap";
 import { Form } from "react-router-dom";
 import { useAppContext } from "../../../context/appContext";
 import "./showLecture.css";
-import axios from 'axios'
+import axios from "axios";
 
 function ShowLecture() {
-  const { user } = useAppContext()
+  const { user } = useAppContext();
   const [courses, setCourses] = useState();
 
   const { t } = useAppContext();
 
   const getAllFiles = async () => {
-    const { data } = await axios.get(`http://localhost:5000/api/v1/file/student/${user?._id}`)
+    const { data } = await axios.get(
+      `http://localhost:5000/api/v1/file/student/${user?._id}`
+    );
 
-    setCourses(data)
-  }
+    setCourses(data);
+  };
 
   useEffect(() => {
     if (user) {
-      getAllFiles()
+      getAllFiles();
     }
-  }, [user])
-
+  }, [user]);
 
   if (!courses) {
-    return (
-      <div>There is no Courses Yet</div>
-    )
+    return <h1>There is no Courses Yet</h1>;
   }
 
   return (
@@ -35,7 +34,10 @@ function ShowLecture() {
       <Container className='d-flex main-holder'>
         {courses?.map((course) => {
           return (
-            <Container key={course.courseName} className='single-lecture-holder'>
+            <Container
+              key={course.courseName}
+              className='single-lecture-holder'
+            >
               <div className='title d-flex justify-content-between align-items-center single-lecture-header'>
                 <h5>{course.courseName}</h5>
               </div>
@@ -45,7 +47,10 @@ function ShowLecture() {
                   <div className='blocks-of-lectrues single-lecture-body w-100'>
                     {course.files &&
                       course.files.map((singleUrl) => (
-                        <a className='single-show-url w-100' href={singleUrl.url}>
+                        <a
+                          className='single-show-url w-100'
+                          href={singleUrl.url}
+                        >
                           {singleUrl.name}
                           <div className='download d-flex justify-content-center align-items-center'>
                             <svg
@@ -66,7 +71,6 @@ function ShowLecture() {
               ) : (
                 <div className='no-files'>There is no Files Yet</div>
               )}
-
             </Container>
           );
         })}

@@ -87,15 +87,29 @@
     "lectures": {
       "title": "المحاضرات",
       "addLectures": "اضافة محاضرات",
+      "modal": {
+        "title": "اضافة محاضرة",
+        "titleLec": "عنوان المحاضرة",
+        "google": "رابط جوجل درايف",
+        "btn": "إنشاء"
+      },
       "showLectures": "عرض المحاضرات"
     },
     "assignment": {
       "title": "الوظائف",
       "createAssignment": {
-        "title": "إنشاء وظيفة"
+        "title": "إنشاء وظيفة",
+        "input1": "عنوان الوظيفة",
+        "input2": "وصف الوظيفة",
+        "select": "اختار المادة",
+        "due": "تاريخ الإستحقاق",
+        "create": "إنشاءالوظيفة"
       },
       "submitAssignment": {
-        "title": "ارسال الوظيفة"
+        "title": "ارسال الوظيفة",
+        "courseName": "اسم المادة",
+        "showAss": "إظهار الوظيفة",
+        "subAss": "قبول الوظيفة"
       },
       "getAllSubmit": {
         "title": "جلب الوظائف المنجزة"
@@ -104,6 +118,15 @@
   },
   "Chat": {
     "title": "الرسائل",
+    "email": "الحساب",
+    "role": "الصنف",
+    "content": "اختار محادثة أو قم باضافة ضخص",
+    "delChat": "حذف المحادثة",
+    "members": "الأعضاء",
+    "changeGroupName": "تغيير اسم المجموعة",
+    "set": "اعداد",
+    "addFriends": "إضافة أصدقاء",
+    "leaveGroup": "مغادرة المجموعة",
     "addPerson": {
       "title": "إضافة شخص",
       "modal": {

@@ -141,7 +141,7 @@ function GeneralSetting({ handelFinish }) {
         <Container className='side1 mb-5 m-3'>
           <div className='img-container d-flex justify-content-center align-items-center mb-2'>
             <Image
-              className={state.profileImg && "d-none"}
+              className={state.profileImg}
               ref={icon}
               src={state.profileImg}
               roundedCircle

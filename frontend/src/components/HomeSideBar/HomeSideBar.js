@@ -119,27 +119,27 @@ const HomeSideBar = ({ roles, setShowOption, setIsSelected }) => {
               </Accordion.Body>
             </Accordion.Item>
           )}
-          {permissions?.lecture && <Accordion.Item eventKey='2' style={{ marginBottom: "15px" }}>
+          <Accordion.Item eventKey='2' style={{ marginBottom: "15px" }}>
             <Accordion.Header>{t("Home.lectures.title")}</Accordion.Header>
             <Accordion.Body>
-              {permissions?.addLecture && <div
+              <div
                 className='dropdown-singleCard'
                 data-name='addLecture'
                 ref={addLectures}
                 onClick={() => handleShow(addLectures)}
               >
                 {t("Home.lectures.addLectures")}
-              </div>}
-              {permissions?.showLectures && <div
+              </div>
+              <div
                 className='dropdown-singleCard'
                 data-name='showLectures'
                 ref={showLectures}
                 onClick={() => handleShow(showLectures)}
               >
                 {t("Home.lectures.showLectures")}
-              </div>}
+              </div>
             </Accordion.Body>
-          </Accordion.Item>}
+          </Accordion.Item>
 
           {permissions?.assignment && (
             <Accordion.Item eventKey='3' style={{ marginBottom: "15px" }}>

@@ -68,9 +68,7 @@ function AddLecture() {
   }, [user]);
 
   if (!courses) {
-    return (
-      <div>There Is No Courses Yet</div>
-    )
+    return <h1>There Is No Courses Yet</h1>;
   }
 
   return (
@@ -86,7 +84,7 @@ function AddLecture() {
                 <div className='title d-flex justify-content-between align-items-center single-lecture-header'>
                   <h5>{course?.courseName}</h5>
                   <Button onClick={() => handelAddLecture(course)}>
-                    Add Lecture
+                    {t("Home.lectures.addLectures")}
                   </Button>
                 </div>
                 {course?.files?.length > 0 ? (
@@ -116,31 +114,33 @@ function AddLecture() {
 
       <Modal show={showModal.case} onHide={closeModal}>
         <Modal.Header closeButton>
-          <Modal.Title style={{ fontWeight: "bold" }}>Add Lecture</Modal.Title>
+          <Modal.Title style={{ fontWeight: "bold" }}>
+            {t("Home.lectures.modal.title")}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form.Group onSubmit={handelSubmit}>
             <Form.Label style={{ marginTop: "20px" }}>
-              Title of The Lecture
+              {t("Home.lectures.modal.titleLec")}
             </Form.Label>
             <Form.Control
               onChange={(e) => setTitleOfLecture(e.target.value)}
               type='text'
-              placeholder='Enter...'
+              placeholder={t("Home.lectures.modal.titleLec")}
             />
             <Form.Label style={{ marginTop: "20px" }}>
-              Google Drive URL
+              {t("Home.lectures.modal.google")}
             </Form.Label>
             <Form.Control
               onChange={(e) => setGoogleURL(e.target.value)}
               type='text'
-              placeholder='Enter...'
+              placeholder={t("Home.lectures.modal.google")}
             />
             <Button
               onClick={handelSubmit}
               style={{ marginTop: "20px", width: "100%" }}
             >
-              Submit
+              {t("Home.lectures.modal.btn")}
             </Button>
           </Form.Group>
         </Modal.Body>

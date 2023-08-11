@@ -87,15 +87,29 @@
     "lectures": {
       "title": "lectures",
       "addLectures": "Add lectures",
+      "modal": {
+        "title": "Add Lecture",
+        "titleLec": "Title of Lecture",
+        "google": "Google Drive URL",
+        "btn": "Submit"
+      },
       "showLectures": "Show Lectures"
     },
     "assignment": {
       "title": "Assignment",
       "createAssignment": {
-        "title": "Create Assignment"
+        "title": "Create Assignment",
+        "input1": "Title Of Assignment",
+        "input2": "Description of Assignment",
+        "select": "Select Course",
+        "due": "Due Date",
+        "create": "Create Assignment"
       },
       "submitAssignment": {
-        "title": "Submit Assignment"
+        "title": "Submit Assignment",
+        "courseName": "Course Name",
+        "showAss": "Show Assignment",
+        "subAss": "Submit Assignment"
       },
       "getAllSubmit": {
         "title": "submitted Assignment"
@@ -104,6 +118,15 @@
   },
   "Chat": {
     "title": "Messages",
+    "email": "email",
+    "role": "role",
+    "content": "Select Chat or Add Person",
+    "delChat": "Delete Chat",
+    "members": "Members",
+    "changeGroupName": "Change Group Name",
+    "set": "SET",
+    "addFriends": "Add Friends",
+    "leaveGroup": "Leave Group",
     "addPerson": {
       "title": "Add Person",
       "modal": {
