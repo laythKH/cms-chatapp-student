@@ -6,6 +6,11 @@ import { useAppContext } from "../../context/appContext";
 
 function PersonalInfo() {
   const { t } = useAppContext();
+  const { user } = useAppContext()
+
+  useEffect(() => {
+
+  }, [user])
 
   return (
     <Container>
@@ -13,27 +18,27 @@ function PersonalInfo() {
         <tbody>
           <tr>
             <td>{t("Home.User.createUser.firstName")}:</td>
-            <th>mario</th>
+            <th>{user?.firstName}</th>
           </tr>
           <tr>
             <td>{t("Home.User.createUser.lastName")}:</td>
-            <th>abood</th>
+            <th>{user?.lastName}</th>
           </tr>
           <tr>
             <td>{t("Home.User.createUser.email")}:</td>
-            <th>aboodhu0@gmail.com</th>
+            <th>{user?.email}</th>
           </tr>
           <tr>
             <td>{t("Home.User.createUser.phoneNumber")}:</td>
-            <th>+963962571799</th>
+            <th>{user?.phoneNumber}</th>
           </tr>
           <tr>
             <td>{t("Home.User.createUser.Gender.title")}:</td>
-            <th>male</th>
+            <th>{user?.gender}</th>
           </tr>
           <tr>
-            <td>{t("Home.User.createUser.city")}:</td>
-            <th>Daraa</th>
+            <td>{t("Home.User.createUser.id")}:</td>
+            <th>{user?.studentNumber}</th>
           </tr>
         </tbody>
       </Table>

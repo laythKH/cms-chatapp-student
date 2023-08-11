@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -7,10 +7,19 @@ import Modal from "react-bootstrap/Modal";
 import GeneralSetting from "../GeneralSetting/GeneralSetting";
 import PersonalInfo from "../PersonalInfo/PersonalInfo";
 import { useAppContext } from "../../context/appContext";
+import axios from 'axios'
+import { useNavigate } from "react-router-dom";
+import AlertShow from "../Alert/AlertShow";
+
 
 function SettingContent({ option, isMatch, setIsSelected }) {
-  const [input1, setInput1] = useState("");
-  const [input2, setInput2] = useState("");
+  const navigate = useNavigate();
+  const { user, setAlertText, setShowAlert } = useAppContext()
+  const [oldPassword, setOldPassword] = useState('')
+  const [newPass, setNewPass] = useState('');
+  const [confimNewPass, setConfrimNewPass] = useState('');
+
+
   const [modalText, setModalText] = useState("");
   const [show, setShow] = useState(false);
   const [color, setColor] = useState(false);
@@ -18,16 +27,34 @@ function SettingContent({ option, isMatch, setIsSelected }) {
 
   const { t } = useAppContext();
 
-  function handelsubmit(e) {
+  const handelsubmit = async (e) => {
     e.preventDefault();
-    if (input1 === input2) {
-      setColor(true);
-      setModalText("change password successfuly");
-      setShow(true);
-    } else {
-      setColor(false);
-      setModalText("the confirmation password does not match");
-      setShow(true);
+    if (!oldPassword || !newPass || !confimNewPass) {
+      setAlertText('Please Provide All Values')
+      setShowAlert(true)
+      return
+    }
+    if (newPass !== confimNewPass) {
+      setAlertText('Please Check Your confirm and new password')
+      setShowAlert(true)
+    }
+
+
+    try {
+      const { data } = await axios.post(
+        'http://localhost:5000/api/v1/auth/update-password',
+        { oldPassword, newPassword: newPass, id: user?._id }
+      )
+
+      if (data?.updated === true) {
+        localStorage.removeItem('userInfo')
+        navigate('/login')
+      }
+
+      console.log(data);
+    } catch (error) {
+      setAlertText(error?.response?.data?.msg)
+      setShowAlert(true)
     }
   }
 
@@ -76,23 +103,27 @@ function SettingContent({ option, isMatch, setIsSelected }) {
             <Form.Group className='mb-4' controlId='formBasicEmail'>
               <Form.Label>{t("Setting.changePassword.input1")}</Form.Label>
               <Form.Control
-                type='password'
+                type='text'
                 placeholder={`${t("Setting.changePassword.input1")}...`}
+                value={oldPassword}
+                onChange={(e) => setOldPassword(e.target.value)}
               />
             </Form.Group>
             <Form.Group className='mb-4' controlId='formBasicEmail'>
               <Form.Label>{t("Setting.changePassword.input2")}</Form.Label>
               <Form.Control
-                onChange={(e) => setInput1(e.target.value)}
-                type='password'
+                value={newPass}
+                onChange={(e) => setNewPass(e.target.value)}
+                type='text'
                 placeholder={`${t("Setting.changePassword.input2")}...`}
               />
             </Form.Group>
             <Form.Group className='mb-4' controlId='formBasicEmail'>
               <Form.Label>{t("Setting.changePassword.input3")}</Form.Label>
               <Form.Control
-                onChange={(e) => setInput2(e.target.value)}
-                type='password'
+                value={confimNewPass}
+                onChange={(e) => setConfrimNewPass(e.target.value)}
+                type='text'
                 placeholder={`${t("Setting.changePassword.input3")}...`}
               />
             </Form.Group>
@@ -135,6 +166,9 @@ function SettingContent({ option, isMatch, setIsSelected }) {
           </Modal>
         </Container>
       </Container>
+
+
+      {<AlertShow />}
     </>
   );
 }

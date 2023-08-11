@@ -29,9 +29,9 @@ const SubmitedAssignment = () => {
 
 
 
-   if (!allSolutions) {
+   if (allSolutions?.length === 0) {
       return (
-         <div>There no Courses Yet</div>
+         <div style={{ height: '100v', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '70px', fontSize: '28px', fontWeight: 700 }}>There Is No Courses Yet</div>
       )
    }
 

@@ -67,8 +67,22 @@ function AddLecture() {
     getAllInfo();
   }, [user]);
 
-  if (!courses) {
-    return <h1>There Is No Courses Yet</h1>;
+  if (courses?.length === 0) {
+    return (
+      <div
+        style={{
+          height: "100v",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: "70px",
+          fontSize: "28px",
+          fontWeight: 700,
+        }}
+      >
+        There Is No Courses Yet
+      </div>
+    );
   }
 
   return (

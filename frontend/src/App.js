@@ -7,6 +7,7 @@ import ChatPage from "./pages/ChatPage/ChatPage";
 import Setting from "./pages/Setting/Setting";
 import HomePage from "./pages/HomePage/HomePage";
 import { useAppContext } from "./context/appContext";
+import AlertShow from "./components/Alert/AlertShow";
 
 const App = () => {
   const [lang, setLang] = useState(false);
@@ -27,10 +28,12 @@ const App = () => {
   return (
     <div
       style={{
+        position: 'relative',
         backgroundColor: "white",
         height: "100vh",
         display: "flex",
         width: "100%",
+        overflow: 'hidden'
       }}
     >
       <Routes>
@@ -52,6 +55,9 @@ const App = () => {
         />
         <Route path='*' element={<Error />} />
       </Routes>
+
+
+      <AlertShow />
     </div>
   );
 };

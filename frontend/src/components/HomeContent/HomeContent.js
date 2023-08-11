@@ -42,7 +42,7 @@ const HomeContent = ({
   return (
     <div
       className='home-content-main'
-      style={{ padding: isMatch ? "0px" : "20px" }}
+      style={{ padding: isMatch ? "0px" : "20px", height: '100vh', boxSizing: 'border-box' }}
     >
       {isMatch && (
         <div className='btn-back-holder'>

@@ -69,6 +69,10 @@ const UserSchema = new mongoose.Schema({
       select: false,
       default: '100200300'
    },
+   city: {
+      type: String,
+      trim: true
+   },
    role: {
       type: String,
       enum: ['student', 'teacher', 'manager', 'admin'],
@@ -78,13 +82,13 @@ const UserSchema = new mongoose.Schema({
    // courses: [{ type: String }]
 })
 
-UserSchema.pre('save', async function () {
-   // console.log(this.modifiedPaths())
-   if (!this.isModified('password')) return
-   console.log('after isModified');
-   const salt = await bcrypt.genSalt(10)
-   this.password = await bcrypt.hash(this.password, salt)
-})
+// UserSchema.pre('save', async function () {
+//    // console.log(this.modifiedPaths())
+//    if (!this.isModified('password')) return
+//    console.log('after isModified');
+//    const salt = await bcrypt.genSalt(10)
+//    this.password = await bcrypt.hash(this.password, salt)
+// })
 
 UserSchema.methods.createJWT = function () {
    // console.log(this);

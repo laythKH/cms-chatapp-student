@@ -120,8 +120,6 @@ const HomePage = ({ handelLang, lang }) => {
           />
         )}
       </div>
-
-      <AlertShow />
     </div>
   );
 };

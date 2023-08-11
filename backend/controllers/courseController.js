@@ -155,17 +155,21 @@ const searchCourseByName = async (req, res) => {
    const courseName = req.params.id;
 
    try {
-      const courses = await Course.find({ name: { $regex: courseName, $options: 'i' } }).exec();
+      const courses = await Course.find({ name: { $regex: courseName } }).exec();
 
       if (courses.length > 0) {
          // Courses matching the search criteria were found
          // console.log('Matching courses:', courses);
          console.log('full of courses');
-         res.status(StatusCodes.OK).send(courses)
+         res.status(StatusCodes.OK).json({
+            isThereData: true,
+            data: courses
+         })
       } else {
          // No courses matching the search criteria were found
-         console.log('there no course with this name');
-         res.send('there is no course with this name')
+         res.status(StatusCodes.OK).json({
+            isThereData: false,
+         })
       }
    } catch (error) {
       // Handle any errors that occurred during the operation
