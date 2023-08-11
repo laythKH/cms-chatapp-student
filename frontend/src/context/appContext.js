@@ -67,9 +67,9 @@ const AppProvider = ({ children }) => {
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
-    if (!userInfo) {
-      handleRedirect("/login");
-    }
+    // if (!userInfo) {
+    //   handleRedirect("/login");
+    // }
 
     console.log(user);
 

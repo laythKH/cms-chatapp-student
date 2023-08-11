@@ -23,6 +23,7 @@
         "phoneNumber": "Phone Number",
         "date": "Date Of Birth",
         "Gender": {
+          "title": "Gender",
           "selectGen": "Select Gender",
           "op1": "male",
           "op2": "female"

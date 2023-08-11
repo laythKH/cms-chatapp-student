@@ -18,8 +18,6 @@ function Setting({ handelLang, lang }) {
 
   const [isSelected, setIsSelected] = useState(false);
 
-  console.log(isSelected, isMatch);
-
   return (
     <>
       <NavBar handelLang={handelLang} lang={lang} />

@@ -79,7 +79,6 @@ function GeneralSetting({ handelFinish }) {
     birthday: "",
     gender: "",
   });
-  console.log(state);
 
   const icon = useRef();
   const inp = useRef();
@@ -87,8 +86,6 @@ function GeneralSetting({ handelFinish }) {
   useEffect(() => {
     setPhoneCode(PhonePrefix.countries);
   }, []);
-
-  console.log(state);
 
   function handelImg(e) {
     dispatch({
