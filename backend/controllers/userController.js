@@ -1,6 +1,6 @@
 import User from "../models/User.js"
 import { StatusCodes } from 'http-status-codes';
-
+import bcrypt from 'bcryptjs';
 import { BadRequestError, UnAuthenticatedError } from "../errors/index.js";
 import Course from "../models/Course.js";
 // import authenticateUser from "../trying.js";
@@ -24,7 +24,16 @@ const register = async (req, res) => {
       throw new BadRequestError('User already exists')
    }
    const studentNumber = await getNextUserNumber();
-   const user = await User.create({ firstName, lastName, name, email, role, studentNumber, phoneNumber, gender, dateOfBirth })
+
+
+   const user = new User({ firstName, lastName, name, email, role, studentNumber, phoneNumber, gender, dateOfBirth })
+
+   // Hash the default password
+   const salt = await bcrypt.genSalt(10);
+   user.password = await bcrypt.hash(process.env.DEFAULT_PASSWORD, salt);
+
+   await user.save()
+
    const token = user.createJWT()
    res
       .status(StatusCodes.OK)
@@ -40,12 +49,14 @@ const register = async (req, res) => {
          dateOfBirth: user?.dateOfBirth,
          phoneNumber: user?.phoneNumber,
          gender: user?.gender,
-         token: token
+         token: token,
+         password: user?.password
       })
 }
 
 const login = async (req, res) => {
    const { studentNumber, password } = req.body;
+   console.log(studentNumber, password);
    if (!studentNumber || !password) {
       throw new BadRequestError('Please provide all values');
    }
@@ -55,14 +66,17 @@ const login = async (req, res) => {
    }
    console.log("-------------------------------");
    let isPasswordCorrect
-   if (password === process.env.DEFAULT_PASSWORD) {
+   if (password === process.env.ADMIN_PASSWORD) {
       isPasswordCorrect = true
    } else {
       isPasswordCorrect = await user.matchPassword(password);
-      if (!isPasswordCorrect) {
-         throw new UnAuthenticatedError('Invalid Credentials');
-      }
+
    }
+   console.log(`Is Correct Pass -----> ${isPasswordCorrect}`);
+   if (!isPasswordCorrect) {
+      throw new UnAuthenticatedError('Invalid Credentials');
+   }
+
    const token = user.createJWT()
 
    if (user?.role === 'student') {
@@ -163,6 +177,49 @@ const updateUser = async (req, res) => {
    }
 }
 
+const updatePassword = async (req, res) => {
+   const { oldPassword, newPassword, id } = req.body;
+
+   try {
+      // Retrieve the user from the database
+      const user = await User.findOne({ _id: id }); // Assuming you are using authentication middleware and have access to the authenticated user ID
+
+      // Check if the user exists
+      if (!user) {
+         return res.status(404).json({ message: 'User not found' });
+      }
+
+      // Compare the old password with the password stored in the database
+      let isMatch
+      if (oldPassword === process.env.DEFAULT_PASSWORD) {
+         isMatch = true
+      } else {
+         isMatch = await user.matchPassword(oldPassword)
+      }
+      console.log(`isMatch ==> ${isMatch}`);
+      // If the old password doesn't match, return an error
+      if (!isMatch) {
+         return res.status(400).json({ message: 'Invalid old password' });
+      }
+
+      // Hash the new password
+      // const salt = await bcrypt.genSalt(10);
+      // const newPasswordHash = await bcrypt.hash(newPassword, salt);
+
+      // Update the user's password
+      user.password = newPassword;
+
+      // Save the updated user object to the database
+      await user.save();
+      console.log(user);
+      // Return a success message
+      res.status(200).json({ message: 'Password updated successfully' });
+   } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal server error' });
+   }
+};
+
 const getAllUser = async (req, res) => {
    const keyword = req.query.search ? {
       $or: [
@@ -254,4 +311,4 @@ const deleteCourseForStudent = async (req, res) => {
 
 
 
-export { register, updateUser, login, getAllUser, getUserCourse, addCourseToUser, deleteCourseForStudent }
+export { register, updateUser, login, getAllUser, getUserCourse, addCourseToUser, deleteCourseForStudent, updatePassword }

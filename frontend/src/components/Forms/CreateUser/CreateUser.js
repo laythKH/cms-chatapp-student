@@ -52,7 +52,7 @@ const CreateUser = ({ userInfo, isUpdate = false, setShowUserInfo }) => {
 
     try {
       setIsLoading(true);
-      const data = await axios.post(
+      const { data } = await axios.post(
         `http://127.0.0.1:5000/api/v1/auth/register`,
         {
           firstName,
@@ -65,6 +65,7 @@ const CreateUser = ({ userInfo, isUpdate = false, setShowUserInfo }) => {
           role,
         }
       );
+      console.log(data);
       setIsLoading(false);
       setAlertText("User Created");
       setShowAlert(true);
@@ -262,8 +263,8 @@ const CreateUser = ({ userInfo, isUpdate = false, setShowUserInfo }) => {
             ? "Loading..."
             : "Update Info"
           : isLoading
-          ? "Loading..."
-          : t("Home.User.createUser.createUser")}
+            ? "Loading..."
+            : t("Home.User.createUser.createUser")}
       </Button>
     </Form>
   );
