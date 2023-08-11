@@ -4,6 +4,7 @@ import "./GeneralSetting.css";
 import Logo from "./choosejpg.jpg";
 import PhonePrefix from "./PhonePrefix.json";
 import { useAppContext } from "../../context/appContext";
+import axios from 'axios'
 
 const ACTIONS = {
   PROFILEIMG: "profileImg",
@@ -16,6 +17,7 @@ const ACTIONS = {
   GENDER: "gender",
   FINISH: "finish",
   SETUSERINFO: "setUserInfo",
+  CITY: "city"
 };
 
 function reducer(state, action) {
@@ -47,6 +49,9 @@ function reducer(state, action) {
     case ACTIONS.GENDER:
       return { ...state, gender: action.payload.gender };
       break;
+    case ACTIONS.CITY:
+      return { ...state, city: action.payload.city };
+      break;
     case ACTIONS.FINISH:
       return {
         profileImg: "",
@@ -67,8 +72,9 @@ function reducer(state, action) {
 
 function GeneralSetting({ handelFinish }) {
   const [phoneCode, setPhoneCode] = useState();
-  const { t, user } = useAppContext();
-  // console.log(user);
+  const [userData, setUserData] = useState('')
+  const { t, user, setAlertText, setShowAlert, refetch, setRefetch } = useAppContext();
+  const [showUpdateBtn, setShowUpdateBtn] = useState(false)
   const [state, dispatch] = useReducer(reducer, {
     profileImg: "",
     firstName: "",
@@ -78,7 +84,9 @@ function GeneralSetting({ handelFinish }) {
     email: "",
     birthday: "",
     gender: "",
+    city: ""
   });
+
 
   const icon = useRef();
   const inp = useRef();
@@ -94,7 +102,14 @@ function GeneralSetting({ handelFinish }) {
     });
   }
 
-  const [showAlert, setShowAlert] = useState(false);
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setUserData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+
+  }
 
   function finishChanges() {
     handelFinish(state);
@@ -109,6 +124,56 @@ function GeneralSetting({ handelFinish }) {
     return () => clearTimeout(timer);
   }
 
+  const setDate = (dateOfBirth) => {
+    if (dateOfBirth) {
+      const newDate = new Date(dateOfBirth).toISOString().split('T')[0]
+      return newDate
+    } else {
+      return ''
+    }
+  }
+
+  const handleSaveChanges = async () => {
+    // if (user.city === state.city && user.phoneNumber === state.phoneNumber && user.email === state.email) {
+    //   setShowUpdateBtn(false)
+    //   setAlertText('There Is No Changes')
+    //   setShowAlert(true)
+    //   return
+    // }
+    // console.log('New Changes');
+
+    console.log(state);
+
+    try {
+      const { data } = await axios.patch(`http://localhost:5000/api/v1/auth/updateUserInfo/${user._id}`, { city: userData.city, phoneNumber: userData.phoneNumber, email: userData.email })
+      console.log(data);
+      if (data.updated) {
+        const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+
+        userInfo.city = data.user.city
+        userInfo.phoneNumber = data.user.phoneNumber
+        userInfo.email = data.user.email
+
+        localStorage.setItem("userInfo", JSON.stringify(userInfo))
+        setRefetch(!refetch)
+      }
+      setAlertText('User Updated')
+      setShowAlert(true)
+      setShowUpdateBtn(false)
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const isThereDifference = () => {
+    if (user.city !== userData?.city || user.phoneNumber !== userData.phoneNumber || user.email !== userData.email) {
+      setShowUpdateBtn(true)
+    } else {
+      setShowUpdateBtn(false)
+    }
+  }
+
   useEffect(() => {
     dispatch({
       type: ACTIONS.SETUSERINFO,
@@ -120,11 +185,24 @@ function GeneralSetting({ handelFinish }) {
           email: user?.email,
           gender: user?.gender,
           phoneNumber: user?.phoneNumber,
-          birthday: user?.dateOfBirth,
+          birthday: setDate(user?.dateOfBirth),
+          city: user?.city,
         },
       },
+
     });
+
+    setUserData(user)
   }, [user]);
+
+
+
+  useEffect(() => {
+    if (user !== userData && userData !== '') {
+      isThereDifference()
+    }
+  }, [userData])
+
 
   if (!user) {
     return <h1>Loading....</h1>;
@@ -132,11 +210,6 @@ function GeneralSetting({ handelFinish }) {
 
   return (
     <>
-      {showAlert && (
-        <div className='change-message'>
-          {t("Setting.generalSetting.alertChange")}
-        </div>
-      )}
       <Container className='main-container d-flex align-items-start'>
         <Container className='side1 mb-5 m-3'>
           <div className='img-container d-flex justify-content-center align-items-center mb-2'>
@@ -162,6 +235,8 @@ function GeneralSetting({ handelFinish }) {
               ref={inp}
               onChange={(e) => handelImg(e)}
               type='file'
+              disabled
+              readOnly
             />
           </Form>
           <Form onSubmit={(e) => e.preventDefault()} className='mt-3 '>
@@ -176,6 +251,8 @@ function GeneralSetting({ handelFinish }) {
               }
               className='mb-4'
               placeHolder={`${t("Home.User.createUser.firstName")}...`}
+              disabled
+              readOnly
             />
             <Form.Label>{t("Home.User.createUser.lastName")}:</Form.Label>
             <Form.Control
@@ -187,6 +264,16 @@ function GeneralSetting({ handelFinish }) {
                   payload: { last: e.target.value },
                 })
               }
+              disabled
+              readOnly
+            />
+            <Form.Label className='mt-3'>{t("Home.User.createUser.city")}</Form.Label>
+            <Form.Control
+              value={userData?.city}
+              name="city"
+              onChange={(e) => handleChange(e)}
+              className='mb-4'
+              placeHolder={`${t("Home.User.createUser.city")}...`}
             />
           </Form>
         </Container>
@@ -194,7 +281,7 @@ function GeneralSetting({ handelFinish }) {
           <Form.Label className=''>
             {t("Home.User.createUser.phoneNumber")}:
           </Form.Label>
-          <div className='d-flex gap-2 mb-3'>
+          {/*<div className='d-flex gap-2 mb-3'>
             <Form.Select
               value={state.phoneCode}
               onChange={(e) =>
@@ -221,59 +308,57 @@ function GeneralSetting({ handelFinish }) {
               type='number'
               placeHolder={`${state.phoneCode}000000000`}
             />
-          </div>
+            </div>*/}
+          <Form.Control
+            value={userData?.phoneNumber}
+            name="phoneNumber"
+            onChange={(e) => handleChange(e)}
+            className="gap-2 mb-3"
+            placeholder="00000000000"
+          />
           <Form onSubmit={(e) => e.preventDefault()}>
             <Form.Label>{t("Home.User.createUser.email")}:</Form.Label>
             <Form.Control
-              value={state.email}
+              value={userData?.email}
+              name="email"
               type='email'
               placeHolder={`${t("Home.User.createUser.email")}...`}
-              onChange={(e) =>
-                dispatch({
-                  type: ACTIONS.EMAIL,
-                  payload: { email: e.target.value },
-                })
-              }
+              onChange={(e) => handleChange(e)}
             />
             <Form.Label className='mt-4'>
               {t("Home.User.createUser.date")}:
             </Form.Label>
             <Form.Control
-              value={state.birthday}
+
+              name="dateOfBirth"
               type='date'
-              onChange={(e) =>
-                dispatch({
-                  type: ACTIONS.BIRTHDAY,
-                  payload: { birthday: e.target.value },
-                })
-              }
+              disabled
+              readOnly
             />
             <Form.Label className='mt-4'>
               {t("Home.User.createUser.Gender.selectGen")}:
             </Form.Label>
             <Form.Select
               value={state.gender}
-              onChange={(e) =>
-                dispatch({
-                  type: ACTIONS.GENDER,
-                  payload: { gender: e.target.value },
-                })
-              }
+              disabled
+              readOnly
             >
               <option>{t("Home.User.createUser.Gender.op1")}</option>
               <option>{t("Home.User.createUser.Gender.op2")}</option>
             </Form.Select>
+            {showUpdateBtn && <Button
+              className="mt-4 w-100"
+              style={{ fontWeight: '600', letterSpacing: '1.2px' }}
+              onClick={() => handleSaveChanges()}
+            >{t("Setting.generalSetting.changeBtn")}</Button>}
           </Form>
         </Container>
       </Container>
-      <Container className='submit-container'>
-        <Button
-          onClick={() => finishChanges()}
-          className='submit-btn w-100 p-2'
-        >
-          <span>{t("Setting.generalSetting.changeBtn")}</span>
-        </Button>
-      </Container>
+
+
+
+
+
     </>
   );
 }

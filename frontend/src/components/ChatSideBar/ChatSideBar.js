@@ -424,8 +424,6 @@ const ChatSideBar = ({ handleSelected, setSelect }) => {
           {t("Chat.createGroup.modal.modalFooter")}
         </Modal.Footer>
       </Modal>
-
-      <AlertShow />
     </>
   );
 };

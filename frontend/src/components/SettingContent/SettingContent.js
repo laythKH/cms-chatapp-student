@@ -7,8 +7,13 @@ import Modal from "react-bootstrap/Modal";
 import GeneralSetting from "../GeneralSetting/GeneralSetting";
 import PersonalInfo from "../PersonalInfo/PersonalInfo";
 import { useAppContext } from "../../context/appContext";
+import axios from 'axios'
+import { useNavigate } from "react-router-dom";
+import AlertShow from "../Alert/AlertShow";
+
 
 function SettingContent({ option, isMatch, setIsSelected }) {
+  const navigate = useNavigate();
   const { user, setAlertText, setShowAlert } = useAppContext()
   const [oldPassword, setOldPassword] = useState('')
   const [newPass, setNewPass] = useState('');
@@ -34,14 +39,22 @@ function SettingContent({ option, isMatch, setIsSelected }) {
       setShowAlert(true)
     }
 
+
     try {
       const { data } = await axios.post(
         'http://localhost:5000/api/v1/auth/update-password',
         { oldPassword, newPassword: newPass, id: user?._id }
       )
+
+      if (data?.updated === true) {
+        localStorage.removeItem('userInfo')
+        navigate('/login')
+      }
+
       console.log(data);
     } catch (error) {
-      console.log(error);
+      setAlertText(error?.response?.data?.msg)
+      setShowAlert(true)
     }
   }
 
@@ -153,6 +166,9 @@ function SettingContent({ option, isMatch, setIsSelected }) {
           </Modal>
         </Container>
       </Container>
+
+
+      {<AlertShow />}
     </>
   );
 }

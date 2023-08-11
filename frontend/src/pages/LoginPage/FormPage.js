@@ -26,11 +26,6 @@ function FormPage({ handelLang, lang }) {
           setAlertText={setAlertText}
           setShow={setShowAlert}
         />
-        <AlertShow
-          alertText={alertText}
-          show={showAlert}
-          setShow={setShowAlert}
-        />
       </div>
       <div
         className='largScreenImg d-flex align-items-center'

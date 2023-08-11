@@ -1,4 +1,4 @@
-import { register, login, updateUser, getAllUser, getUserCourse, addCourseToUser, deleteCourseForStudent, updatePassword } from '../controllers/userController.js';
+import { register, login, updateUser, getAllUser, getUserCourse, addCourseToUser, deleteCourseForStudent, updatePassword, updateUserInfo } from '../controllers/userController.js';
 
 
 import express from 'express';
@@ -14,6 +14,7 @@ router.route('/:userId/courses/:courseId')
    .post(addCourseToUser)
    .delete(deleteCourseForStudent)
 router.route('/update-password').post(updatePassword)
+router.route('/updateUserInfo/:id').patch(updateUserInfo)
 
 
 

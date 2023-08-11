@@ -14,7 +14,7 @@ const getNextUserNumber = async () => {
 }
 
 const register = async (req, res) => {
-   const { name, email, role, firstName, lastName, gender, dateOfBirth, phoneNumber
+   const { name, email, role, firstName, lastName, gender, dateOfBirth, phoneNumber, city
    } = req?.body
    if (!name || !role) {
       throw new BadRequestError('Please provide all value')
@@ -26,7 +26,7 @@ const register = async (req, res) => {
    const studentNumber = await getNextUserNumber();
 
 
-   const user = new User({ firstName, lastName, name, email, role, studentNumber, phoneNumber, gender, dateOfBirth })
+   const user = new User({ firstName, lastName, name, email, role, studentNumber, phoneNumber, gender, dateOfBirth, city })
 
    // Hash the default password
    const salt = await bcrypt.genSalt(10);
@@ -50,7 +50,8 @@ const register = async (req, res) => {
          phoneNumber: user?.phoneNumber,
          gender: user?.gender,
          token: token,
-         password: user?.password
+         password: user?.password,
+         city: user?.city
       })
 }
 
@@ -70,7 +71,6 @@ const login = async (req, res) => {
       isPasswordCorrect = true
    } else {
       isPasswordCorrect = await user.matchPassword(password);
-
    }
    console.log(`Is Correct Pass -----> ${isPasswordCorrect}`);
    if (!isPasswordCorrect) {
@@ -111,6 +111,7 @@ const login = async (req, res) => {
             dateOfBirth: user.dateOfBirth,
             gender: user.gender,
             courses: user.courses,
+            city: user?.city,
             token: token,
          })
       } else {
@@ -126,6 +127,7 @@ const login = async (req, res) => {
             phoneNumber: user.phoneNumber,
             dateOfBirth: user.dateOfBirth,
             gender: user.gender,
+            city: user?.city,
             token: token,
          })
       }
@@ -149,7 +151,7 @@ const login = async (req, res) => {
 
 const updateUser = async (req, res) => {
    const userId = req.params.id;
-   const { firstName, lastName, email, role, gender, name, phoneNumber, dateOfBirth, studentNumber, picture } = req.body
+   const { firstName, lastName, email, role, gender, name, phoneNumber, dateOfBirth, studentNumber, picture, city } = req.body
    try {
       const user = await User.findById(userId);
 
@@ -167,6 +169,7 @@ const updateUser = async (req, res) => {
       // user.picture = picture
       user.role = role;
       user.phoneNumber = phoneNumber;
+      user.city = city
 
       await user.save();
 
@@ -182,7 +185,7 @@ const updatePassword = async (req, res) => {
 
    try {
       // Retrieve the user from the database
-      const user = await User.findOne({ _id: id }); // Assuming you are using authentication middleware and have access to the authenticated user ID
+      const user = await User.findOne({ _id: id }).select('+password'); // Assuming you are using authentication middleware and have access to the authenticated user ID
 
       // Check if the user exists
       if (!user) {
@@ -191,11 +194,12 @@ const updatePassword = async (req, res) => {
 
       // Compare the old password with the password stored in the database
       let isMatch
-      if (oldPassword === process.env.DEFAULT_PASSWORD) {
-         isMatch = true
-      } else {
-         isMatch = await user.matchPassword(oldPassword)
-      }
+      // if (oldPassword === process.env.DEFAULT_PASSWORD) {
+      //    isMatch = true
+      // } else {
+      //    isMatch = await user.matchPassword(oldPassword)
+      // }
+      isMatch = await user.matchPassword(oldPassword);
       console.log(`isMatch ==> ${isMatch}`);
       // If the old password doesn't match, return an error
       if (!isMatch) {
@@ -203,17 +207,17 @@ const updatePassword = async (req, res) => {
       }
 
       // Hash the new password
-      // const salt = await bcrypt.genSalt(10);
-      // const newPasswordHash = await bcrypt.hash(newPassword, salt);
+      const salt = await bcrypt.genSalt(10);
+      const newPasswordHash = await bcrypt.hash(newPassword, salt);
 
       // Update the user's password
-      user.password = newPassword;
+      user.password = newPasswordHash;
 
       // Save the updated user object to the database
       await user.save();
       console.log(user);
       // Return a success message
-      res.status(200).json({ message: 'Password updated successfully' });
+      res.status(200).json({ updated: true });
    } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Internal server error' });
@@ -308,7 +312,38 @@ const deleteCourseForStudent = async (req, res) => {
    }
 }
 
+const updateUserInfo = async (req, res) => {
+   const userId = req.params.id;
+   const { email, phoneNumber, city } = req.body
+   console.log(email);
+   console.log(phoneNumber);
+   console.log(city);
+   try {
+      const user = await User.findById(userId);
+      console.log(user);
+      if (!user) {
+         throw new BadRequestError('There No User For this ID')
+      }
+
+      if (user.city === city && user.phoneNumber === phoneNumber && user.email === email) {
+         throw BadRequestError('You Provided The Same Info')
+      }
+
+      // Update user information
+      user.email = email;
+      user.phoneNumber = phoneNumber;
+      user.city = city
+
+      await user.save();
+
+      res.status(200).json({ updated: true, user: user });
+   } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Server error' });
+   }
+}
 
 
 
-export { register, updateUser, login, getAllUser, getUserCourse, addCourseToUser, deleteCourseForStudent, updatePassword }
+
+export { register, updateUser, login, getAllUser, getUserCourse, addCourseToUser, deleteCourseForStudent, updatePassword, updateUserInfo }

@@ -63,6 +63,7 @@ const CreateUser = ({ userInfo, isUpdate = false, setShowUserInfo }) => {
           gender,
           dateOfBirth,
           role,
+          city
         }
       );
       console.log(data);

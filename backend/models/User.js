@@ -69,6 +69,10 @@ const UserSchema = new mongoose.Schema({
       select: false,
       default: '100200300'
    },
+   city: {
+      type: String,
+      trim: true
+   },
    role: {
       type: String,
       enum: ['student', 'teacher', 'manager', 'admin'],
